@@ -100,3 +100,71 @@ index
 lazyDog
 operand2
 ```
+
+7. Which of the following names satisfy the style guidelines for function names?
+
+```
+Names
+-----
+index
+CatName
+snake_case
+lazyDog
+quick_fox
+1stCharacter
+operand2
+BIG_NUMBER
+```
+
+```
+Correct Styles
+--------
+index
+lazyDog
+CatName
+operand2
+```
+
+8. Which of the following names satify the style guidelines for constants used to represent magic numbers?
+
+```
+Names
+-----
+index
+CatName
+snake_case
+lazyDog
+quick_fox
+1stCharacter
+operand2
+BIG_NUMBER
+```
+
+```
+Correct Styles
+--------
+BIG_NUMBERS
+```
+
+9. Which of the following names don't satisfy the style guidelines for naming variables, functions, or constants?
+
+```
+Names
+-----
+index
+CatName
+snake_case
+lazyDog
+quick_fox
+1stCharacter
+operand2
+BIG_NUMBER
+```
+
+```
+Correct Styles
+--------
+snake_case
+quick_fox
+1stCharacter
+```
