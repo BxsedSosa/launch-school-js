@@ -77,3 +77,26 @@ Array
 ```
 
 It might be that more than one constructor provides a method with a given name. Make sure you list them all in your answer. You can limit your search for methods to the `String`, `Object`, `Array`, and `Number` constructors.
+
+6. Which of the following names satisfy the style guidelines for variable names? For the purposes of this question, constants are not variables.
+
+```
+Names
+-----
+index
+CatName
+snake_case
+lazyDog
+quick_fox
+1stCharacter
+operand2
+BIG_NUMBER
+```
+
+```
+Correct Styles
+--------
+index
+lazyDog
+operand2
+```
