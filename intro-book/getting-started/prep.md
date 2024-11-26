@@ -6,4 +6,4 @@ console.log("this is file one");
 
 Add some code to `two.js` that logs `this is file two`.
 
-2.
+2. When you finish Exc 1, navigate to the dir above the `my_folder` dir and delete all the content you generated in exc 1 with one command
