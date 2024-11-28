@@ -2,13 +2,13 @@
 
 2. Write a function that computs the returns the factorial of a number by using a `for` loop. The factorial of a positive integer `n`, signified by `n!`, is defined as the product of all integers between `1` and `n`, inclusive:
 
-| n!  | Expanison         | result |
-| --- | ----------------- | ------ |
-| 1!  | 1                 | 1      |
-| 2!  | 1 \* 2            | 2      |
-| 3!  | 1 _ 2 _ 3         | 6      |
-| 4!  | 1 _ 2 _ 3 \* 4    | 24     |
-| 5!  | 1 _ 2 _ 3 _ 4 _ 5 | 120    |
+| n!  | Expanison             | result |
+| --- | --------------------- | ------ |
+| 1!  | 1                     | 1      |
+| 2!  | 1 \* 2                | 2      |
+| 3!  | 1 \* 2 \* 3           | 6      |
+| 4!  | 1 \* 2 \* 3 \* 4      | 24     |
+| 5!  | 1 \* 2 \* 3 \* 4 \* 5 | 120    |
 
 ```javascript
 function factorial(number) {
