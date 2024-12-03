@@ -8,19 +8,20 @@ function main() {
   console.clear();
   let language = "en";
   let numbers = askUserNumbers(language);
-  let operation = askUserOperation(language);
+  let operation = askUserOperation(language, numbers);
+  let arithmetic = numbers[0] + operation + numbers[1];
 
-  divideByZeroCheck(language, numbers, operation);
+  console.log(calculateNumbers(arithmetic));
 }
 
 function askUserNumbers(lang) {
-  let firstNumber = userNumber(lang);
-  let secondNumber = userNumber(lang);
+  let firstNumber = giveUserNumber(lang);
+  let secondNumber = giveUserNumber(lang);
 
   return [parseInt(firstNumber), parseInt(secondNumber)];
 }
 
-function askUserOperation(lang) {
+function askUserOperation(lang, numbers) {
   console.clear();
   let operation = rlSync.question(MSG[lang]["operation"]["ask"]);
   while (notValid.checkOpertaion(operation)) {
@@ -29,14 +30,15 @@ function askUserOperation(lang) {
       `${operation} ${MSG[lang]["operation"]["error"]}`,
     );
   }
-  return operation;
+  divideByZeroCheck(lang, numbers, operation);
+  return giveUserOperation(operation);
 }
 
-function calculateNumbers(numbers, operation) {
-  //pass
+function calculateNumbers(arithmetic) {
+  return eval(arithmetic);
 }
 
-function userNumber(lang) {
+function giveUserNumber(lang) {
   console.clear();
   let number = rlSync.question(MSG[lang]["number"]["ask"]);
   while (notValid.checkNumbers(number)) {
@@ -44,6 +46,23 @@ function userNumber(lang) {
     number = rlSync.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
   }
   return number;
+}
+
+function giveUserOperation(operation) {
+  const CORRECTOPS = [
+    ["1", "+", "add", "addition"],
+    ["2", "-", "sub", "subtraction"],
+    ["3", "*", "mul", "multiply"],
+    ["4", "/", "div", "divide"],
+  ];
+
+  for (const arr of CORRECTOPS) {
+    for (const op of arr) {
+      if (operation == op) {
+        return arr[1];
+      }
+    }
+  }
 }
 
 function divideByZeroCheck(lang, numbers, operation) {
