@@ -2,12 +2,15 @@
   "en": {
     "intro": "Welcome to the Calculator!",
     "number": {
-      "ask": "Please enter a number:\n",
-      "error": "That was not a valid number!\nPlease enter a number:\n"
+      "ask": "Please enter a number:\n>>> ",
+      "error": "is not a valid number!\nPlease enter a number:\n>>> "
     },
     "operation": {
-      "ask": "1. Add (+)\n2.Subtract (-)\n3. Multiply (*)\n4. Divide (/)\nPlease enter a operation:\n",
-      "error": "That was not a valid operation! Please only enter:\n'1' or '+' for addtion\n'2' or '-' for subtraction\n'3' or '*' for multiplication\n'4' or '/' for division\n"
+      "ask": "1. Add (+)\n2.Subtract (-)\n3. Multiply (*)\n4. Divide (/)\nPlease enter a operation:\n>>> ",
+      "error": "is not a valid operation! Please only enter:\n'1' or '+' for addtion\n'2' or '-' for subtraction\n'3' or '*' for multiplication\n'4' or '/' for division\n>>> "
+    },
+    "div-by-zero": {
+      "error": "You can't divide any number by 0\nPlease restart..."
     }
   },
   "es": {}

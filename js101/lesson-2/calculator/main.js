@@ -5,32 +5,52 @@ const MSG = require("./text.json");
 main();
 
 function main() {
+  console.clear();
   let language = "en";
   let numbers = askUserNumbers(language);
-  console.log(numbers);
+  let operation = askUserOperation(language);
+
+  divideByZeroCheck(language, numbers, operation);
 }
 
 function askUserNumbers(lang) {
-  let firstNumber;
-  let secondNumber;
+  let firstNumber = userNumber(lang);
+  let secondNumber = userNumber(lang);
 
-  firstNumber = rlSync.question(MSG[lang]["number"]["ask"]);
-  while (notValid.checkNumbers(firstNumber)) {
-    firstNumber = rlSync.question(MSG[lang]["number"]["error"]);
-  }
-
-  secondNumber = rlSync.question(MSG[lang]["number"]["ask"]);
-  while (notValid.checkNumbers(secondNumber)) {
-    secondNumber = rlSync.question(MSG[lang]["number"]["error"]);
-  }
-
-  return [Number(firstNumber), Number(secondNumber)];
+  return [parseInt(firstNumber), parseInt(secondNumber)];
 }
 
-function askUserOperation() {
-  //pass
+function askUserOperation(lang) {
+  console.clear();
+  let operation = rlSync.question(MSG[lang]["operation"]["ask"]);
+  while (notValid.checkOpertaion(operation)) {
+    console.clear();
+    operation = rlSync.question(
+      `${operation} ${MSG[lang]["operation"]["error"]}`,
+    );
+  }
+  return operation;
 }
 
 function calculateNumbers(numbers, operation) {
   //pass
+}
+
+function userNumber(lang) {
+  console.clear();
+  let number = rlSync.question(MSG[lang]["number"]["ask"]);
+  while (notValid.checkNumbers(number)) {
+    console.clear();
+    number = rlSync.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
+  }
+  return number;
+}
+
+function divideByZeroCheck(lang, numbers, operation) {
+  console.clear();
+  if (notValid.checkDivisionWithZero(numbers, operation)) {
+    console.log(MSG[lang]["div-by-zero"]["error"]);
+    setTimeout(10000);
+    main();
+  }
 }
