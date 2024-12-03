@@ -1,13 +1,30 @@
-/* To do List:
- * - Ask the user for two numbers
- * - Ask the user for the type of operation to perform: add, subtract, multiply or divide
- * - Perform the calculation and display the result
- */
+const rlSync = require("readline-sync");
+const notValid = require("./validation");
+const MSG = require("./text.json");
 
-function main() {}
+main();
 
-function askUserNumbers() {
-  //pass
+function main() {
+  let language = "en";
+  let numbers = askUserNumbers(language);
+  console.log(numbers);
+}
+
+function askUserNumbers(lang) {
+  let firstNumber;
+  let secondNumber;
+
+  firstNumber = rlSync.question(MSG[lang]["number"]["ask"]);
+  while (notValid.checkNumbers(firstNumber)) {
+    firstNumber = rlSync.question(MSG[lang]["number"]["error"]);
+  }
+
+  secondNumber = rlSync.question(MSG[lang]["number"]["ask"]);
+  while (notValid.checkNumbers(secondNumber)) {
+    secondNumber = rlSync.question(MSG[lang]["number"]["error"]);
+  }
+
+  return [Number(firstNumber), Number(secondNumber)];
 }
 
 function askUserOperation() {
