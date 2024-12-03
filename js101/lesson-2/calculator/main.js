@@ -50,7 +50,6 @@ function divideByZeroCheck(lang, numbers, operation) {
   console.clear();
   if (notValid.checkDivisionWithZero(numbers, operation)) {
     console.log(MSG[lang]["div-by-zero"]["error"]);
-    setTimeout(10000);
-    main();
+    setTimeout(main, 5000);
   }
 }
