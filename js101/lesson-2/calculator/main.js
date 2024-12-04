@@ -9,9 +9,9 @@ function main() {
   let language = "en";
   let numbers = askUserNumbers(language);
   let operation = askUserOperation(language, numbers);
-  let arithmetic = numbers[0] + operation + numbers[1];
+  let arithmeticTotal = calculateNumbers(numbers[0] + operation + numbers[1]);
 
-  console.log(calculateNumbers(arithmetic));
+  console.log(arithmeticTotal);
 }
 
 function askUserNumbers(lang) {
