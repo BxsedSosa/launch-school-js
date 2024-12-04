@@ -178,7 +178,7 @@ function languageSelect() {
 
   for (const spanishSelect of VALIDLANG[1]) {
     if (language === spanishSelect) {
-      return VALIDLANG[0][1];
+      return VALIDLANG[1][1];
     }
   }
 }
