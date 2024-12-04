@@ -33,12 +33,12 @@ function askUserOperation(lang, numbers) {
   console.clear();
   displayText("Calculator");
 
-  operation = RLSYNC.question(MSG[lang]["operation"]["ask"]);
+  operation = RLSYNC.question(MSG[lang]["operation"]["ask"]).toLowerCase();
   while (NOTVALID.checkOpertaion(operation)) {
     console.clear();
     operation = RLSYNC.question(
       `${operation} ${MSG[lang]["operation"]["error"]}`,
-    );
+    ).toLowerCase();
   }
   divideByZeroCheck(lang, numbers, operation);
   return giveUserOperation(operation);
@@ -93,10 +93,12 @@ function askRetry(lang) {
     ["2", "no", "n"],
   ];
 
-  response = RLSYNC.question(MSG[lang]["retry"]["ask"]);
+  response = RLSYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
   while (NOTVALID.checkRetry(response)) {
     console.clear();
-    response = RLSYNC.question(`"${response}" ${MSG[lang]["retry"]["error"]}`);
+    response = RLSYNC.question(
+      `"${response}" ${MSG[lang]["retry"]["error"]}`,
+    ).toLowerCase();
   }
 
   for (const retry of VALIDRETRY[0]) {
