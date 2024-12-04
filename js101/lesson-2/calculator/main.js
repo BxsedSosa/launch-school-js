@@ -3,6 +3,7 @@ const NOTVALID = require("./validation");
 const MSG = require("./text.json");
 const FIGLET = require("figlet");
 
+console.clear();
 displayText("Welcome!");
 setTimeout(main, 1500);
 
@@ -15,8 +16,9 @@ function main() {
 
   displayText("Calculator");
   console.log(
-    `${MSG[language]["total"]}${numbers[0]} ${operation} ${numbers[1]} = ${arithmeticTotal}`,
+    `${MSG[language]["total"]}${arithmeticTotal}\n${numbers[0]} ${operation} ${numbers[1]} = ${arithmeticTotal}\n`,
   );
+  askRetry(language);
 }
 
 function askUserNumbers(lang) {
@@ -80,6 +82,31 @@ function divideByZeroCheck(lang, numbers, operation) {
   }
 }
 
+function askRetry(lang) {
+  const VALIDRETRY = [
+    ["1", "yes", "y"],
+    ["2", "no", "n"],
+  ];
+
+  let response = RLSYNC.question(MSG[lang]["retry"]["ask"]);
+  while (NOTVALID.checkRetry(response)) {
+    console.clear();
+    response = RLSYNC.question(`"${response}" ${MSG[lang]["retry"]["error"]}`);
+  }
+
+  for (const retry of VALIDRETRY[0]) {
+    if (response === retry) {
+      main();
+    }
+  }
+
+  for (const exit of VALIDRETRY[1]) {
+    if (response === exit) {
+      quit();
+    }
+  }
+}
+
 function displayText(text) {
   FIGLET(text, (err, data) => {
     if (err) {
@@ -88,6 +115,11 @@ function displayText(text) {
       return;
     }
     console.log(data);
-    console.log("=================================================");
+    console.log("=====================================================");
   });
+}
+
+function quit() {
+  console.clear();
+  displayText("Thank you!");
 }

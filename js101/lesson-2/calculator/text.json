@@ -3,8 +3,8 @@
     "intro": "Welcome to the Calculator!",
     "number": {
       "ask": {
-        "first": "Please enter in your first Number:\n>>>",
-        "second": "Please enter in your second Number:\n>>>"
+        "first": "Please enter in your first Number:\n>>> ",
+        "second": "Please enter in your second Number:\n>>> "
       },
       "error": "is not a valid number!\nPlease enter a number:\n>>> "
     },
@@ -15,7 +15,11 @@
     "div-by-zero": {
       "error": "You can't divide any number by 0\nPlease restart..."
     },
-    "total": "The total is: "
+    "total": "The total is: ",
+    "retry": {
+      "ask": "Do you want to continue?\n1. Yes\n2. No\n>>> ",
+      "error": "is not a valid answer!\nPlease pick:\n'1' or 'y' for Yes\n'2' or 'n' for No\n>>> "
+    }
   },
   "es": {}
 }

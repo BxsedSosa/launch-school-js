@@ -40,6 +40,20 @@ function checkRetry(string) {
     ["1", "yes", "y"],
     ["2", "no", "n"],
   ];
+
+  for (const arr of VALIDRETRY) {
+    for (const answer of arr) {
+      if (string === answer) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
-module.exports = { checkNumbers, checkOpertaion, checkDivisionWithZero };
+module.exports = {
+  checkNumbers,
+  checkOpertaion,
+  checkDivisionWithZero,
+  checkRetry,
+};
