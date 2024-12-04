@@ -35,4 +35,11 @@ function checkDivisionWithZero(numbers, operation) {
   return false;
 }
 
+function checkRetry(string) {
+  const VALIDRETRY = [
+    ["1", "yes", "y"],
+    ["2", "no", "n"],
+  ];
+}
+
 module.exports = { checkNumbers, checkOpertaion, checkDivisionWithZero };

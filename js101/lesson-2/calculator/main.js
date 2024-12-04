@@ -1,8 +1,10 @@
-const rlSync = require("readline-sync");
-const notValid = require("./validation");
+const RLSYNC = require("readline-sync");
+const NOTVALID = require("./validation");
 const MSG = require("./text.json");
+const FIGLET = require("figlet");
 
-main();
+displayText("Welcome!");
+setTimeout(main, 1500);
 
 function main() {
   console.clear();
@@ -11,22 +13,26 @@ function main() {
   let operation = askUserOperation(language, numbers);
   let arithmeticTotal = calculateNumbers(numbers[0] + operation + numbers[1]);
 
-  console.log(arithmeticTotal);
+  displayText("Calculator");
+  console.log(
+    `${MSG[language]["total"]}${numbers[0]} ${operation} ${numbers[1]} = ${arithmeticTotal}`,
+  );
 }
 
 function askUserNumbers(lang) {
-  let firstNumber = giveUserNumber(lang);
-  let secondNumber = giveUserNumber(lang);
+  let firstNumber = giveUserNumber(lang, "first");
+  let secondNumber = giveUserNumber(lang, "second");
 
   return [parseInt(firstNumber), parseInt(secondNumber)];
 }
 
 function askUserOperation(lang, numbers) {
   console.clear();
-  let operation = rlSync.question(MSG[lang]["operation"]["ask"]);
-  while (notValid.checkOpertaion(operation)) {
+  displayText("Calculator");
+  let operation = RLSYNC.question(MSG[lang]["operation"]["ask"]);
+  while (NOTVALID.checkOpertaion(operation)) {
     console.clear();
-    operation = rlSync.question(
+    operation = RLSYNC.question(
       `${operation} ${MSG[lang]["operation"]["error"]}`,
     );
   }
@@ -38,12 +44,13 @@ function calculateNumbers(arithmetic) {
   return eval(arithmetic);
 }
 
-function giveUserNumber(lang) {
+function giveUserNumber(lang, position) {
   console.clear();
-  let number = rlSync.question(MSG[lang]["number"]["ask"]);
-  while (notValid.checkNumbers(number)) {
+  displayText("Calculator");
+  let number = RLSYNC.question(MSG[lang]["number"]["ask"][position]);
+  while (NOTVALID.checkNumbers(number)) {
     console.clear();
-    number = rlSync.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
+    number = RLSYNC.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
   }
   return number;
 }
@@ -67,8 +74,20 @@ function giveUserOperation(operation) {
 
 function divideByZeroCheck(lang, numbers, operation) {
   console.clear();
-  if (notValid.checkDivisionWithZero(numbers, operation)) {
+  if (NOTVALID.checkDivisionWithZero(numbers, operation)) {
     console.log(MSG[lang]["div-by-zero"]["error"]);
     setTimeout(main, 5000);
   }
+}
+
+function displayText(text) {
+  FIGLET(text, (err, data) => {
+    if (err) {
+      console.log("Something went wrong...");
+      console.dir(err);
+      return;
+    }
+    console.log(data);
+    console.log("=================================================");
+  });
 }
