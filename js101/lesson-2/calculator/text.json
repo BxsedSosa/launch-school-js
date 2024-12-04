@@ -6,6 +6,10 @@
       "language": "Language?",
       "logo": "Calculator"
     },
+    "lang": {
+      "ask": "1. EN (English)\n2. ES (Espanol)\nPlease select a language:\n>>> ",
+      "error": "is not a valid answer\n'1' or 'EN' for English\n'2' or 'ES' for Espanol\nPlease select a language:\n>>> "
+    },
     "number": {
       "ask": {
         "first": "Please enter in your first Number:\n>>> ",

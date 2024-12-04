@@ -2,8 +2,9 @@ const RLSYNC = require("readline-sync");
 const NOTVALID = require("./validation");
 const MSG = require("./text.json");
 const FIGLET = require("figlet");
-let language = "es";
 
+console.clear();
+let language = languageSelect();
 console.clear();
 displayText(MSG[language]["banner"]["intro"]);
 setTimeout(main, 1500);
@@ -155,8 +156,31 @@ function displayText(text) {
 }
 
 function languageSelect() {
-  console.clear();
-  displayText(MSG["en"]["banner"]["language"]);
+  const VALIDLANG = [
+    ["1", "en", "english"],
+    ["2", "es", "espanol"],
+  ];
+  let language;
+
+  language = RLSYNC.question(MSG["en"]["lang"]["ask"]).toLowerCase();
+  while (NOTVALID.checkLanguage(language)) {
+    console.clear();
+    language = RLSYNC.question(
+      `"${language}" ${MSG["en"]["lang"]["error"]}`,
+    ).toLowerCase();
+  }
+
+  for (const englishSelect of VALIDLANG[0]) {
+    if (language === englishSelect) {
+      return VALIDLANG[0][1];
+    }
+  }
+
+  for (const spanishSelect of VALIDLANG[1]) {
+    if (language === spanishSelect) {
+      return VALIDLANG[0][1];
+    }
+  }
 }
 
 function quit(lang) {

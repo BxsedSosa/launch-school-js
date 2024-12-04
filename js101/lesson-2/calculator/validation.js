@@ -81,9 +81,25 @@ function checkRetry(lang, string) {
   return true;
 }
 
+function checkLanguage(input) {
+  const VALIDLANG = [
+    ["1", "es", "english"],
+    ["2", "en", "espanol"],
+  ];
+
+  for (const language of VALIDLANG) {
+    for (const answer of language)
+      if (input === answer) {
+        return false;
+      }
+  }
+  return true;
+}
+
 module.exports = {
   checkNumbers,
   checkOpertaion,
   checkDivisionWithZero,
   checkRetry,
+  checkLanguage,
 };
