@@ -29,9 +29,11 @@ function askUserNumbers(lang) {
 }
 
 function askUserOperation(lang, numbers) {
+  let operation;
   console.clear();
   displayText("Calculator");
-  let operation = RLSYNC.question(MSG[lang]["operation"]["ask"]);
+
+  operation = RLSYNC.question(MSG[lang]["operation"]["ask"]);
   while (NOTVALID.checkOpertaion(operation)) {
     console.clear();
     operation = RLSYNC.question(
@@ -47,9 +49,11 @@ function calculateNumbers(arithmetic) {
 }
 
 function giveUserNumber(lang, position) {
+  let number;
   console.clear();
   displayText("Calculator");
-  let number = RLSYNC.question(MSG[lang]["number"]["ask"][position]);
+
+  number = RLSYNC.question(MSG[lang]["number"]["ask"][position]);
   while (NOTVALID.checkNumbers(number)) {
     console.clear();
     number = RLSYNC.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
@@ -83,12 +87,13 @@ function divideByZeroCheck(lang, numbers, operation) {
 }
 
 function askRetry(lang) {
+  let response;
   const VALIDRETRY = [
     ["1", "yes", "y"],
     ["2", "no", "n"],
   ];
 
-  let response = RLSYNC.question(MSG[lang]["retry"]["ask"]);
+  response = RLSYNC.question(MSG[lang]["retry"]["ask"]);
   while (NOTVALID.checkRetry(response)) {
     console.clear();
     response = RLSYNC.question(`"${response}" ${MSG[lang]["retry"]["error"]}`);
