@@ -1,6 +1,11 @@
 {
   "en": {
-    "intro": "Welcome to the Calculator!",
+    "banner": {
+      "intro": "Welcome!",
+      "outro": "Thank you",
+      "language": "Language?",
+      "logo": "Calculator"
+    },
     "number": {
       "ask": {
         "first": "Please enter in your first Number:\n>>> ",
@@ -49,5 +54,58 @@
       }
     }
   },
-  "es": {}
+  "es": {
+    "banner": {
+      "intro": "¡Bienvenido!",
+      "outro": "¡Gracias!",
+      "logo": "Calculadora"
+    },
+    "number": {
+      "ask": {
+        "first": "Por favor, introduzca su primer número:\n>>> ",
+        "second": "Por favor, introduzca su segundo número:\n>>> "
+      },
+      "error": "no es un número válido!\n Por favor, introduzca un número:\n>>> "
+    },
+    "operation": {
+      "ask": "1. Adicion (+)\n2. Sustraccion (-)\n3. Multiplicar (*)\n4. Dividir(/)\nPor favor, introduzca una operación:\n>>> ",
+      "error": "is not a valid operation! Please only enter:\n'1' o '+' para la adición\n'2' o '-' para restar\n'3' o '*' para la multiplicación\n'4' o '/' para la división\n>>> "
+    },
+    "div-by-zero": {
+      "error": "No puedes dividir ningún número por 0\nPor favor, reinicie..."
+    },
+    "total": "El total es:",
+    "retry": {
+      "ask": "¿Quieres continuar?\n1. Sí\n2. No\n>>>",
+      "error": "¡No es una respuesta válida!\nPor favor, elija:\n'1' o 'y' para Sí\n'2' o 'n' para No\n>>>",
+      "answers": {
+        "1": {
+          "yes": "si",
+          "y": "s"
+        },
+        "2": {
+          "no": "no",
+          "n": "n"
+        }
+      }
+    },
+    "symbol": {
+      "1": {
+        "add": "adi",
+        "addition": "adicion"
+      },
+      "2": {
+        "sub": "sus",
+        "subtraction": "sustraccion"
+      },
+      "3": {
+        "mul": "mul",
+        "multiply": "multiplicar"
+      },
+      "4": {
+        "div": "div",
+        "divide": "dividir"
+      }
+    }
+  }
 }

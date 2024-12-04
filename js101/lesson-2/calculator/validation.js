@@ -1,5 +1,4 @@
 // This will be where all the input validation will happen
-
 const MSG = require("./text.json");
 
 function checkNumbers(number) {

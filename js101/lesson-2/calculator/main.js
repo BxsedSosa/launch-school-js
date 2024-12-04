@@ -2,19 +2,19 @@ const RLSYNC = require("readline-sync");
 const NOTVALID = require("./validation");
 const MSG = require("./text.json");
 const FIGLET = require("figlet");
+let language = "es";
 
 console.clear();
-displayText("Welcome!");
+displayText(MSG[language]["banner"]["intro"]);
 setTimeout(main, 1500);
 
 function main() {
   console.clear();
-  let language = "en";
   let numbers = askUserNumbers(language);
   let operation = askUserOperation(language, numbers);
   let arithmeticTotal = calculateNumbers(numbers[0] + operation + numbers[1]);
 
-  displayText("Calculator");
+  displayText(MSG[language]["banner"]["logo"]);
   console.log(
     `${MSG[language]["total"]}${arithmeticTotal}\n${numbers[0]} ${operation} ${numbers[1]} = ${arithmeticTotal}\n`,
   );
@@ -31,7 +31,7 @@ function askUserNumbers(lang) {
 function askUserOperation(lang, numbers) {
   let operation;
   console.clear();
-  displayText("Calculator");
+  displayText(MSG[lang]["banner"]["logo"]);
 
   operation = RLSYNC.question(MSG[lang]["operation"]["ask"]).toLowerCase();
   while (NOTVALID.checkOpertaion(lang, operation)) {
@@ -41,7 +41,7 @@ function askUserOperation(lang, numbers) {
     ).toLowerCase();
   }
   divideByZeroCheck(lang, numbers, operation);
-  return giveUserOperation(operation);
+  return giveUserOperation(lang, operation);
 }
 
 function calculateNumbers(arithmetic) {
@@ -51,7 +51,7 @@ function calculateNumbers(arithmetic) {
 function giveUserNumber(lang, position) {
   let number;
   console.clear();
-  displayText("Calculator");
+  displayText(MSG[lang]["banner"]["logo"]);
 
   number = RLSYNC.question(MSG[lang]["number"]["ask"][position]);
   while (NOTVALID.checkNumbers(number)) {
@@ -61,12 +61,32 @@ function giveUserNumber(lang, position) {
   return number;
 }
 
-function giveUserOperation(operation) {
+function giveUserOperation(lang, operation) {
   const CORRECTOPS = [
-    ["1", "+", "add", "addition"],
-    ["2", "-", "sub", "subtraction"],
-    ["3", "*", "mul", "multiply"],
-    ["4", "/", "div", "divide"],
+    [
+      "1",
+      "+",
+      MSG[lang]["symbol"]["1"]["add"],
+      MSG[lang]["symbol"]["1"]["addition"],
+    ],
+    [
+      "2",
+      "-",
+      MSG[lang]["symbol"]["2"]["sub"],
+      MSG[lang]["symbol"]["2"]["subtraction"],
+    ],
+    [
+      "3",
+      "*",
+      MSG[lang]["symbol"]["3"]["mul"],
+      MSG[lang]["symbol"]["3"]["multiply"],
+    ],
+    [
+      "4",
+      "/",
+      MSG[lang]["symbol"]["4"]["div"],
+      MSG[lang]["symbol"]["4"]["divide"],
+    ],
   ];
 
   for (const arr of CORRECTOPS) {
@@ -117,7 +137,7 @@ function askRetry(lang) {
 
   for (const exit of VALIDRETRY[1]) {
     if (response === exit) {
-      quit();
+      quit(lang);
     }
   }
 }
@@ -130,11 +150,16 @@ function displayText(text) {
       return;
     }
     console.log(data);
-    console.log("=====================================================");
+    console.log("=====================================================\n");
   });
 }
 
-function quit() {
+function languageSelect() {
   console.clear();
-  displayText("Thank you!");
+  displayText(MSG["en"]["banner"]["language"]);
+}
+
+function quit(lang) {
+  console.clear();
+  displayText(MSG[lang]["banner"]["outro"]);
 }
