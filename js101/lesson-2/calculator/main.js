@@ -34,7 +34,7 @@ function askUserOperation(lang, numbers) {
   displayText("Calculator");
 
   operation = RLSYNC.question(MSG[lang]["operation"]["ask"]).toLowerCase();
-  while (NOTVALID.checkOpertaion(operation)) {
+  while (NOTVALID.checkOpertaion(lang, operation)) {
     console.clear();
     operation = RLSYNC.question(
       `${operation} ${MSG[lang]["operation"]["error"]}`,
@@ -89,12 +89,20 @@ function divideByZeroCheck(lang, numbers, operation) {
 function askRetry(lang) {
   let response;
   const VALIDRETRY = [
-    ["1", "yes", "y"],
-    ["2", "no", "n"],
+    [
+      "1",
+      MSG[lang]["retry"]["answers"]["1"]["yes"],
+      MSG[lang]["retry"]["answers"]["1"]["y"],
+    ],
+    [
+      "2",
+      MSG[lang]["retry"]["answers"]["2"]["no"],
+      MSG[lang]["retry"]["answers"]["2"]["n"],
+    ],
   ];
 
   response = RLSYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
-  while (NOTVALID.checkRetry(response)) {
+  while (NOTVALID.checkRetry(lang, response)) {
     console.clear();
     response = RLSYNC.question(
       `"${response}" ${MSG[lang]["retry"]["error"]}`,

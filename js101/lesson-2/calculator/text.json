@@ -18,7 +18,35 @@
     "total": "The total is: ",
     "retry": {
       "ask": "Do you want to continue?\n1. Yes\n2. No\n>>> ",
-      "error": "is not a valid answer!\nPlease pick:\n'1' or 'y' for Yes\n'2' or 'n' for No\n>>> "
+      "error": "is not a valid answer!\nPlease pick:\n'1' or 'y' for Yes\n'2' or 'n' for No\n>>> ",
+      "answers": {
+        "1": {
+          "yes": "yes",
+          "y": "y"
+        },
+        "2": {
+          "no": "no",
+          "n": "n"
+        }
+      }
+    },
+    "symbol": {
+      "1": {
+        "add": "add",
+        "addition": "addition"
+      },
+      "2": {
+        "sub": "sub",
+        "subtraction": "subtraction"
+      },
+      "3": {
+        "mul": "mul",
+        "multiply": "multiply"
+      },
+      "4": {
+        "div": "div",
+        "divide": "divide"
+      }
     }
   },
   "es": {}

@@ -1,4 +1,7 @@
 // This will be where all the input validation will happen
+
+const MSG = require("./text.json");
+
 function checkNumbers(number) {
   number = parseInt(number);
 
@@ -8,12 +11,32 @@ function checkNumbers(number) {
   return false;
 }
 
-function checkOpertaion(operation) {
+function checkOpertaion(lang, operation) {
   const CORRECTOPS = [
-    ["1", "+", "add", "addition"],
-    ["2", "-", "sub", "subtraction"],
-    ["3", "*", "mul", "multiply"],
-    ["4", "/", "div", "divide"],
+    [
+      "1",
+      "+",
+      MSG[lang]["symbol"]["1"]["add"],
+      MSG[lang]["symbol"]["1"]["addition"],
+    ],
+    [
+      "2",
+      "-",
+      MSG[lang]["symbol"]["2"]["sub"],
+      MSG[lang]["symbol"]["2"]["subtraction"],
+    ],
+    [
+      "3",
+      "*",
+      MSG[lang]["symbol"]["3"]["mul"],
+      MSG[lang]["symbol"]["3"]["multiply"],
+    ],
+    [
+      "4",
+      "/",
+      MSG[lang]["symbol"]["4"]["div"],
+      MSG[lang]["symbol"]["4"]["divide"],
+    ],
   ];
 
   for (const arr of CORRECTOPS) {
@@ -35,10 +58,18 @@ function checkDivisionWithZero(numbers, operation) {
   return false;
 }
 
-function checkRetry(string) {
+function checkRetry(lang, string) {
   const VALIDRETRY = [
-    ["1", "yes", "y"],
-    ["2", "no", "n"],
+    [
+      "1",
+      MSG[lang]["retry"]["answers"]["1"]["yes"],
+      MSG[lang]["retry"]["answers"]["1"]["y"],
+    ],
+    [
+      "2",
+      MSG[lang]["retry"]["answers"]["2"]["no"],
+      MSG[lang]["retry"]["answers"]["2"]["n"],
+    ],
   ];
 
   for (const arr of VALIDRETRY) {
