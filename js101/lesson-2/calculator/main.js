@@ -190,4 +190,6 @@ function languageSelect() {
 function quit(lang) {
   console.clear();
   displayText(MSG[lang]["banner"]["outro"]);
+  setTimeout(console.clear, 2000);
+  setTimeout(process.exit, 2300);
 }
