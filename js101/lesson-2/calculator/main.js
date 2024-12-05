@@ -42,7 +42,9 @@ function askUserOperation(lang, numbers) {
       `"${operation}" ${MSG[lang]["operation"]["error"]}`,
     ).toLowerCase();
   }
+
   divideByZeroCheck(lang, numbers, operation);
+
   return giveUserOperation(lang, operation);
 }
 
@@ -104,10 +106,8 @@ function giveUserOperation(lang, operation) {
 function divideByZeroCheck(lang, numbers, operation) {
   console.clear();
   if (NOT_VALID.checkDivisionWithZero(numbers, operation)) {
-    console.clear();
-    displayText(MSG[lang]["banner"]["logo"]);
     console.log(MSG[lang]["div-by-zero"]["error"]);
-    setTimeout(main, 5000);
+    main();
   }
 }
 
@@ -129,7 +129,6 @@ function askRetry(lang) {
   response = RL_SYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
   while (NOT_VALID.checkRetry(lang, response)) {
     console.clear();
-    displayText(MSG[lang]["banner"]["logo"]);
     response = RL_SYNC.question(
       `"${response}" ${MSG[lang]["retry"]["error"]}`,
     ).toLowerCase();
