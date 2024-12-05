@@ -146,10 +146,10 @@ FOR
 	IF i < string length
 	ADD i++
 
-	IF string[i] == selectedChar
+	IF string[i] === selectedChar
 		count += 1
 
-	IF count == 3
+	IF count === 3
 		PRINT i
 
 PRINT null
