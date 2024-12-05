@@ -2,7 +2,7 @@
 
 `Flowchart's` are very helpful when trying to create a logical sequence. A flowchart creates a map on how logic will react at certain points
 
-![image](pic/Pasted image 20241205082013.png)
+<img src="./pic/Pasted image 20241205082305.png">
 Here's an example:
 ![image](pic/Pasted image 20241205082305.png)
 
