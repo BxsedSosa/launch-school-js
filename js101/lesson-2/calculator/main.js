@@ -129,6 +129,7 @@ function askRetry(lang) {
   response = RL_SYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
   while (NOT_VALID.checkRetry(lang, response)) {
     console.clear();
+    displayText(MSG[lang]["banner"]["logo"]);
     response = RL_SYNC.question(
       `"${response}" ${MSG[lang]["retry"]["error"]}`,
     ).toLowerCase();
