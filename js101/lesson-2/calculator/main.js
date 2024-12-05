@@ -37,8 +37,9 @@ function askUserOperation(lang, numbers) {
   operation = RL_SYNC.question(MSG[lang]["operation"]["ask"]).toLowerCase();
   while (NOT_VALID.checkOpertaion(lang, operation)) {
     console.clear();
+    displayText(MSG[lang]["banner"]["logo"]);
     operation = RL_SYNC.question(
-      `${operation} ${MSG[lang]["operation"]["error"]}`,
+      `"${operation}" ${MSG[lang]["operation"]["error"]}`,
     ).toLowerCase();
   }
   divideByZeroCheck(lang, numbers, operation);
@@ -55,8 +56,9 @@ function giveUserNumber(lang, position) {
   displayText(MSG[lang]["banner"]["logo"]);
 
   number = RL_SYNC.question(MSG[lang]["number"]["ask"][position]);
-  while (RL_SYNC.checkNumbers(number)) {
+  while (NOT_VALID.checkNumbers(number)) {
     console.clear();
+    displayText(MSG[lang]["banner"]["logo"]);
     number = RL_SYNC.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
   }
   return number;
@@ -102,6 +104,8 @@ function giveUserOperation(lang, operation) {
 function divideByZeroCheck(lang, numbers, operation) {
   console.clear();
   if (NOT_VALID.checkDivisionWithZero(numbers, operation)) {
+    console.clear();
+    displayText(MSG[lang]["banner"]["logo"]);
     console.log(MSG[lang]["div-by-zero"]["error"]);
     setTimeout(main, 5000);
   }
@@ -125,6 +129,7 @@ function askRetry(lang) {
   response = RL_SYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
   while (NOT_VALID.checkRetry(lang, response)) {
     console.clear();
+    displayText(MSG[lang]["banner"]["logo"]);
     response = RL_SYNC.question(
       `"${response}" ${MSG[lang]["retry"]["error"]}`,
     ).toLowerCase();
