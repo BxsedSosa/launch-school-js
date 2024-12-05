@@ -1,5 +1,5 @@
-const RlSync = require("readline-sync");
-const NotValid = require("./validation");
+const RL_SYNC = require("readline-sync");
+const NOT_VALID = require("./validation");
 const MSG = require("./text.json");
 const FIGLET = require("figlet");
 
@@ -34,10 +34,10 @@ function askUserOperation(lang, numbers) {
   console.clear();
   displayText(MSG[lang]["banner"]["logo"]);
 
-  operation = RlSync.question(MSG[lang]["operation"]["ask"]).toLowerCase();
-  while (NotValid.checkOpertaion(lang, operation)) {
+  operation = RL_SYNC.question(MSG[lang]["operation"]["ask"]).toLowerCase();
+  while (NOT_VALID.checkOpertaion(lang, operation)) {
     console.clear();
-    operation = RlSync.question(
+    operation = RL_SYNC.question(
       `${operation} ${MSG[lang]["operation"]["error"]}`,
     ).toLowerCase();
   }
@@ -54,16 +54,16 @@ function giveUserNumber(lang, position) {
   console.clear();
   displayText(MSG[lang]["banner"]["logo"]);
 
-  number = RlSync.question(MSG[lang]["number"]["ask"][position]);
-  while (RlSync.checkNumbers(number)) {
+  number = RL_SYNC.question(MSG[lang]["number"]["ask"][position]);
+  while (RL_SYNC.checkNumbers(number)) {
     console.clear();
-    number = RlSync.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
+    number = RL_SYNC.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
   }
   return number;
 }
 
 function giveUserOperation(lang, operation) {
-  const CorrecttOps = [
+  const CORRECT_OPS = [
     [
       "1",
       "+",
@@ -90,7 +90,7 @@ function giveUserOperation(lang, operation) {
     ],
   ];
 
-  for (const arr of CorrecttOps) {
+  for (const arr of CORRECT_OPS) {
     for (const op of arr) {
       if (operation === op) {
         return arr[1];
@@ -101,7 +101,7 @@ function giveUserOperation(lang, operation) {
 
 function divideByZeroCheck(lang, numbers, operation) {
   console.clear();
-  if (NotValid.checkDivisionWithZero(numbers, operation)) {
+  if (NOT_VALID.checkDivisionWithZero(numbers, operation)) {
     console.log(MSG[lang]["div-by-zero"]["error"]);
     setTimeout(main, 5000);
   }
@@ -109,7 +109,7 @@ function divideByZeroCheck(lang, numbers, operation) {
 
 function askRetry(lang) {
   let response;
-  const ValidRetry = [
+  const VALID_RETRY = [
     [
       "1",
       MSG[lang]["retry"]["answers"]["1"]["yes"],
@@ -122,21 +122,21 @@ function askRetry(lang) {
     ],
   ];
 
-  response = RlSync.question(MSG[lang]["retry"]["ask"]).toLowerCase();
-  while (NotValid.checkRetry(lang, response)) {
+  response = RL_SYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
+  while (NOT_VALID.checkRetry(lang, response)) {
     console.clear();
-    response = RlSync.question(
+    response = RL_SYNC.question(
       `"${response}" ${MSG[lang]["retry"]["error"]}`,
     ).toLowerCase();
   }
 
-  for (const retry of ValidRetry[0]) {
+  for (const retry of VALID_RETRY[0]) {
     if (response === retry) {
       main();
     }
   }
 
-  for (const exit of ValidRetry[1]) {
+  for (const exit of VALID_RETRY[1]) {
     if (response === exit) {
       quit(lang);
     }
@@ -156,29 +156,29 @@ function displayText(text) {
 }
 
 function languageSelect() {
-  const ValidLang = [
+  const VALID_LANG = [
     ["1", "en", "english"],
     ["2", "es", "espanol"],
   ];
   let language;
 
-  language = RlSync.question(MSG["en"]["lang"]["ask"]).toLowerCase();
-  while (NotValid.checkLanguage(language)) {
+  language = RL_SYNC.question(MSG["en"]["lang"]["ask"]).toLowerCase();
+  while (NOT_VALID.checkLanguage(language)) {
     console.clear();
-    language = RlSync.question(
+    language = RL_SYNC.question(
       `"${language}" ${MSG["en"]["lang"]["error"]}`,
     ).toLowerCase();
   }
 
-  for (const englishSelect of ValidLang[0]) {
+  for (const englishSelect of VALID_LANG[0]) {
     if (language === englishSelect) {
-      return ValidLang[0][1];
+      return VALID_LANG[0][1];
     }
   }
 
-  for (const spanishSelect of ValidLang[1]) {
+  for (const spanishSelect of VALID_LANG[1]) {
     if (language === spanishSelect) {
-      return ValidLang[1][1];
+      return VALID_LANG[1][1];
     }
   }
 }

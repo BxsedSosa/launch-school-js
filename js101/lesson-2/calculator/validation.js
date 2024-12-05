@@ -11,7 +11,7 @@ function checkNumbers(number) {
 }
 
 function checkOpertaion(lang, operation) {
-  const CorrectOps = [
+  const CORRECT_OPS = [
     [
       "1",
       "+",
@@ -38,7 +38,7 @@ function checkOpertaion(lang, operation) {
     ],
   ];
 
-  for (const arr of CorrectOps) {
+  for (const arr of CORRECT_OPS) {
     for (const op of arr) {
       if (operation === op) {
         return false;
@@ -58,7 +58,7 @@ function checkDivisionWithZero(numbers, operation) {
 }
 
 function checkRetry(lang, string) {
-  const ValidRetry = [
+  const VALID_RETRY = [
     [
       "1",
       MSG[lang]["retry"]["answers"]["1"]["yes"],
@@ -71,7 +71,7 @@ function checkRetry(lang, string) {
     ],
   ];
 
-  for (const arr of ValidRetry) {
+  for (const arr of VALID_RETRY) {
     for (const answer of arr) {
       if (string === answer) {
         return false;
@@ -82,12 +82,12 @@ function checkRetry(lang, string) {
 }
 
 function checkLanguage(input) {
-  const ValidLang = [
+  const VALID_LANG = [
     ["1", "es", "english"],
     ["2", "en", "espanol"],
   ];
 
-  for (const language of ValidLang) {
+  for (const language of VALID_LANG) {
     for (const answer of language)
       if (input === answer) {
         return false;
