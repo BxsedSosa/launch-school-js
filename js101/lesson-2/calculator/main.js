@@ -1,5 +1,5 @@
-const RLSYNC = require("readline-sync");
-const NOTVALID = require("./validation");
+const RlSync = require("readline-sync");
+const NotValid = require("./validation");
 const MSG = require("./text.json");
 const FIGLET = require("figlet");
 
@@ -34,10 +34,10 @@ function askUserOperation(lang, numbers) {
   console.clear();
   displayText(MSG[lang]["banner"]["logo"]);
 
-  operation = RLSYNC.question(MSG[lang]["operation"]["ask"]).toLowerCase();
-  while (NOTVALID.checkOpertaion(lang, operation)) {
+  operation = RlSync.question(MSG[lang]["operation"]["ask"]).toLowerCase();
+  while (NotValid.checkOpertaion(lang, operation)) {
     console.clear();
-    operation = RLSYNC.question(
+    operation = RlSync.question(
       `${operation} ${MSG[lang]["operation"]["error"]}`,
     ).toLowerCase();
   }
@@ -54,16 +54,16 @@ function giveUserNumber(lang, position) {
   console.clear();
   displayText(MSG[lang]["banner"]["logo"]);
 
-  number = RLSYNC.question(MSG[lang]["number"]["ask"][position]);
-  while (NOTVALID.checkNumbers(number)) {
+  number = RlSync.question(MSG[lang]["number"]["ask"][position]);
+  while (RlSync.checkNumbers(number)) {
     console.clear();
-    number = RLSYNC.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
+    number = RlSync.question(`"${number}" ${MSG[lang]["number"]["error"]}`);
   }
   return number;
 }
 
 function giveUserOperation(lang, operation) {
-  const CORRECTOPS = [
+  const CorrecttOps = [
     [
       "1",
       "+",
@@ -90,7 +90,7 @@ function giveUserOperation(lang, operation) {
     ],
   ];
 
-  for (const arr of CORRECTOPS) {
+  for (const arr of CorrecttOps) {
     for (const op of arr) {
       if (operation === op) {
         return arr[1];
@@ -101,7 +101,7 @@ function giveUserOperation(lang, operation) {
 
 function divideByZeroCheck(lang, numbers, operation) {
   console.clear();
-  if (NOTVALID.checkDivisionWithZero(numbers, operation)) {
+  if (NotValid.checkDivisionWithZero(numbers, operation)) {
     console.log(MSG[lang]["div-by-zero"]["error"]);
     setTimeout(main, 5000);
   }
@@ -109,7 +109,7 @@ function divideByZeroCheck(lang, numbers, operation) {
 
 function askRetry(lang) {
   let response;
-  const VALIDRETRY = [
+  const ValidRetry = [
     [
       "1",
       MSG[lang]["retry"]["answers"]["1"]["yes"],
@@ -122,21 +122,21 @@ function askRetry(lang) {
     ],
   ];
 
-  response = RLSYNC.question(MSG[lang]["retry"]["ask"]).toLowerCase();
-  while (NOTVALID.checkRetry(lang, response)) {
+  response = RlSync.question(MSG[lang]["retry"]["ask"]).toLowerCase();
+  while (NotValid.checkRetry(lang, response)) {
     console.clear();
-    response = RLSYNC.question(
+    response = RlSync.question(
       `"${response}" ${MSG[lang]["retry"]["error"]}`,
     ).toLowerCase();
   }
 
-  for (const retry of VALIDRETRY[0]) {
+  for (const retry of ValidRetry[0]) {
     if (response === retry) {
       main();
     }
   }
 
-  for (const exit of VALIDRETRY[1]) {
+  for (const exit of ValidRetry[1]) {
     if (response === exit) {
       quit(lang);
     }
@@ -156,29 +156,29 @@ function displayText(text) {
 }
 
 function languageSelect() {
-  const VALIDLANG = [
+  const ValidLang = [
     ["1", "en", "english"],
     ["2", "es", "espanol"],
   ];
   let language;
 
-  language = RLSYNC.question(MSG["en"]["lang"]["ask"]).toLowerCase();
-  while (NOTVALID.checkLanguage(language)) {
+  language = RlSync.question(MSG["en"]["lang"]["ask"]).toLowerCase();
+  while (NotValid.checkLanguage(language)) {
     console.clear();
-    language = RLSYNC.question(
+    language = RlSync.question(
       `"${language}" ${MSG["en"]["lang"]["error"]}`,
     ).toLowerCase();
   }
 
-  for (const englishSelect of VALIDLANG[0]) {
+  for (const englishSelect of ValidLang[0]) {
     if (language === englishSelect) {
-      return VALIDLANG[0][1];
+      return ValidLang[0][1];
     }
   }
 
-  for (const spanishSelect of VALIDLANG[1]) {
+  for (const spanishSelect of ValidLang[1]) {
     if (language === spanishSelect) {
-      return VALIDLANG[1][1];
+      return ValidLang[1][1];
     }
   }
 }
