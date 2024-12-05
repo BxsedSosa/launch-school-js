@@ -1,6 +1,6 @@
 # Preventing Errors 
 
-The best way to not have as much [Debugging](./Debugging) is by `preventing errors`. This is by thinking about the edge cases before hand while creating your code
+The best way to not have as much [Debugging](https://github.com/BxsedSosa/launch-school-js/blob/main/js101/lesson-2/Debugging.md) is by `preventing errors`. This is by thinking about the edge cases before hand while creating your code
 
 Errors occur where assumptions are made in code, when assuming something will be safe doesn't mean it is. You have to think about all the cases.
 
