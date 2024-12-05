@@ -92,7 +92,7 @@ function giveUserOperation(lang, operation) {
 
   for (const arr of CORRECTOPS) {
     for (const op of arr) {
-      if (operation == op) {
+      if (operation === op) {
         return arr[1];
       }
     }
