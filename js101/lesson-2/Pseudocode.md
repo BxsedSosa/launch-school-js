@@ -1,5 +1,3 @@
-# Pseudocode
-
 `Pseudocode` is for creating human readable code before actually putting together language specific code together. This helps bring the code down to a simpler level for anyone to breakdown and read. Then to use to convert to actual coding.
 
 Here is a example:
@@ -36,7 +34,6 @@ Before writing `pseudocode` it is best to formalize the writing to create struct
 | IF / ELSE IF / ELSE | Show conditional branches in logic       |
 | WHILE               | Show looping logic                       |
 | END                 | End of the program                       |
-
 Here an example:
 
 ```
@@ -64,12 +61,11 @@ END
 ### Translate to Code
 
 After creating pseudocode now we can translate it into actual code
-
 ```javascript
 function findGreatest(numbers) {
   let savedNumber = numbers[0];
 
-  numbers.forEach((num) => {
+  numbers.forEach(num => {
     if (num > savedNumber) {
       savedNumber = num;
     }
@@ -82,7 +78,6 @@ function findGreatest(numbers) {
 ### Practice
 
 - A function that returns the sum of two numbers
-
 ```
 START
 
@@ -96,7 +91,6 @@ END
 ```
 
 - A function that takes an array of strings, and returns a string that is all those strings concatenated together
-
 ```
 START
 
@@ -109,11 +103,9 @@ END
 ```
 
 - A method that takes an array of integers, and returns a new array with every other element from the original array, starting with the first element. For instance:
-
 ```javascript
 everyOther([1,4,7,2,5]) => [1, 7, 5]
 ```
-
 ```
 START
 
@@ -124,7 +116,7 @@ FOR
 	SET i = 0
 	IF i < givenArr array length
 	ADD i += 2
-
+	
 	READ newArr push givenArr[i]
 
 PRINT newArr
@@ -133,7 +125,6 @@ END
 ```
 
 - A function that determines the index of the 3rd occurrence of a given character in a string. For instance, if the given character is 'x' and the string is 'axbxcdxex', the function should return 6 (the index of the 3rd 'x'). If the given character does not occur at least 3 times, return `null`
-
 ```
 START
 
@@ -145,11 +136,11 @@ FOR
 	SET i = 0
 	IF i < string length
 	ADD i++
-
-	IF string[i] === selectedChar
+	
+	IF string[i] == selectedChar
 		count += 1
-
-	IF count === 3
+		
+	IF count == 3
 		PRINT i
 
 PRINT null
@@ -157,12 +148,10 @@ PRINT null
 END
 ```
 
-- A function that takes two arrays of numbers and returns the result of merging the arrays. The elements of the first array should become the elements at the even indexes of the returned array, while the elements of the second array should become the elements at the odd indexes. For instance:
-
+- A function that takes two arrays of numbers and returns the result of merging the arrays. The elements of the first array should become the elements at the even indexes of the returned array, while the elements of the second array should become the elements at the odd indexes. For instance: 
 ```javascript
 merge([1, 2, 3], [4, 5, 6]);
 ```
-
 ```
 START
 
@@ -181,7 +170,6 @@ END
 ```
 
 ---
-
 Created on: 2024-12-05 06:19
 Tags: #fleeting #thinking #thoughts
 References:
