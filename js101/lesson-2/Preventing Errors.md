@@ -1,3 +1,4 @@
+# Preventing Errors 
 
 The best way to not have as much [Debugging](./Debugging) is by `preventing errors`. This is by thinking about the edge cases before hand while creating your code
 
