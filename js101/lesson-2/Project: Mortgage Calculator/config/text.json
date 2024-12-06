@@ -1,3 +1,8 @@
 {
-  "hello": "hi"
+  "en": {
+    "greeting": {
+      "intro": "Mortgage Calculator",
+      "outro": "Thank you!"
+    }
+  }
 }
