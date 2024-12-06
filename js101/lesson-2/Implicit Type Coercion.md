@@ -2,7 +2,7 @@
 
 `Implicit Type Coercion` is when a operation with 2 different types, JS will coerce one of the values to match the other type to be able to compare them.
 
-When JS was created this feature was intended to be beginner friendly, but ended up being a big draw back for the programming language. It's good to know because older code bases may still have  `"=="`, so its good to know.
+When JS was created this feature was intended to be beginner friendly, but ended up being a big draw back for the programming language. It's good to know because older code bases may still have  `"=="`.
 
 Most common operations:
 - `"=="`
