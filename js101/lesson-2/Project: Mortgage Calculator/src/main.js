@@ -1,3 +1,5 @@
+// Consolidate the ask functions to a boilerplate to clean up Code
+
 const RL_SYNC = require("readline-sync");
 const VALIDATION = require("./validation");
 const CALCULATE = require("./calculations");
