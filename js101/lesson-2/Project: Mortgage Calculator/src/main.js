@@ -1,11 +1,24 @@
 const RL_SYNC = require("readline-sync");
 const VALIDATION = require("./validation");
-const CONVERT = require("./calculations");
+const CALCULATE = require("./calculations");
 const MSG = require("../config/text.json");
 const LANGUAGE = "en";
 
+console.log(main());
+
 function main() {
-  //pass
+  let loanAmount = askLoanAmnt();
+  let yearlyDuration = askLoanDuration();
+  let loanAPR = askLoanAPR();
+  let monthlyDuration = CALCULATE.convertDurtion(yearlyDuration);
+  let loanMPR = CALCULATE.convertAPR(loanAPR);
+  let monthlyPay = CALCULATE.calcMonthlyPayment(
+    loanAmount,
+    monthlyDuration,
+    loanMPR,
+  );
+
+  return monthlyPay;
 }
 
 function askLoanAmnt() {
@@ -26,29 +39,35 @@ function askLoanAmnt() {
 
 function askLoanAPR() {
   let loanAPR = RL_SYNC.question(
-    "What is the Loans APR?: (Whole numbers)\nExample: 5% or 5\n>>> ",
+    "What is the loans APR?: (Whole numbers)\nExample: 5\n>>> ",
   );
 
   while (VALIDATION.checkLoanAPR(loanAPR)) {
     loanAPR = RL_SYNC.question(
-      `"${loanAPR}" is not a valid response!\nWhat is the Loans APR?: (Whole numbers)\nExample: 5% or 5\n>>> `,
+      `"${loanAPR}" is not a valid response!\nWhat is the Loans APR?: (Whole numbers)\nExample: 5\n>>> `,
     );
   }
 
-  return Number(loanAPR);
+  return Number(loanAPR) * 0.01;
 }
 
 function askLoanDuration() {
-  // pass
-}
+  let loanDuration = RL_SYNC.question(
+    "What is the loans duration?: (In years)\n>>> ",
+  );
 
-function displayText(language, nestedString) {
-  //pass
+  while (VALIDATION.checkLoanDurtion(loanDuration)) {
+    loanDuration = RL_SYNC.question(
+      `"${loanDuration}" is not a valid response!\nWhat is the loans duration?: (In years)\n>>>`,
+    );
+  }
+
+  return Number(loanDuration);
 }
 
 function seperateComma(loanAmount) {
   loanAmount = loanAmount.split(",");
-  return parseInt(loanAmount.join(""));
+  return parseInt(loanAmount.join(""), 10);
 }
 
 module.exports = {

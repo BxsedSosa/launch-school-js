@@ -1,36 +1,29 @@
-function checkLoanAmount(loanAmount) {
-  if (loanAmount.length === 0) {
+function generalValidation(string) {
+  if (string.length === 0) {
     return true;
   }
 
-  for (let i = 0; i < loanAmount.length; i++) {
-    if (isLetter(loanAmount[i])) {
-      return true;
-    }
+  if (containsChar(string)) {
+    return true;
   }
+
+  if (isFloat(string)) {
+    return true;
+  }
+
   return false;
+}
+
+function checkLoanAmount(loanAmount) {
+  return generalValidation(loanAmount);
 }
 
 function checkLoanAPR(loanAPR) {
-  if (loanAPR.length === 0) {
-    return true;
-  }
-
-  for (let i = 0; i < loanAPR.length; i++) {
-    if (isLetter(loanAPR[i])) {
-      return true;
-    }
-  }
-
-  if (isFloat(loanAPR)) {
-    return true;
-  }
-
-  return false;
+  return generalValidation(loanAPR);
 }
 
-function checkLoanDurtion() {
-  // pass
+function checkLoanDurtion(loanDuration) {
+  return generalValidation(loanDuration);
 }
 
 function isLetter(str) {
@@ -38,8 +31,8 @@ function isLetter(str) {
 }
 
 function hasComma(loanAmount) {
-  for (let i = 0; i < loanAmount.length; i++) {
-    if (loanAmount[i] === ",") {
+  for (let idx = 0; idx < loanAmount.length; idx++) {
+    if (loanAmount[idx] === ",") {
       return true;
     }
   }
@@ -47,13 +40,23 @@ function hasComma(loanAmount) {
 }
 
 function isFloat(number) {
-  let parsedNum = String(parseInt(number));
+  let parsedNum = String(parseInt(number, 10));
+  console.log(`Parsed Num: ${parsedNum}`);
 
   if (parsedNum === number) {
     return false;
   }
 
   return true;
+}
+
+function containsChar(string) {
+  for (let idx = 0; idx < string.length; idx++) {
+    if (isLetter(string[idx])) {
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = {
