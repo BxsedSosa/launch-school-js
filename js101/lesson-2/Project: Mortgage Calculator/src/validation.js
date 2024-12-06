@@ -1,5 +1,5 @@
 function checkLoanAmount(loanAmount) {
-  if (loanAmount.length == 0) {
+  if (loanAmount.length === 0) {
     return true;
   }
 
@@ -11,8 +11,22 @@ function checkLoanAmount(loanAmount) {
   return false;
 }
 
-function checkLoanAPY() {
-  // pass
+function checkLoanAPR(loanAPR) {
+  if (loanAPR.length === 0) {
+    return true;
+  }
+
+  for (let i = 0; i < loanAPR.length; i++) {
+    if (isLetter(loanAPR[i])) {
+      return true;
+    }
+  }
+
+  if (isFloat(loanAPR)) {
+    return true;
+  }
+
+  return false;
 }
 
 function checkLoanDurtion() {
@@ -29,13 +43,22 @@ function hasComma(loanAmount) {
       return true;
     }
   }
-
   return false;
+}
+
+function isFloat(number) {
+  let parsedNum = String(parseInt(number));
+
+  if (parsedNum === number) {
+    return false;
+  }
+
+  return true;
 }
 
 module.exports = {
   checkLoanAmount,
   checkLoanDurtion,
-  checkLoanAPY,
+  checkLoanAPR,
   hasComma,
 };

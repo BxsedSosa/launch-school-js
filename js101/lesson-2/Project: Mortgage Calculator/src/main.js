@@ -21,11 +21,21 @@ function askLoanAmnt() {
     return seperateComma(loanAmount);
   }
 
-  return loanAmount;
+  return Number(loanAmount);
 }
 
-function askLoanAPY() {
-  //pass
+function askLoanAPR() {
+  let loanAPR = RL_SYNC.question(
+    "What is the Loans APR?: (Whole numbers)\nExample: 5% or 5\n>>> ",
+  );
+
+  while (VALIDATION.checkLoanAPR(loanAPR)) {
+    loanAPR = RL_SYNC.question(
+      `"${loanAPR}" is not a valid response!\nWhat is the Loans APR?: (Whole numbers)\nExample: 5% or 5\n>>> `,
+    );
+  }
+
+  return Number(loanAPR);
 }
 
 function askLoanDuration() {
@@ -43,6 +53,6 @@ function seperateComma(loanAmount) {
 
 module.exports = {
   askLoanAmnt,
-  askLoanAPY,
+  askLoanAPR,
   askLoanDuration,
 };
