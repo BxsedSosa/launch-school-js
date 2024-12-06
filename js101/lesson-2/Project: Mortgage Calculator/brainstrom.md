@@ -30,15 +30,22 @@ Print the amount out with dollar and cents: `$123.45`
 
 ## Ask User for loan amount
 
-Get loan amount from user: - Check if commas are used - Verify that its a number being input
+Get loan amount from user:
+
+- Check if commas are used
+- Verify that its a number being input
 
 ## Ask User for APR
 
-Clarify it to be a whole number: - Check if input from user is a whole number
+Clarify it to be a whole number:
+
+- Check if input from user is a whole number
 
 ## Ask User for duration
 
-Clarify it will be number of years: - Check if input from user is a whole number
+Clarify it will be number of years:
+
+- Check if input from user is a whole number
 
 ## Convert APR/APY into monthly rate
 
