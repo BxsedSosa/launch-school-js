@@ -75,9 +75,21 @@ Then using all the user input we will display the monthly payments
 return p * (j / (1 - Math.pow(1 + j, -n)));
 ```
 
+## Ending
+
+```
+This is the breakdown:
+
+Your monthly payments: {payment}
+
+Loan Amount: ${Amount}
+Loan APR: {APR}%
+Loan Duration: {duration} year(s)
+```
+
 ---
 
 ## To Do
 
-- [ ] add in banner
-- [ ] clean up code where ever repition is happening
+- [x] add in banner
+- [x] clean up code where ever repition is happening

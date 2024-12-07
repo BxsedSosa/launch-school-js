@@ -4,7 +4,7 @@ const VALIDATION = require("./validation");
 const CALCULATE = require("./calculations");
 const MSG = require("../config/text.json");
 
-console.log(main());
+main();
 
 function main() {
   let loanAmount = askLoanAmount();
@@ -18,7 +18,7 @@ function main() {
     loanMPR,
   );
 
-  return monthlyPay;
+  displayBreakdown(monthlyPay, loanAmount, loanAPR * 100, yearlyDuration);
 }
 
 function askLoanAmount() {
@@ -62,17 +62,35 @@ function seperateComma(loanAmount) {
   return parseInt(loanAmount.join(""), 10);
 }
 
+function displayBreakdown(monthlyPayments, loanAmount, loanAPR, loanDuration) {
+  let loanMessage = {
+    intro: MSG["breakdown"]["intro"],
+    payment: MSG["breakdown"]["monthly"],
+    amount: MSG["breakdown"]["amount"],
+    apr: MSG["breakdown"]["apr"],
+    duration: MSG["breakdown"]["duration"],
+  };
+
+  customDisplayText("Loan Calculator");
+  console.log(`${loanMessage["intro"]}`);
+  console.log(`${loanMessage["payment"]}${monthlyPayments}\n`);
+  console.log(
+    `${loanMessage["duration"]}${loanDuration} years\n${loanMessage["amount"]}${loanAmount}\n${loanMessage["apr"]}${loanAPR}%`,
+  );
+}
+
 function customDisplayText(text) {
   console.clear();
   displayText(text);
+  console.log();
 }
 
 function displayText(text) {
   console.log(
     FIGLET.textSync(text, {
-      font: "standard",
+      font: "pagga",
       horizontalLayout: "fitted",
-      verticalLayout: "fitted",
+      verticalLayout: "default",
       width: 90,
       whitespaceBreak: false,
     }),

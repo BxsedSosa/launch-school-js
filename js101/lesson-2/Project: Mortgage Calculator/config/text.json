@@ -14,5 +14,12 @@
   "duration": {
     "ask": "What is the loans duration?: (In years)\n>>> ",
     "retry": "is not a valid response!\nWhat is the loans duation?: (In years)\n>>> "
+  },
+  "breakdown": {
+    "intro": "This is the breakdown:\n",
+    "monthly": "Your monthly payments: $",
+    "amount": "Loan amount: $",
+    "apr": "Loan APR: ",
+    "duration": "Loan duration: "
   }
 }
