@@ -72,6 +72,16 @@ function seperateComma(loanAmount) {
   return parseInt(loanAmount.join(""), 10);
 }
 
+function askTemplate(message, retryFunction, retryMessage) {
+  let loanTemplate = RL_SYNC.question(message);
+
+  while (retryFunction(loanTemplate)) {
+    loanTemplate = RL_SYNC.question(`"${loanTemplate}" ${retryMessage}`);
+  }
+
+  return loanTemplate;
+}
+
 module.exports = {
   askLoanAmnt,
   askLoanAPR,
