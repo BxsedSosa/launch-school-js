@@ -13,8 +13,10 @@
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
+    "@eslint/js": "^9.16.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.12.1",
-    "eslint-cli": "^1.1.1"
+    "eslint": "^7.32.0",
+    "eslint-cli": "^1.1.1",
+    "globals": "^15.13.0"
   }
 }

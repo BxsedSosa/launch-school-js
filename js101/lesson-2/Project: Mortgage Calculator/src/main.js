@@ -20,22 +20,8 @@ function main() {
   return monthlyPay;
 }
 
-function askTemplate(message, retryFunction, retryMessage) {
-  let loanTemplate = RL_SYNC.question(message);
-
-  while (retryFunction(loanTemplate)) {
-    loanTemplate = RL_SYNC.question(`"${loanTemplate}" ${retryMessage}`);
-  }
-
-  return loanTemplate;
-}
-
 function askLoanAmount() {
-  let loanAmount = askTemplate(
-    "How much is the loan?:\n>>> $",
-    VALIDATION.checkLoanAmount,
-    "is not a valid response!\nHow much is the loan?:\n>>> $",
-  );
+  let loanAmount = askTemplate("amount", VALIDATION.checkLoanAmount);
 
   if (VALIDATION.hasComma(loanAmount)) {
     return seperateComma(loanAmount);
@@ -45,21 +31,13 @@ function askLoanAmount() {
 }
 
 function askLoanAPR() {
-  let loanAPR = askTemplate(
-    "What is the loans APR?:\n>>> ",
-    VALIDATION.checkLoanAPR,
-    "is not a valid response!\n What is the loans APR?:\n>>> ",
-  );
+  let loanAPR = askTemplate("apr", VALIDATION.checkLoanAPR);
 
   return Number(loanAPR) * 0.01;
 }
 
 function askLoanDuration() {
-  let loanDuration = askTemplate(
-    "What is the loans duration?: (In years)\n>>> ",
-    VALIDATION.checkLoanDurtion,
-    "is not a valid response!\nWhat is the loans duation?: (In years)\n>>> ",
-  );
+  let loanDuration = askTemplate("duration", VALIDATION.checkLoanDurtion);
 
   return Number(loanDuration);
 }
@@ -67,6 +45,20 @@ function askLoanDuration() {
 function seperateComma(loanAmount) {
   loanAmount = loanAmount.split(",");
   return parseInt(loanAmount.join(""), 10);
+}
+
+function askTemplate(message, retryFunction) {
+  console.clear();
+  let loanTemplate = RL_SYNC.question(MSG[message]["ask"]);
+
+  while (retryFunction(loanTemplate)) {
+    console.clear();
+    loanTemplate = RL_SYNC.question(
+      `"${loanTemplate}" ${MSG[message]["retry"]}`,
+    );
+  }
+
+  return loanTemplate;
 }
 
 module.exports = {
