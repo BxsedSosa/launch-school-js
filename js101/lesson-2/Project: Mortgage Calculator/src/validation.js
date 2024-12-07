@@ -41,7 +41,6 @@ function hasComma(loanAmount) {
 
 function isFloat(number) {
   let parsedNum = String(parseInt(number, 10));
-  console.log(`Parsed Num: ${parsedNum}`);
 
   if (parsedNum === number) {
     return false;
