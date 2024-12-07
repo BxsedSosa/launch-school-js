@@ -6,8 +6,6 @@ const CALCULATE = require("./calculations");
 const MSG = require("../config/text.json");
 const LANGUAGE = "en";
 
-console.log(main());
-
 function main() {
   let loanAmount = askLoanAmnt();
   let yearlyDuration = askLoanDuration();
@@ -40,15 +38,20 @@ function askLoanAmnt() {
 }
 
 function askLoanAPR() {
-  let loanAPR = RL_SYNC.question(
-    "What is the loans APR?: (Whole numbers)\nExample: 5\n>>> ",
+  let loanAPR = askTemplate(
+    "What is the loans APR?:\n>>> ",
+    VALIDATION.checkLoanAPR,
+    "is not a valid response!\n What is the loans APR?:\n>>> ",
   );
-
-  while (VALIDATION.checkLoanAPR(loanAPR)) {
-    loanAPR = RL_SYNC.question(
-      `"${loanAPR}" is not a valid response!\nWhat is the Loans APR?: (Whole numbers)\nExample: 5\n>>> `,
-    );
-  }
+  // let loanAPR = RL_SYNC.question(
+  //   "What is the loans APR?: (Whole numbers)\nExample: 5\n>>> ",
+  // );
+  //
+  // while (VALIDATION.checkLoanAPR(loanAPR)) {
+  //   loanAPR = RL_SYNC.question(
+  //     `"${loanAPR}" is not a valid response!\nWhat is the Loans APR?: (Whole numbers)\nExample: 5\n>>> `,
+  //   );
+  // }
 
   return Number(loanAPR) * 0.01;
 }
