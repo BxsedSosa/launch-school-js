@@ -1,13 +1,11 @@
 function generalValidation(string) {
   if (string.length === 0) {
+    console.log("here len");
     return true;
   }
 
   if (containsChar(string)) {
-    return true;
-  }
-
-  if (isFloat(string)) {
+    console.log("here char");
     return true;
   }
 
@@ -19,7 +17,11 @@ function checkLoanAmount(loanAmount) {
 }
 
 function checkLoanAPR(loanAPR) {
-  return generalValidation(loanAPR);
+  loanAPR = generalValidation(loanAPR);
+  if (isFloat(loanAPR)) {
+    return true;
+  }
+  return false;
 }
 
 function checkLoanDurtion(loanDuration) {
@@ -33,9 +35,11 @@ function isLetter(str) {
 function hasComma(loanAmount) {
   for (let idx = 0; idx < loanAmount.length; idx++) {
     if (loanAmount[idx] === ",") {
+      console.log("here true");
       return true;
     }
   }
+  console.log("here false");
   return false;
 }
 
@@ -45,7 +49,6 @@ function isFloat(number) {
   if (parsedNum === number) {
     return false;
   }
-
   return true;
 }
 

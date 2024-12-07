@@ -1,3 +1,3 @@
 const MAIN = require("../src/main");
 
-console.log(MAIN.askLoanAmnt());
+console.log(MAIN.askLoanAmount());

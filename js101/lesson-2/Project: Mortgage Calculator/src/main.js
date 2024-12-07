@@ -48,11 +48,9 @@ function seperateComma(loanAmount) {
 }
 
 function askTemplate(message, retryFunction) {
-  console.clear();
   let loanTemplate = RL_SYNC.question(MSG[message]["ask"]);
 
   while (retryFunction(loanTemplate)) {
-    console.clear();
     loanTemplate = RL_SYNC.question(
       `"${loanTemplate}" ${MSG[message]["retry"]}`,
     );
