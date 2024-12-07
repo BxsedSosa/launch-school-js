@@ -74,3 +74,10 @@ Then using all the user input we will display the monthly payments
 ```javascript
 return p * (j / (1 - Math.pow(1 + j, -n)));
 ```
+
+---
+
+## To Do
+
+- [ ] add in banner
+- [ ] clean up code where ever repition is happening

@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "Loan calculator to see how much youll be paying a month",
   "dependencies": {
+    "figlet": "^1.8.0",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {

@@ -1,14 +1,11 @@
 function generalValidation(string) {
   if (string.length === 0) {
-    console.log("here len");
     return true;
   }
 
   if (containsChar(string)) {
-    console.log("here char");
     return true;
   }
-
   return false;
 }
 
@@ -18,7 +15,7 @@ function checkLoanAmount(loanAmount) {
 
 function checkLoanAPR(loanAPR) {
   loanAPR = generalValidation(loanAPR);
-  if (isFloat(loanAPR)) {
+  if (!isFloat(loanAPR)) {
     return true;
   }
   return false;
@@ -35,11 +32,9 @@ function isLetter(str) {
 function hasComma(loanAmount) {
   for (let idx = 0; idx < loanAmount.length; idx++) {
     if (loanAmount[idx] === ",") {
-      console.log("here true");
       return true;
     }
   }
-  console.log("here false");
   return false;
 }
 

@@ -1,4 +1,5 @@
 const RL_SYNC = require("readline-sync");
+const FIGLET = require("figlet");
 const VALIDATION = require("./validation");
 const CALCULATE = require("./calculations");
 const MSG = require("../config/text.json");
@@ -42,15 +43,12 @@ function askLoanDuration() {
   return Number(loanDuration);
 }
 
-function seperateComma(loanAmount) {
-  loanAmount = loanAmount.split(",");
-  return parseInt(loanAmount.join(""), 10);
-}
-
 function askTemplate(message, retryFunction) {
+  customDisplayText("Loan Calculator");
   let loanTemplate = RL_SYNC.question(MSG[message]["ask"]);
 
   while (retryFunction(loanTemplate)) {
+    customDisplayText("Loan Calculator");
     loanTemplate = RL_SYNC.question(
       `"${loanTemplate}" ${MSG[message]["retry"]}`,
     );
@@ -59,8 +57,31 @@ function askTemplate(message, retryFunction) {
   return loanTemplate;
 }
 
+function seperateComma(loanAmount) {
+  loanAmount = loanAmount.split(",");
+  return parseInt(loanAmount.join(""), 10);
+}
+
+function customDisplayText(text) {
+  console.clear();
+  displayText(text);
+}
+
+function displayText(text) {
+  console.log(
+    FIGLET.textSync(text, {
+      font: "standard",
+      horizontalLayout: "fitted",
+      verticalLayout: "fitted",
+      width: 90,
+      whitespaceBreak: false,
+    }),
+  );
+}
+
 module.exports = {
   askLoanAmount,
   askLoanAPR,
   askLoanDuration,
+  displayText,
 };
