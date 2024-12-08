@@ -1,5 +1,5 @@
 function generalValidation(string) {
-  if (string.length === 0) {
+  if (emptyString(string)) {
     return true;
   }
 
@@ -23,6 +23,26 @@ function checkLoanAPR(loanAPR) {
 
 function checkLoanDurtion(loanDuration) {
   return generalValidation(loanDuration);
+}
+
+function checkRetryRepsonse(retry) {
+  const VALID_RETRY = [
+    ["1", "y", "yes"],
+    ["2", "n", "no"],
+  ];
+
+  if (emptyString(retry)) {
+    return true;
+  }
+
+  for (const arr of VALID_RETRY) {
+    for (const response of arr) {
+      if (retry === response) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 function isLetter(str) {
@@ -56,9 +76,17 @@ function containsChar(string) {
   return false;
 }
 
+function emptyString(string) {
+  if (string.length === 0) {
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   checkLoanAmount,
   checkLoanDurtion,
   checkLoanAPR,
+  checkRetryRepsonse,
   hasComma,
 };

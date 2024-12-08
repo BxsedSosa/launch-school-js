@@ -43,23 +43,64 @@ function askLoanDuration() {
   return Number(loanDuration);
 }
 
-function askTemplate(message, retryFunction) {
-  customDisplayText("Loan Calculator");
-  let loanTemplate = RL_SYNC.question(MSG[message]["ask"]);
+function askRetry() {
+  const VALID_RETRY = [
+    ["1", "y", "yes"],
+    ["2", "n", "no"],
+  ];
 
-  while (retryFunction(loanTemplate)) {
-    customDisplayText("Loan Calculator");
-    loanTemplate = RL_SYNC.question(
-      `"${loanTemplate}" ${MSG[message]["retry"]}`,
-    );
+  let response = askTemplate("try-again", VALIDATION.checkRetryRepsonse);
+
+  for (const retry of VALID_RETRY[0]) {
+    if (response === retry) {
+      main();
+    }
   }
 
-  return loanTemplate;
+  for (const exit of VALID_RETRY[1]) {
+    if (response === exit) {
+      exitProgram();
+    }
+  }
 }
 
 function seperateComma(loanAmount) {
   loanAmount = loanAmount.split(",");
   return parseInt(loanAmount.join(""), 10);
+}
+
+function askTemplate(message, retryFunction) {
+  let loanTemplate;
+
+  if (message === "try-again") {
+    return retryAskTemplate(message, retryFunction);
+  }
+
+  console.clear();
+  customDisplayText("Loan Calculator");
+  loanTemplate = RL_SYNC.question(MSG[message]["ask"]);
+
+  while (retryFunction(loanTemplate)) {
+    console.clear();
+    customDisplayText("Loan Calculator");
+    loanTemplate = RL_SYNC.question(
+      `"${loanTemplate}" ${MSG[message]["retry"]}`,
+    );
+  }
+  return loanTemplate.toLowerCase();
+}
+
+function retryAskTemplate(message, retryFunction) {
+  let loanTemplate = RL_SYNC.question(MSG[message]["ask"]);
+
+  while (retryFunction(loanTemplate)) {
+    console.clear();
+    customDisplayText("Loan Calculator");
+    loanTemplate = RL_SYNC.question(
+      `"${loanTemplate}" ${MSG[message]["retry"]}`,
+    );
+  }
+  return loanTemplate.toLowerCase();
 }
 
 function displayBreakdown(monthlyPayments, loanAmount, loanAPR, loanDuration) {
@@ -71,16 +112,17 @@ function displayBreakdown(monthlyPayments, loanAmount, loanAPR, loanDuration) {
     duration: MSG["breakdown"]["duration"],
   };
 
+  console.clear();
   customDisplayText("Loan Calculator");
   console.log(`${loanMessage["intro"]}`);
   console.log(`${loanMessage["payment"]}${monthlyPayments}\n`);
   console.log(
-    `${loanMessage["duration"]}${loanDuration} years\n${loanMessage["amount"]}${loanAmount}\n${loanMessage["apr"]}${loanAPR}%`,
+    `${loanMessage["duration"]}${loanDuration} years\n${loanMessage["amount"]}${loanAmount}\n${loanMessage["apr"]}${loanAPR}%\n`,
   );
+  askRetry();
 }
 
 function customDisplayText(text) {
-  console.clear();
   displayText(text);
   console.log();
 }
@@ -95,6 +137,12 @@ function displayText(text) {
       whitespaceBreak: false,
     }),
   );
+}
+
+function exitProgram() {
+  displayText(MSG["greeting"]["outro"]);
+  setTimeout(console.clear, 2000);
+  setTimeout(process.exit, 2300);
 }
 
 module.exports = {

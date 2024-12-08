@@ -21,5 +21,9 @@
     "amount": "Loan amount: $",
     "apr": "Loan APR: ",
     "duration": "Loan duration: "
+  },
+  "try-again": {
+    "ask": "Do you want to continue?\n1. Yes\n2. No\n>>> ",
+    "retry": "is not a valid answer!\nPlease pick:\n'1' or 'y' for Yes\n'2' or 'n' for No\n>>> "
   }
 }
