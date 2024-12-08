@@ -6,6 +6,7 @@ function generalValidation(string) {
   if (containsChar(string)) {
     return true;
   }
+
   return false;
 }
 
@@ -55,6 +56,11 @@ function isLetter(str) {
   return str.length === 1 && str.match(/[a-z]/i);
 }
 
+function isSpecialChar(str) {
+  let format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+  return str.length === 1 && format.test(str);
+}
+
 function hasComma(loanAmount) {
   for (let idx = 0; idx < loanAmount.length; idx++) {
     if (loanAmount[idx] === ",") {
@@ -76,6 +82,10 @@ function isFloat(number) {
 function containsChar(string) {
   for (let idx = 0; idx < string.length; idx++) {
     if (isLetter(string[idx])) {
+      return true;
+    }
+
+    if (isSpecialChar(string[idx])) {
       return true;
     }
   }
