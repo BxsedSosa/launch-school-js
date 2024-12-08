@@ -7,18 +7,24 @@ const MSG = require("../config/text.json");
 main();
 
 function main() {
-  let loanAmount = askLoanAmount();
-  let yearlyDuration = askLoanDuration();
-  let loanAPR = askLoanAPR();
-  let monthlyDuration = CALCULATE.convertDurtion(yearlyDuration);
-  let loanMPR = CALCULATE.convertAPR(loanAPR);
-  let monthlyPay = CALCULATE.calcMonthlyPayment(
-    loanAmount,
-    monthlyDuration,
-    loanMPR,
-  );
+  let running = true;
 
-  displayBreakdown(monthlyPay, loanAmount, loanAPR * 100, yearlyDuration);
+  while (running) {
+    let loanAmount = askLoanAmount();
+    let yearlyDuration = askLoanDuration();
+    let loanAPR = askLoanAPR();
+    let monthlyDuration = CALCULATE.convertDurtion(yearlyDuration);
+    let loanMPR = CALCULATE.convertAPR(loanAPR);
+    let monthlyPay = CALCULATE.calcMonthlyPayment(
+      loanAmount,
+      monthlyDuration,
+      loanMPR,
+    );
+
+    displayBreakdown(monthlyPay, loanAmount, loanAPR * 100, yearlyDuration);
+    running = askRetry();
+  }
+  exitProgram();
 }
 
 function askLoanAmount() {
@@ -53,15 +59,11 @@ function askRetry() {
 
   for (const retry of VALID_RETRY[0]) {
     if (response === retry) {
-      main();
+      return true;
     }
   }
 
-  for (const exit of VALID_RETRY[1]) {
-    if (response === exit) {
-      exitProgram();
-    }
-  }
+  return false;
 }
 
 function seperateComma(loanAmount) {
@@ -119,7 +121,6 @@ function displayBreakdown(monthlyPayments, loanAmount, loanAPR, loanDuration) {
     `${loanMessage["apr"]}${loanAPR}%\n${loanMessage["amount"]}${loanAmount}\n${loanMessage["duration"]}${loanDuration} years\n`,
   );
   console.log(`${loanMessage["payment"]}${monthlyPayments}\n`);
-  askRetry();
 }
 
 function customDisplayText(text) {
