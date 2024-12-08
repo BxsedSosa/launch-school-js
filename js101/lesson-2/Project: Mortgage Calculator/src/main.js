@@ -30,10 +30,6 @@ function main() {
 function askLoanAmount() {
   let loanAmount = askTemplate("amount", VALIDATION.checkLoanAmount);
 
-  if (VALIDATION.hasComma(loanAmount)) {
-    return seperateComma(loanAmount);
-  }
-
   return Number(loanAmount);
 }
 
@@ -64,11 +60,6 @@ function askRetry() {
   }
 
   return false;
-}
-
-function seperateComma(loanAmount) {
-  loanAmount = loanAmount.split(",");
-  return parseInt(loanAmount.join(""), 10);
 }
 
 function askTemplate(message, retryFunction) {

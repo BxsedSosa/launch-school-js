@@ -5,7 +5,7 @@
   },
   "amount": {
     "ask": "How much is the loan?:\n>>> $",
-    "retry": "is not a valid response!\nHow much is the loan?:\n>>> $"
+    "retry": "is not a valid response!\nHow much is the loan?: (Whole numbers)\n>>> $"
   },
   "apr": {
     "ask": "What is the loans APR?: (Whole Numbers)\n>>> ",
