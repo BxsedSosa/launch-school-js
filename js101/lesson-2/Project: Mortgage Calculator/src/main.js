@@ -115,10 +115,10 @@ function displayBreakdown(monthlyPayments, loanAmount, loanAPR, loanDuration) {
   console.clear();
   customDisplayText("Loan Calculator");
   console.log(`${loanMessage["intro"]}`);
-  console.log(`${loanMessage["payment"]}${monthlyPayments}\n`);
   console.log(
-    `${loanMessage["duration"]}${loanDuration} years\n${loanMessage["amount"]}${loanAmount}\n${loanMessage["apr"]}${loanAPR}%\n`,
+    `${loanMessage["apr"]}${loanAPR}%\n${loanMessage["amount"]}${loanAmount}\n${loanMessage["duration"]}${loanDuration} years\n`,
   );
+  console.log(`${loanMessage["payment"]}${monthlyPayments}\n`);
   askRetry();
 }
 
