@@ -15,9 +15,15 @@ function checkLoanAmount(loanAmount) {
 
 function checkLoanAPR(loanAPR) {
   loanAPR = generalValidation(loanAPR);
+
+  if (loanAPR) {
+    return true;
+  }
+
   if (!isFloat(loanAPR)) {
     return true;
   }
+
   return false;
 }
 

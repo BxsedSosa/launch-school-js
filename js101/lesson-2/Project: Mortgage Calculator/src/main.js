@@ -140,6 +140,7 @@ function displayText(text) {
 }
 
 function exitProgram() {
+  console.clear();
   displayText(MSG["greeting"]["outro"]);
   setTimeout(console.clear, 2000);
   setTimeout(process.exit, 2300);
