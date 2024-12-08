@@ -4,7 +4,9 @@ const VALIDATION = require("./validation");
 const CALCULATE = require("./calculations");
 const MSG = require("../config/text.json");
 
-main();
+console.clear();
+customDisplayText("Welcome");
+setTimeout(main, 2500);
 
 function main() {
   let running = true;
@@ -123,7 +125,7 @@ function displayText(text) {
   console.log(
     FIGLET.textSync(text, {
       font: "pagga",
-      horizontalLayout: "fitted",
+      horizontalLayout: "default",
       verticalLayout: "default",
       width: 90,
       whitespaceBreak: false,

@@ -1,6 +1,7 @@
 {
   "greeting": {
-    "intro": "Mortgage Calculator",
+    "intro": "Welcome!",
+    "banner": "Mortgage Calculator",
     "outro": "Thank you!"
   },
   "amount": {
