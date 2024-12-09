@@ -1,3 +1,36 @@
 const RL_SYNC = require("readline-sync");
+const MSG = require("../config/text.json");
 
-test = RL_SYNC.question("hello");
+function main() {
+  //pass
+}
+
+function askUserOption() {
+  //pass
+}
+
+function askRetry() {
+  //pass
+}
+
+function getComputerOption() {
+  //pass
+}
+
+function increaseWinner() {
+  //pass
+}
+
+function reachedThreeWins() {
+  //pass
+}
+
+function displayGameWinner() {
+  //pass
+}
+
+function displayRoundWinner() {
+  //pass
+}
+
+module.exports = {};
