@@ -21,13 +21,16 @@ function validateTemplate(validInputs, userInput) {
 function loopThroughObject(validOptions, userInput, isKey) {
   if (isKey) {
     for (const element of Object.keys(validOptions)) {
-      if (userInput === String(element)) {
+      if (userInput.toLowerCase() === String(element)) {
         return true;
       }
     }
   } else {
     for (const element of Object.values(validOptions)) {
-      if (userInput === String(element) || userInput === String(element)[0]) {
+      if (
+        userInput.toLowerCase() === String(element) ||
+        userInput.toLowerCase() === String(element)[0]
+      ) {
         return true;
       }
     }

@@ -16,6 +16,12 @@ let test = [
   "0",
   "#$",
   "/",
+  "ROCK",
+  "R",
+  "P",
+  "PAPER",
+  "SISSCORS",
+  "S",
 ];
 
 for (const element of test) {
