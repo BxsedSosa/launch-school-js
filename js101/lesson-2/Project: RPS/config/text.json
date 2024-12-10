@@ -1,0 +1,14 @@
+{
+  "pick": {
+    "ask": "Which option would you like to pick?\n1. Rock\n2. Paper\n3. Scissors\n",
+    "retry": "is not a valid option!\n'1' or 'R' for Rock\n'2' or 'P' for Paper\n'3' or 'S' for Scissors"
+  },
+  "cpu": {
+    "thinking": "",
+    "picks": "",
+  }
+  "restart": {
+    "ask": "",
+    "retry": "",
+  }
+}
