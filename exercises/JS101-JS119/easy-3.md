@@ -369,48 +369,48 @@ New centuries begin in years that end with 01. So, the years 1901 - 2000 compris
 Examples:
 
 ```javascript
-century(2000);        // "20th"
-century(2001);        // "21st"
-century(1965);        // "20th"
-century(256);         // "3rd"
-century(5);           // "1st"
-century(10103);       // "102nd"
-century(1052);        // "11th"
-century(1127);        // "12th"
-century(11201);       // "113th"
+century(2000); // "20th"
+century(2001); // "21st"
+century(1965); // "20th"
+century(256); // "3rd"
+century(5); // "1st"
+century(10103); // "102nd"
+century(1052); // "11th"
+century(1127); // "12th"
+century(11201); // "113th"
 ```
 
 My Answer:
 
 ```javascript
 function century(year) {
-    let cent = Number(String(year).slice(0, -2))
+  let cent = Number(String(year).slice(0, -2));
 
-    if (year < 101) {
-        console.log("1st")
-        return
-    }
-    
-    if (Number(String(year).slice(-1)) > 0) {
-        cent += 1;
-        console.log(postfix(String(cent)));
-    } else {
-        console.log(postfix(String(cent)))
-    }
+  if (year < 101) {
+    console.log("1st");
+    return;
+  }
+
+  if (Number(String(year).slice(-1)) > 0) {
+    cent += 1;
+    console.log(postfix(String(cent)));
+  } else {
+    console.log(postfix(String(cent)));
+  }
 }
 
 function postfix(year) {
-    if (Number(year.slice(-2)) > 10 && Number(year.slice(-2)) < 20) {
-        return year + "th";
-    }
-    if (year[year.length - 1] === "1") {
-        return year + "st";
-    } else if (year[year.length - 1] === "2") {
-        return year + "nd";
-    } else if (year[year.length - 1] === "3") {
-        return year + "rd";
-    } else {
-        return year + "th";
-    }
+  if (Number(year.slice(-2)) > 10 && Number(year.slice(-2)) < 20) {
+    return year + "th";
+  }
+  if (year[year.length - 1] === "1") {
+    return year + "st";
+  } else if (year[year.length - 1] === "2") {
+    return year + "nd";
+  } else if (year[year.length - 1] === "3") {
+    return year + "rd";
+  } else {
+    return year + "th";
+  }
 }
 ```
