@@ -8,8 +8,9 @@ function main() {
   let userOption = askOption();
   let retry = askRestart();
   let cpuOption = RETREIEVE.getComputerOption();
+  let roundWinner = RETREIEVE.getWinner(userOption, cpuOption);
 
-  return [userOption, retry, cpuOption];
+  return [userOption, retry, cpuOption, roundWinner];
 }
 
 function askOption() {
