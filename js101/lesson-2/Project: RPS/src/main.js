@@ -1,13 +1,15 @@
 const RL_SYNC = require("readline-sync");
 const MSG = require("../config/text.json");
 const NOT_VALID = require("./validation");
-const VALID_OPTIONS = {
-  1: "rock",
-  2: "paper",
-  3: "sisscors",
-};
 
-function main() {}
+main();
+
+function main() {
+  let option = askOption();
+  let retry = askRestart();
+
+  return [option, retry];
+}
 
 function askOption() {
   let userInput = askTemplate("pick", NOT_VALID.validateOption);
@@ -15,7 +17,7 @@ function askOption() {
 }
 
 function askRestart() {
-  let userInput = askTemplate("retart", NOT_VALID.validateRetry);
+  let userInput = askTemplate("restart", NOT_VALID.validateRetry);
   return userInput;
 }
 
