@@ -13,6 +13,26 @@ function getUserRetry(userInput) {
   return getValidEntry(userInput, MSG["valid-retry"]);
 }
 
+function getWinner(playerOneInput, playerTwoInput) {
+  const WINNING_OPTIONS = {
+    1: ["rock", "scissors"],
+    2: ["paper", "rock"],
+    3: ["scissors", "paper"],
+  };
+  let joinedInputs = `${playerOneInput} ${playerTwoInput}`;
+
+  if (playerOneInput === playerTwoInput) {
+    return "tie";
+  }
+
+  for (const winningOption of Object.values(WINNING_OPTIONS)) {
+    if (joinedInputs === winningOption.join(" ")) {
+      return "player one";
+    }
+  }
+  return "player two";
+}
+
 function getQuestionsFromJson(string) {
   let questions = {
     ask: MSG[string]["ask"],
@@ -46,4 +66,5 @@ module.exports = {
   getComputerOption,
   getUserOption,
   getUserRetry,
+  getWinner,
 };
