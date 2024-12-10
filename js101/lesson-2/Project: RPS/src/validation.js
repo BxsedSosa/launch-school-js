@@ -1,34 +1,21 @@
+const MSG = require("../config/text.json");
+
 function validateOption(userInput) {
-  const VALID_OPTIONS = {
-    1: "rock",
-    2: "paper",
-    3: "sisscors",
-  };
-
-  if (
-    loopThroughObject(VALID_OPTIONS, userInput, true) ||
-    loopThroughObject(VALID_OPTIONS, userInput, false)
-  ) {
-    return false;
-  }
-
-  return true;
+  return validateTemplate(MSG["valid-options"], userInput);
 }
 
 function validateRetry(userInput) {
-  const VALID_RETRY = {
-    1: "yes",
-    2: "no",
-  };
+  return validateTemplate(MSG["valid-retry"], userInput);
+}
 
+function validateTemplate(validInputs, userInput) {
   if (
-    loopThroughObject(VALID_RETRY, userInput, true) ||
-    loopThroughObject(VALID_RETRY, userInput, false)
+    loopThroughObject(validInputs, userInput, true) ||
+    loopThroughObject(validInputs, userInput, false)
   ) {
-    return false;
+    return true;
   }
-
-  return true;
+  return false;
 }
 
 function loopThroughObject(validOptions, userInput, isKey) {

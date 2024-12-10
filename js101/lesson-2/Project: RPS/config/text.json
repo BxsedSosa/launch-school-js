@@ -1,14 +1,23 @@
 {
   "pick": {
     "ask": "Which option would you like to pick?\n1. Rock\n2. Paper\n3. Scissors\n",
-    "retry": "is not a valid option!\n'1' or 'R' for Rock\n'2' or 'P' for Paper\n'3' or 'S' for Scissors"
+    "retry": "is not a valid option!\n'1' or 'R' for Rock\n'2' or 'P' for Paper\n'3' or 'S' for Scissors\n"
   },
   "cpu": {
     "thinking": "",
     "picks": ""
   },
   "restart": {
-    "ask": "",
-    "retry": ""
+    "ask": "Would you like to restart?\n1. Yes\n2. No\n",
+    "retry": "is not a valid option!\n'1' or 'Y' for Yes\n'2' or 'N' for No\n"
+  },
+  "valid-options": {
+    "1": "rock",
+    "2": "paper",
+    "3": "sisscors"
+  },
+  "valid-retry": {
+    "1": "yes",
+    "2": "no"
   }
 }

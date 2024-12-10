@@ -20,6 +20,6 @@ let test = [
 
 for (const element of test) {
   console.log(
-    `Element: ${element}\n Result: ${!NOT_VALID.validateOption(element)}\n`,
+    `Element: ${element}\n Result: ${NOT_VALID.validateOption(element)}\n`,
   );
 }

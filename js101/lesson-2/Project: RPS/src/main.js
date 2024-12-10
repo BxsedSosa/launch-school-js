@@ -2,7 +2,7 @@ const RL_SYNC = require("readline-sync");
 const MSG = require("../config/text.json");
 const NOT_VALID = require("./validation");
 
-main();
+console.log(main());
 
 function main() {
   let option = askOption();
@@ -13,12 +13,12 @@ function main() {
 
 function askOption() {
   let userInput = askTemplate("pick", NOT_VALID.validateOption);
-  return userInput;
+  return userInput.toLowerCase();
 }
 
 function askRestart() {
   let userInput = askTemplate("restart", NOT_VALID.validateRetry);
-  return userInput;
+  return userInput.toLowerCase();
 }
 
 function getComputerOption() {
@@ -43,9 +43,13 @@ function displayRoundWinner() {
 
 function askTemplate(textObject, validation) {
   let questions = getQuestionsFromJson(textObject);
-  let userOption = RL_SYNC.question(questions.ask);
+  let userOption;
 
-  while (validation(userOption)) {
+  console.clear();
+  userOption = RL_SYNC.question(questions.ask);
+
+  while (!validation(userOption)) {
+    console.clear();
     userOption = RL_SYNC.question(`"${userOption}" ${questions.retry}`);
   }
 
