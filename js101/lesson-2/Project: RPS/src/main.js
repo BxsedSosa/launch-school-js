@@ -1,28 +1,25 @@
 const RL_SYNC = require("readline-sync");
-const MSG = require("../config/text.json");
 const NOT_VALID = require("./validation");
+const RETREIEVE = require("./retreive");
 
 console.log(main());
 
 function main() {
-  let option = askOption();
+  let userOption = askOption();
   let retry = askRestart();
+  let cpuOption = RETREIEVE.getComputerOption();
 
-  return [option, retry];
+  return [userOption, retry, cpuOption];
 }
 
 function askOption() {
   let userInput = askTemplate("pick", NOT_VALID.validateOption);
-  return userInput.toLowerCase();
+  return RETREIEVE.getUserOption(userInput.toLowerCase());
 }
 
 function askRestart() {
   let userInput = askTemplate("restart", NOT_VALID.validateRetry);
-  return userInput.toLowerCase();
-}
-
-function getComputerOption() {
-  //pass
+  return RETREIEVE.getUserRetry(userInput.toLowerCase());
 }
 
 function increaseWinner(score) {
@@ -42,7 +39,7 @@ function displayRoundWinner() {
 }
 
 function askTemplate(textObject, validation) {
-  let questions = getQuestionsFromJson(textObject);
+  let questions = RETREIEVE.getQuestionsFromJson(textObject);
   let userOption;
 
   console.clear();
@@ -54,12 +51,4 @@ function askTemplate(textObject, validation) {
   }
 
   return userOption;
-}
-
-function getQuestionsFromJson(string) {
-  let questions = {
-    ask: MSG[string]["ask"],
-    retry: MSG[string]["retry"],
-  };
-  return questions;
 }
