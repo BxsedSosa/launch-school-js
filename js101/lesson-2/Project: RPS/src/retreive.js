@@ -33,6 +33,19 @@ function getWinner(playerOneInput, playerTwoInput) {
   return "player two";
 }
 
+function giveWinnerPoint(roundWinner, scores) {
+  if (roundWinner === "player one") {
+    scores.playerOne = increaseWinner(scores.playerOne);
+    return scores;
+  }
+
+  if (roundWinner === "player two") {
+    scores.playerTwo = increaseWinner(scores.playerTwo);
+    return scores;
+  }
+  return scores;
+}
+
 function getQuestionsFromJson(string) {
   let questions = {
     ask: MSG[string]["ask"],
@@ -61,10 +74,14 @@ function getValidEntry(userInput, validOptions) {
   return null;
 }
 
+function increaseWinner(score) {
+  return (score += 1);
+}
 module.exports = {
   getQuestionsFromJson,
   getComputerOption,
   getUserOption,
   getUserRetry,
   getWinner,
+  giveWinnerPoint,
 };

@@ -2,15 +2,29 @@ const RL_SYNC = require("readline-sync");
 const NOT_VALID = require("./validation");
 const RETREIEVE = require("./retreive");
 
-console.log(main());
+main();
 
 function main() {
-  let userOption = askOption();
-  let retry = askRestart();
-  let cpuOption = RETREIEVE.getComputerOption();
-  let roundWinner = RETREIEVE.getWinner(userOption, cpuOption);
+  let running = true;
+  let scores = {
+    playerOne: 0,
+    playerTwo: 0,
+  };
 
-  return [userOption, retry, cpuOption, roundWinner];
+  while (running) {
+    let userOption = askOption();
+    let retry = askRestart();
+    let cpuOption = RETREIEVE.getComputerOption();
+    let roundWinner = RETREIEVE.getWinner(userOption, cpuOption);
+
+    RETREIEVE.giveWinnerPoint(roundWinner, scores);
+
+    console.log([userOption, retry, cpuOption, roundWinner, scores]);
+
+    if (scores.playerOne >= 3 || scores.playerTwo >= 3) {
+      running = false;
+    }
+  }
 }
 
 function askOption() {
@@ -21,10 +35,6 @@ function askOption() {
 function askRestart() {
   let userInput = askTemplate("restart", NOT_VALID.validateRetry);
   return RETREIEVE.getUserRetry(userInput.toLowerCase());
-}
-
-function increaseWinner(score) {
-  return (score += 1);
 }
 
 function reachedThreeWins(scores) {
@@ -43,11 +53,9 @@ function askTemplate(textObject, validation) {
   let questions = RETREIEVE.getQuestionsFromJson(textObject);
   let userOption;
 
-  console.clear();
   userOption = RL_SYNC.question(questions.ask);
 
   while (!validation(userOption)) {
-    console.clear();
     userOption = RL_SYNC.question(`"${userOption}" ${questions.retry}`);
   }
 
