@@ -20,10 +20,7 @@ function main() {
     RETREIEVE.giveWinnerPoint(roundWinner, scores);
 
     console.log([userOption, retry, cpuOption, roundWinner, scores]);
-
-    if (scores.playerOne >= 3 || scores.playerTwo >= 3) {
-      running = false;
-    }
+    running = reachedThreeWins(scores, retry);
   }
 }
 
@@ -37,8 +34,11 @@ function askRestart() {
   return RETREIEVE.getUserRetry(userInput.toLowerCase());
 }
 
-function reachedThreeWins(scores) {
-  //pass
+function reachedThreeWins(scores, retry) {
+  if (scores.playerOne >= 3 || scores.playerTwo >= 3) {
+    return false;
+  }
+  return true;
 }
 
 function displayGameWinner() {
@@ -47,6 +47,11 @@ function displayGameWinner() {
 
 function displayRoundWinner() {
   //pass
+}
+
+function resetScore(scores) {
+  scores.playerOne = 0;
+  scores.playerTwo = 0;
 }
 
 function askTemplate(textObject, validation) {
