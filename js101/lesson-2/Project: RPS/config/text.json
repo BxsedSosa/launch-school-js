@@ -19,5 +19,10 @@
   "valid-retry": {
     "1": "yes",
     "2": "no"
+  },
+  "winner": {
+    "player-one": "Player one wins!",
+    "player-two": "Player two wins!",
+    "tie": "It was a tie!"
   }
 }

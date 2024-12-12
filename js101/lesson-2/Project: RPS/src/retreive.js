@@ -35,14 +35,14 @@ function getWinner(playerOneInput, playerTwoInput) {
 
 function giveWinnerPoint(roundWinner, scores) {
   if (roundWinner === "player one") {
-    increaseWinner(scores.playerOne);
-    console.log(scores);
+    scores.playerOne = increaseWinner(scores.playerOne);
+
     return scores;
   }
 
   if (roundWinner === "player two") {
     scores.playerTwo = increaseWinner(scores.playerTwo);
-    console.log(scores);
+
     return scores;
   }
   return scores;
@@ -53,12 +53,14 @@ function getQuestionsFromJson(string) {
     ask: MSG[string]["ask"],
     retry: MSG[string]["retry"],
   };
+
   return questions;
 }
 
 function getRandomNumber() {
   let min = 1;
   let max = 3;
+
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -73,6 +75,7 @@ function getValidEntry(userInput, validOptions) {
       return element;
     }
   }
+
   return null;
 }
 

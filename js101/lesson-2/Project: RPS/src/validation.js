@@ -15,6 +15,7 @@ function validateTemplate(validInputs, userInput) {
   ) {
     return true;
   }
+
   return false;
 }
 
@@ -35,6 +36,7 @@ function loopThroughObject(validOptions, userInput, isKey) {
       }
     }
   }
+
   return false;
 }
 
