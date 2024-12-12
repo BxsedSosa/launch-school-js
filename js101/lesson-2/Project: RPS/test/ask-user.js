@@ -22,6 +22,10 @@ let test = [
   "PAPER",
   "SISSCORS",
   "S",
+  "spock",
+  "lizard",
+  "l",
+  "L",
 ];
 
 for (const element of test) {
