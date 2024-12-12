@@ -14,7 +14,9 @@
   "valid-options": {
     "1": "rock",
     "2": "paper",
-    "3": "sisscors"
+    "3": "sisscors",
+    "4": "spock",
+    "5": "lizard"
   },
   "valid-retry": {
     "1": "yes",

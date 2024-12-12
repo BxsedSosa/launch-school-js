@@ -1,4 +1,26 @@
 const MSG = require("../config/text.json");
+const WINNING_OPTIONS = {
+  1: [
+    ["rock", "scissors"],
+    ["rock", "lizard"],
+  ],
+  2: [
+    ["paper", "rock"],
+    ["paper", "spock"],
+  ],
+  3: [
+    ["scissors", "paper"],
+    ["scissors", "lizard"],
+  ],
+  4: [
+    ["spock", "rock"],
+    ["spock", "scissors"],
+  ],
+  5: [
+    ["lizard", "spock"],
+    ["lizard", "paper"],
+  ],
+};
 
 function getUserOption(userInput) {
   return getValidEntry(userInput, MSG["valid-options"]);
@@ -14,20 +36,17 @@ function getUserRetry(userInput) {
 }
 
 function getWinner(playerOneInput, playerTwoInput) {
-  const WINNING_OPTIONS = {
-    1: ["rock", "scissors"],
-    2: ["paper", "rock"],
-    3: ["scissors", "paper"],
-  };
   let joinedInputs = `${playerOneInput} ${playerTwoInput}`;
 
   if (playerOneInput === playerTwoInput) {
     return "tie";
   }
 
-  for (const winningOption of Object.values(WINNING_OPTIONS)) {
-    if (joinedInputs === winningOption.join(" ")) {
-      return "player one";
+  for (const winningArray of Object.values(WINNING_OPTIONS)) {
+    for (const winningOption of winningArray) {
+      if (joinedInputs === winningOption.join(" ")) {
+        return "player one";
+      }
     }
   }
   return "player two";
