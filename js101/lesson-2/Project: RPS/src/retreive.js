@@ -35,12 +35,14 @@ function getWinner(playerOneInput, playerTwoInput) {
 
 function giveWinnerPoint(roundWinner, scores) {
   if (roundWinner === "player one") {
-    scores.playerOne = increaseWinner(scores.playerOne);
+    increaseWinner(scores.playerOne);
+    console.log(scores);
     return scores;
   }
 
   if (roundWinner === "player two") {
     scores.playerTwo = increaseWinner(scores.playerTwo);
+    console.log(scores);
     return scores;
   }
   return scores;
