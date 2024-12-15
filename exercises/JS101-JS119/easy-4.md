@@ -49,7 +49,18 @@ for (const number of nums) {
 console.log(`The number ${num6} does not appears in ${nums.join(",")}`);
 ```
 
-2.
+2. Palindromic Strings (Part 1)
+
+Write a function that returns true if the string passed as an argument is a palindrome, or false otherwise. A palindrome reads the same forwards and backwards. For this problem, the case matters and all characters matter.
+
+Examples:
+
+```
+isPalindrome('madam');               // true
+isPalindrome('Madam');               // false (case matters)
+isPalindrome("madam i'm adam");      // false (all characters matter)
+isPalindrome('356653');              // true
+```
 
 My Answer:
 
@@ -59,20 +70,22 @@ let isPalindrome = (string) => {
   let strLen = string.length;
 
   if (strLen % 2 === 0) {
-    firstHalf = string.slice(0, strLen / 2);
+    firstHalf = string.slice(0, strLen / 2 + 1);
     secondHalf = string
       .slice(strLen / 2 - 1)
       .split("")
-      .reverse();
+      .reverse()
+      .join("");
     if (firstHalf === secondHalf) {
       return true;
     }
   } else {
-    firstHalf = string.slice(0, strLen / 2);
+    firstHalf = string.slice(0, strLen / 2 + 1);
     secondHalf = string
-      .slice(strLen / 2 - 1)
+      .slice(strLen / 2)
       .split("")
-      .reverse();
+      .reverse()
+      .join("");
     if (firstHalf === secondHalf) {
       return true;
     }
@@ -81,12 +94,28 @@ let isPalindrome = (string) => {
 };
 ```
 
-3.
+3. Palindromic Strings (Part 2)
+
+Write another function that returns true if the string passed as an argument is a palindrome, or false otherwise. This time, however, your function should be case-insensitive, and should ignore all non-alphanumeric characters. If you wish, you may simplify things by calling the isPalindrome function you wrote in the previous exercise.
+
+Examples:
+
+```
+isRealPalindrome('madam');               // true
+isRealPalindrome('Madam');               // true (case does not matter)
+isRealPalindrome("Madam, I'm Adam");     // true (only alphanumerics matter)
+isRealPalindrome('356653');              // true
+isRealPalindrome('356a653');             // true
+isRealPalindrome('123ab321');            // false
+```
 
 My Answer:
 
 ```javascript
-
+function isRealPalindrome(string) {
+  string = string.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return isPalindrome(string);
+}
 ```
 
 4.
