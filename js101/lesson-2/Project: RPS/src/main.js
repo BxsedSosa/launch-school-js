@@ -13,6 +13,7 @@ function main() {
   };
 
   while (running) {
+    console.clear();
     let roundWinner = gameLoop(scores);
     scores = RETREIEVE.giveWinnerPoint(roundWinner, scores);
 
