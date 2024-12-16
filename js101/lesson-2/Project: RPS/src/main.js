@@ -30,8 +30,10 @@ function main() {
 function gameLoop() {
   let userOption = askOption();
   let cpuOption = RETREIEVE.getComputerOption();
+  let roundResult = RETREIEVE.getWinner(userOption, cpuOption);
 
-  return RETREIEVE.getWinner(userOption, cpuOption);
+  displayRoundWinner(roundResult);
+  return roundResult;
 }
 
 function askOption() {
@@ -54,12 +56,13 @@ function reachedThreeWins(scores) {
   return false;
 }
 
-function displayGameWinner() {
-  //pass
+function displayGameWinner(gameWinner) {
+  console.clear();
 }
 
-function displayRoundWinner() {
-  //pass
+function displayRoundWinner(roundWinner) {
+  console.clear();
+  console.log(`${roundWinner} won this round!`);
 }
 
 function restartGame() {
