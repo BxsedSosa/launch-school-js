@@ -1,4 +1,5 @@
 const RL_SYNC = require("readline-sync");
+const MSG = require("../config/text.json");
 const NOT_VALID = require("./validation");
 const RETREIEVE = require("./retreive");
 
@@ -30,7 +31,8 @@ function gameLoop(scores) {
   displayScore(scores);
   let userOption = askOption();
   let cpuOption = RETREIEVE.getComputerOption();
-  setTimeout();
+  displayCpuThinking(cpuOption);
+
   let roundResult = RETREIEVE.getWinner(userOption, cpuOption);
 
   displayRoundWinner(roundResult);
@@ -51,6 +53,17 @@ function askRestart(scores) {
   return RETREIEVE.getUserRetry(userInput.toLowerCase());
 }
 
+function askTemplate(textObject, validation) {
+  let questions = RETREIEVE.getQuestionsFromJson(textObject);
+  let userOption = RL_SYNC.question(questions.ask);
+
+  while (!validation(userOption)) {
+    userOption = RL_SYNC.question(`"${userOption}" ${questions.retry}`);
+  }
+
+  return userOption;
+}
+
 function reachedThreeWins(scores) {
   if (scores.playerOne === 3) {
     return "Player one";
@@ -61,6 +74,10 @@ function reachedThreeWins(scores) {
   }
 
   return false;
+}
+
+function restartGame() {
+  return { playerOne: 0, playerTwo: 0 };
 }
 
 function displayGameWinner(gameWinner) {
@@ -77,17 +94,6 @@ function displayScore(scores) {
   );
 }
 
-function restartGame() {
-  return { playerOne: 0, playerTwo: 0 };
-}
-
-function askTemplate(textObject, validation) {
-  let questions = RETREIEVE.getQuestionsFromJson(textObject);
-  let userOption = RL_SYNC.question(questions.ask);
-
-  while (!validation(userOption)) {
-    userOption = RL_SYNC.question(`"${userOption}" ${questions.retry}`);
-  }
-
-  return userOption;
+function displayCpuThinking(cpuChoice) {
+  console.log(`${MSG["cpu"]["picks"]} ${cpuChoice}`);
 }
