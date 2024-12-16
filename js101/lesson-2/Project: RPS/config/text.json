@@ -1,11 +1,11 @@
 {
   "pick": {
-    "ask": "Which option would you like to pick?\n1. Rock\n2. Paper\n3. Scissors\n>>> ",
-    "retry": "is not a valid option!\n'1' or 'R' for Rock\n'2' or 'P' for Paper\n'3' or 'S' for Scissors\n>>> "
+    "ask": "Which option would you like to pick?\n1. Rock\n2. Paper\n3. Scissors\n4. Spock\n5. Lizard\n>>> ",
+    "retry": "is not a valid option!\n'1' or 'R' for Rock\n'2' or 'P' for Paper\n'3' or 'Si' for Scissors\n'4' or 'Sp' for Spock\n'5' or 'L' for Lizard\n>>> "
   },
   "cpu": {
-    "thinking": "",
-    "picks": ""
+    "thinking": "Computer is thinking...",
+    "picks": "Computer picked: "
   },
   "restart": {
     "ask": "Would you like to restart?\n1. Yes\n2. No\n>>> ",

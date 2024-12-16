@@ -12,12 +12,11 @@ function main() {
   };
 
   while (running) {
-    let roundWinner = gameLoop();
+    let roundWinner = gameLoop(scores);
     scores = RETREIEVE.giveWinnerPoint(roundWinner, scores);
 
     if (reachedThreeWins(scores)) {
-      let retry = RETREIEVE.getUserRetry(askRestart());
-
+      let retry = RETREIEVE.getUserRetry(askRestart(scores));
       if (retry === "yes") {
         scores = restartGame();
       } else {
@@ -27,9 +26,11 @@ function main() {
   }
 }
 
-function gameLoop() {
+function gameLoop(scores) {
+  displayScore(scores);
   let userOption = askOption();
   let cpuOption = RETREIEVE.getComputerOption();
+  setTimeout();
   let roundResult = RETREIEVE.getWinner(userOption, cpuOption);
 
   displayRoundWinner(roundResult);
@@ -42,27 +43,38 @@ function askOption() {
   return RETREIEVE.getUserOption(userInput.toLowerCase());
 }
 
-function askRestart() {
+function askRestart(scores) {
+  displayScore(scores);
+  displayGameWinner(reachedThreeWins(scores));
   let userInput = askTemplate("restart", NOT_VALID.validateRetry);
 
   return RETREIEVE.getUserRetry(userInput.toLowerCase());
 }
 
 function reachedThreeWins(scores) {
-  if (scores.playerOne >= 3 || scores.playerTwo >= 3) {
-    return true;
+  if (scores.playerOne === 3) {
+    return "Player one";
+  }
+
+  if (scores.playerTwo === 3) {
+    return "Computer";
   }
 
   return false;
 }
 
 function displayGameWinner(gameWinner) {
-  console.clear();
+  console.log(`${gameWinner} won the game!`);
 }
 
 function displayRoundWinner(roundWinner) {
-  console.clear();
   console.log(`${roundWinner} won this round!`);
+}
+
+function displayScore(scores) {
+  console.log(
+    `Player One: ${scores.playerOne} | Computer: ${scores.playerTwo}\n`,
+  );
 }
 
 function restartGame() {
