@@ -139,50 +139,187 @@ function isPalindrome(number) {
 }
 ```
 
-5.
+5. Write a function that takes an array of numbers and returns an array with the same number of elements, but with each element's value being the running total from the original array.
 
-My Answer:
+Examples:
 
 ```javascript
-
+runningTotal([2, 5, 13]); // [2, 7, 20]
+runningTotal([14, 11, 7, 15, 20]); // [14, 25, 32, 47, 67]
+runningTotal([3]); // [3]
+runningTotal([]); // []
 ```
 
-6.
-
 My Answer:
 
 ```javascript
+function runningTotal(numArr) {
+  let newArr = [];
+  let sum = 0;
 
+  for (let i = 0; i < numArr.length; i++) {
+    newArr.push((sum += numArr[i]));
+  }
+
+  return newArr;
+}
 ```
 
-7.
+6. Letter Counter (Part 1)
 
-My Answer:
+Write a function that takes a string consisting of zero or more space separated words and returns an object that shows the number of words of different sizes.
+
+Words consist of any sequence of non-space characters.
+
+Examples:
 
 ```javascript
-
+wordSizes("Four score and seven."); // { "3": 1, "4": 1, "5": 1, "6": 1 }
+wordSizes("Hey diddle diddle, the cat and the fiddle!"); // { "3": 5, "6": 1, "7": 2 }
+wordSizes("What's up doc?"); // { "2": 1, "4": 1, "6": 1 }
+wordSizes(""); // {}
 ```
 
-8.
-
 My Answer:
 
 ```javascript
+function wordSizes(string) {
+  let letterCounts = {};
+  let strArr = string.split(" ");
 
+  for (let i = 0; i < strArr.length; i++) {
+    if (!(strArr[i].length in letterCounts)) {
+      letterCounts[strArr[i].length] = 1;
+      continue;
+    }
+    letterCounts[strArr[i].length] += 1;
+  }
+}
 ```
 
-9.
+7. Letter Counter (Part 2)
 
-My Answer:
+Modify the wordSizes function from the previous exercise to exclude non-letters when determining word size. For instance, the word size of "it's" is 3, not 4.
+
+Examples:
 
 ```javascript
-
+wordSizes("Four score and seven."); // { "3": 1, "4": 1, "5": 1, "6": 1 }
+wordSizes("Hey diddle diddle, the cat and the fiddle!"); // { "3": 5, "6": 1, "7": 2 }
+wordSizes("What's up doc?"); // { "2": 1, "4": 1, "6": 1 }
+wordSizes(""); // {}
 ```
 
-10.
+My Answer:
+
+```javascript
+function wordSizes(string) {
+  let letterCounts = {};
+  let strArr = string.split(" ");
+
+  if (string.length === 0) {
+    return letterCounts;
+  }
+
+  for (let i = 0; i < strArr.length; i++) {
+    let counter = 0;
+    for (const char of strArr[i]) {
+      if (char.toUpperCase() != char.toLowerCase()) {
+        counter += 1;
+      }
+    }
+    if (!(counter in letterCounts)) {
+      letterCounts[counter] = 1;
+      continue;
+    }
+
+    letterCounts[counter] += 1;
+  }
+  return letterCounts;
+}
+```
+
+8. Letter Swap
+
+Given a string of words separated by spaces, write a function that swaps the first and last letters of every word.
+
+You may assume that every word contains at least one letter, and that the string will always contain at least one word. You may also assume that each string contains nothing but words and spaces, and that there are no leading, trailing, or repeated spaces.
+
+Examples:
+
+```javascript
+swap("Oh what a wonderful day it is"); // "hO thaw a londerfuw yad ti si"
+swap("Abcde"); // "ebcdA"
+swap("a"); // "a"
+```
 
 My Answer:
 
 ```javascript
+function swap(string) {
+  let strArr = string.split(" ");
+  let newArr = [];
 
+  for (const element of strArr) {
+    let wordArr = element.split("");
+    let reserve = wordArr[0];
+    wordArr[0] = wordArr[wordArr.length - 1];
+    wordArr[wordArr.length - 1] = reserve;
+
+    newArr.push(wordArr.join(""));
+  }
+
+  return newArr.join(" ");
+}
+```
+
+9. Convert a String to a Number
+
+The parseInt() method converts a string of numeric characters (including an optional plus or minus sign) to an integer. The method takes 2 arguments where the first argument is the string we want to convert and the second argument should always be 10 for our purposes. parseInt() and the Number() method behave similarly. In this exercise, you will create a function that does the same thing.
+
+Write a function that takes a string of digits and returns the appropriate number as an integer. You may not use any of the methods mentioned above.
+
+For now, do not worry about leading + or - signs, nor should you worry about invalid characters; assume all characters will be numeric.
+
+You may not use any of the standard conversion methods available in JavaScript, such as String() and Number(). Your function should do this the old-fashioned way and calculate the result by analyzing the characters in the string.
+
+Examples
+
+```javascript
+console.log(stringToInteger("4321") === 4321); // logs true
+console.log(stringToInteger("570") === 570); // logs true
+```
+
+My Answer:
+
+```javascript
+function stringToInteger(numStr) {
+  return +numStr;
+}
+```
+
+10. Convert a String to a Signed Number
+
+In the previous exercise, you developed a function that converts simple numeric strings to integers. In this exercise, you're going to extend that function to work with signed numbers.
+
+Write a function that takes a string of digits and returns the appropriate number as an integer. The string may have a leading + or - sign; if the first character is a +, your function should return a positive number; if it is a -, your function should return a negative number. If there is no sign, return a positive number.
+
+You may assume the string will always contain a valid number.
+
+You may not use any of the standard conversion methods available in JavaScript, such as parseInt() and Number(). You may, however, use the stringToInteger() function from the previous lesson.
+
+Examples
+
+```javascript
+console.log(stringToSignedInteger("4321") === 4321); // logs true
+console.log(stringToSignedInteger("-570") === -570); // logs true
+console.log(stringToSignedInteger("+100") === 100); // logs true
+```
+
+My Answer:
+
+```javascript
+function stringToSignedInteger(numStr) {
+  return +numStr;
+}
 ```
