@@ -5,33 +5,31 @@ Write a function that takes a string, doubles every character in the string, and
 Examples:
 
 ```javascript
-repeater('Hello');        // "HHeelllloo"
-repeater('Good job!');    // "GGoooodd  jjoobb!!"
-repeater('');             // ""
+repeater("Hello"); // "HHeelllloo"
+repeater("Good job!"); // "GGoooodd  jjoobb!!"
+repeater(""); // ""
 ```
 
 My Answer:
 
 ```javascript
 function repeater(string) {
-    let newString = [];
-    if (string.length === 0) {
-        return ""
-    }
+  let newString = [];
+  if (string.length === 0) {
+    return "";
+  }
 
-    string.split('').forEach((char) => {
-        newString.push(char, char);
-        })
+  string.split("").forEach((char) => {
+    newString.push(char, char);
+  });
 
-    return newString.join("");
+  return newString.join("");
 }
-``` 
-
+```
 
 2. Double Char (Part 2);
 
 Write a function that takes a string, doubles every consonant character in the string, and returns the result as a new string. The function should not double vowels ('a','e','i','o','u'), digits, punctuation, or whitespace.
-
 
 My Answer:
 
@@ -40,16 +38,16 @@ function doubleConsonants(string) {
   let vowels = ["a", "e", "i", "o", "u"];
   let newString = [];
   if (string.length === 0) {
-      return ""
+    return "";
   }
 
-  string.split('').forEach((char) => {
-      if (!(vowels.includes(char))) {        
-        newString.push(char, char);
-      } else {
-          newString.push(char)
-      }
-    })
+  string.split("").forEach((char) => {
+    if (!vowels.includes(char)) {
+      newString.push(char, char);
+    } else {
+      newString.push(char);
+    }
+  });
   return newString.join("");
 }
 ```
@@ -61,18 +59,18 @@ Write a function that takes a positive integer as an argument and returns that n
 Examples:
 
 ```javascript
-reverseNumber(12345);    // 54321
-reverseNumber(12213);    // 31221
-reverseNumber(456);      // 654
-reverseNumber(12000);    // 21 -- Note that leading zeros in the result get dropped!
-reverseNumber(1);        // 1
+reverseNumber(12345); // 54321
+reverseNumber(12213); // 31221
+reverseNumber(456); // 654
+reverseNumber(12000); // 21 -- Note that leading zeros in the result get dropped!
+reverseNumber(1); // 1
 ```
 
 My Answer:
 
 ```javascript
 function reverseNumber(number) {
-  console.log(Number(String(number).split('').reverse().join('')));
+  console.log(Number(String(number).split("").reverse().join("")));
 }
 ```
 
@@ -85,21 +83,21 @@ You may assume that the argument will always be a positive integer.
 Examples:
 
 ```javascript
-sequence(5);    // [1, 2, 3, 4, 5]
-sequence(3);    // [1, 2, 3]
-sequence(1);    // [1]
+sequence(5); // [1, 2, 3, 4, 5]
+sequence(3); // [1, 2, 3]
+sequence(1); // [1]
 ```
 
 My Answer:
 
 ```javascript
 function sequence(number) {
-    let arr = [];
+  let arr = [];
 
-    for (let i = 1; i <= number; i++) {
-        arr.push(i);
-    }
-    return arr;
+  for (let i = 1; i <= number; i++) {
+    arr.push(i);
+  }
+  return arr;
 }
 ```
 
@@ -110,16 +108,16 @@ Write a function that takes a string argument consisting of a first name, a spac
 Examples:
 
 ```javascript
-swapName('Joe Roberts');    // "Roberts, Joe"
+swapName("Joe Roberts"); // "Roberts, Joe"
 ```
 
 My Answer:
 
 ```javascript
 function swapName(name) {
-    let splitName = name.split(' ').reverse();
-    splitName[0] = splitName += ',';
-    return splitName.join(' ');
+  let splitName = name.split(" ").reverse();
+  splitName[0] = splitName += ",";
+  return splitName.join(" ");
 }
 ```
 
@@ -132,25 +130,25 @@ You may assume that the count argument will always be an integer greater than or
 Examples:
 
 ```javascript
-sequence(5, 1);          // [1, 2, 3, 4, 5]
-sequence(4, -7);         // [-7, -14, -21, -28]
-sequence(3, 0);          // [0, 0, 0]
-sequence(0, 1000000);    // []
+sequence(5, 1); // [1, 2, 3, 4, 5]
+sequence(4, -7); // [-7, -14, -21, -28]
+sequence(3, 0); // [0, 0, 0]
+sequence(0, 1000000); // []
 ```
 
 My Answer:
 
 ```javascript
 function sequence(occurances, start) {
-    let arr = [];
-    let sum = 0;
+  let arr = [];
+  let sum = 0;
 
-    for (let i = 0; i < occurances; i++) {
-        sum += start;
-        arr.push(sum);
-    }
+  for (let i = 0; i < occurances; i++) {
+    sum += start;
+    arr.push(sum);
+  }
 
-    console.log(arr);
+  console.log(arr);
 }
 ```
 
@@ -161,16 +159,16 @@ Write a function that takes a string argument and returns a new string containin
 Examples:
 
 ```javascript
-reverseSentence('');                       // ""
-reverseSentence('Hello World');            // "World Hello"
-reverseSentence('Reverse these words');    // "words these Reverse"
+reverseSentence(""); // ""
+reverseSentence("Hello World"); // "World Hello"
+reverseSentence("Reverse these words"); // "words these Reverse"
 ```
 
 My Answer:
 
 ```javascript
 function reverseSentence(string) {
-    return string.split(" ").reverse().join(' ');
+  return string.split(" ").reverse().join(" ");
 }
 ```
 
@@ -181,28 +179,28 @@ Write a function that takes a string argument containing one or more words and r
 Examples:
 
 ```javascript
-reverseWords('Professional');             // "lanoisseforP"
-reverseWords('Walk around the block');    // "Walk dnuora the kcolb"
-reverseWords('Launch School');            // "hcnuaL loohcS"
+reverseWords("Professional"); // "lanoisseforP"
+reverseWords("Walk around the block"); // "Walk dnuora the kcolb"
+reverseWords("Launch School"); // "hcnuaL loohcS"
 ```
 
 My Answer:
 
 ```javascript
 function reverseWords(string) {
-    let strArr = string.split(' ');
-    
-    if (strArr.length === 1) {
-        return string.split('').reverse().join('');
-    }
+  let strArr = string.split(" ");
 
-    strArr = strArr.map((word) => {
-        if (word.length > 4){
-            return word.split('').reverse().join('');
-        }
-        return word;
-        })
-    return strArr.join(' ')
+  if (strArr.length === 1) {
+    return string.split("").reverse().join("");
+  }
+
+  strArr = strArr.map((word) => {
+    if (word.length > 4) {
+      return word.split("").reverse().join("");
+    }
+    return word;
+  });
+  return strArr.join(" ");
 }
 ```
 
@@ -244,8 +242,10 @@ function reverse(array) {
   let rightIndex = array.length - 1;
 
   while (leftIndex < array.length / 2) {
-    [array[leftIndex], array[rightIndex]] =
-      [array[rightIndex], array[leftIndex]];
+    [array[leftIndex], array[rightIndex]] = [
+      array[rightIndex],
+      array[leftIndex],
+    ];
     leftIndex += 1;
     rightIndex -= 1;
   }
@@ -253,10 +253,50 @@ function reverse(array) {
 }
 ```
 
-10.
+10. Matching Parentheses?
+
+Write a function that takes a string as an argument and returns true if all parentheses in the string are properly balanced, false otherwise. To be properly balanced, parentheses must occur in matching '(' and ')' pairs.
+
+Examples:
+
+```javascript
+console.log(isBalanced("What (is) this?") === true);
+console.log(isBalanced("What is) this?") === false);
+console.log(isBalanced("What (is this?") === false);
+console.log(isBalanced("((What) (is this))?") === true);
+console.log(isBalanced("((What)) (is this))?") === false);
+console.log(isBalanced("Hey!") === true);
+console.log(isBalanced(")Hey!(") === false);
+console.log(isBalanced("What ((is))) up(") === false);
+```
 
 My Answer:
 
 ```javascript
+function isBalanced(string) {
+  let strArr = string.split("");
+  let stack = [];
 
+  for (const char of strArr) {
+    if (["(", ")"].includes(char)) {
+      if (char === "(") {
+        stack.push(char);
+      }
+
+      if (char === ")" && stack.length === 0) {
+        return false;
+      } else if (char === ")") {
+        stack.pop();
+      }
+    } else {
+      continue;
+    }
+  }
+
+  if (stack.length === 0) {
+    return true;
+  }
+
+  return false;
+}
 ```
