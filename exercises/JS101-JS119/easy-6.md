@@ -174,20 +174,83 @@ function reverseSentence(string) {
 }
 ```
 
-8.
+8. Reverse It (Part 2)
 
-My Answer:
+Write a function that takes a string argument containing one or more words and returns a new string containing the words from the string argument. All five-or-more letter words should have their letters in reverse order. The string argument will consist of only letters and spaces. Words will be separated by a single space.
+
+Examples:
 
 ```javascript
-
+reverseWords('Professional');             // "lanoisseforP"
+reverseWords('Walk around the block');    // "Walk dnuora the kcolb"
+reverseWords('Launch School');            // "hcnuaL loohcS"
 ```
 
-9.
+My Answer:
+
+```javascript
+function reverseWords(string) {
+    let strArr = string.split(' ');
+    
+    if (strArr.length === 1) {
+        return string.split('').reverse().join('');
+    }
+
+    strArr = strArr.map((word) => {
+        if (word.length > 4){
+            return word.split('').reverse().join('');
+        }
+        return word;
+        })
+    return strArr.join(' ')
+}
+```
+
+9. Reversed Arrays
+
+Write a function that takes an Array as an argument and reverses its elements in place. That is, mutate the Array passed into this method. The return value should be the same Array object.
+
+You may not use Array.prototype.reverse().
+
+Examples:
+
+```javascript
+let list = [1, 2, 3, 4];
+let result = reverse(list);
+console.log(result); // logs [4,3,2,1]
+console.log(list === result); // logs true
+
+let list1 = ["a", "b", "c", "d", "e"];
+let result1 = reverse(list1);
+console.log(result1); // logs  ["e", "d", "c", "b", "a"]
+console.log(list1 === result1); // logs true
+
+let list2 = ["abc"];
+let result2 = reverse(list2);
+console.log(result2); // logs  ["abc"]
+console.log(list2 === result2); // logs true
+
+let list3 = [];
+let result3 = reverse(list3);
+console.log(result3); // logs []
+console.log(list3 === result3); // logs true
+```
 
 My Answer:
 
 ```javascript
+function reverse(array) {
+  let leftIndex = 0;
+  let rightIndex = array.length - 1;
 
+  while (leftIndex < array.length / 2) {
+    [array[leftIndex], array[rightIndex]] =
+      [array[rightIndex], array[leftIndex]];
+    leftIndex += 1;
+    rightIndex -= 1;
+  }
+  return array;
+}
 ```
 
 10.
