@@ -147,42 +147,174 @@ function swapCase(string) {
 }
 ```
 
-6.
+6. Staggered Caps (Part 1)
 
-My Answer:
+Write a function that takes a string as an argument and returns that string with a staggered capitalization scheme. Every other character, starting from the first, should be capitalized and should be followed by a lowercase or non-alphabetic character. Non-alphabetic characters should not be changed, but should be counted as characters for determining when to switch between upper and lower case.
+
+Examples:
 
 ```javascript
-
+staggeredCase("I Love Launch School!"); // "I LoVe lAuNcH ScHoOl!"
+staggeredCase("ALL_CAPS"); // "AlL_CaPs"
+staggeredCase("ignore 77 the 4444 numbers"); // "IgNoRe 77 ThE 4444 nUmBeRs"
 ```
 
-7.
-
 My Answer:
 
 ```javascript
+function staggeredCase(string) {
+  let caseSwitch = true;
 
+  return string
+    .split("")
+    .map((char) => {
+      if (caseSwitch) {
+        caseSwitch = false;
+        return char.toUpperCase();
+      } else {
+        caseSwitch = true;
+        return char.toLowerCase();
+      }
+    })
+    .join("");
+}
 ```
 
-8.
+7. Staggered Caps (Part 2)
 
-My Answer:
+Modify the function from the previous exercise so it ignores non-alphabetic characters when determining whether it should uppercase or lowercase each letter. The non-alphabetic characters should still be included in the return value; they just don't count when toggling the desired case.
+
+Example:
 
 ```javascript
-
+console.log(staggeredCase("I Love Launch School!") === "I lOvE lAuNcH sChOoL!");
+console.log(staggeredCase("ALL CAPS") === "AlL cApS");
+console.log(
+  staggeredCase("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs",
+);
 ```
 
-9.
-
 My Answer:
 
 ```javascript
-
+function staggeredCase(string) {
+  let caseSwitch = true;
+  return string
+    .split("")
+    .map((char) => {
+      if (char.search(/[a-z]/gi) >= 0) {
+        if (caseSwitch) {
+          caseSwitch = false;
+          return char.toUpperCase();
+        } else {
+          caseSwitch = true;
+          return char.toLowerCase();
+        }
+      }
+      return char;
+    })
+    .join("");
+}
 ```
 
-10.
+8. How long are you?
+
+Write a function that takes a string as an argument and returns an array that contains every word from the string, with each word followed by a space and the word's length. If the argument is an empty string or if no argument is passed, the function should return an empty array.
+
+You may assume that every pair of words in the string will be separated by a single space.
+
+Examples:
+
+```javascript
+wordLengths("cow sheep chicken");
+// ["cow 3", "sheep 5", "chicken 7"]
+
+wordLengths("baseball hot dogs and apple pie");
+// ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+
+wordLengths("It ain't easy, is it?");
+// ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+
+wordLengths("Supercalifragilisticexpialidocious");
+// ["Supercalifragilisticexpialidocious 34"]
+
+wordLengths(""); // []
+wordLengths(); // []
+```
 
 My Answer:
 
 ```javascript
+function wordLengths(strings) {
+  if (!strings) {
+    return [];
+  }
 
+  return strings.split(" ").map((string) => {
+    return `${string} ${string.length}`;
+  });
+}
+```
+
+9.  Search Word (Part 1)
+
+Write a function that takes two arguments, a word and a string of text, and returns an integer representing the number of times the word appears in the text.
+
+You may assume that the word and text inputs will always be provided, and that all word breaks are spaces. Thus, some words will include punctuation such as periods and commas. Also assume that the search is case-insensitive.
+
+Example:
+
+```javascript
+const text =
+  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
+
+searchWord("sed", text); // 3
+```
+
+My Answer:
+
+```javascript
+function searchWord(searchWord, text) {
+  let regex = new RegExp(searchWord, "gi");
+  return text.split(" ").reduce((accum, current) => {
+    if (current.search(regex) >= 0) {
+      accum += 1;
+    }
+    return accum;
+  }, 0);
+}
+```
+
+10. Search Word (Part 2)
+
+The function from the previous exercise returns the number of occurrences of a word in some text. Although this is useful, there are also situations in which we just want to find the word in the context of the text.
+
+For this exercise, write a function that takes a word and some text as arguments, and returns the text with every instance of the word highlighted. To highlight a word, enclose the word with two asterisks ('**') on each side and change every letter of the word to uppercase (e.g., '**HIGHLIGHTEDWORD\*\*').
+
+Example:
+
+```javascript
+const text =
+  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Sed quis autem vel est, iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur blasedbla?";
+
+searchWord("sed", text);
+// returns
+// "**SED** ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, **SED** quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, **SED** quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? **SED** quis autem vel est, iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur blasedbla?"
+```
+
+My Answer:
+
+```javascript
+function searchWord(searchWord, text) {
+  let regex = new RegExp(searchWord, "gi");
+  return text
+    .split(" ")
+    .map((word) => {
+      if (word.search(regex) >= 0) {
+        return `**${word.toUpperCase()}**`;
+      }
+      return word;
+    })
+    .join(" ");
+}
 ```
