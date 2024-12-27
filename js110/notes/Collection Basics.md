@@ -46,7 +46,7 @@ obj['vegetable']; // => 'c'
 
 Within the `object` on the left are the `Keys` then delimited with a `:` semi-colon after. The `Value` is on the right side being assigned to that `Key`, `Value`'s can be any data type within an object.
 
-We can use the `.` dot notation with the `Key` to access the `Value` of an object. Or we can use the `[]` bracket notation with the `Key` within parentheses (single or double) to access that `Value`
+We can use the `.` dot notation with the `Key` to access the `Value` of an object. Or we can use the `[]` bracket notation with the `Key` within quotes (single or double) to access that `Value`
 
 When creating a `object` each `Key`  have to be unique. If not when using the same `Key` name will make the `Key` last written overwrite all other identical `Key`.
 
