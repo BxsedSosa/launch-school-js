@@ -15,3 +15,7 @@ function searchWord(searchWord, text) {
     .join(" ");
 }
 console.log(searchWord("sed", text)); // 3
+
+function jdaklfjdkl(dfkjakl) {
+  let word = 'hello';
+}
