@@ -4,10 +4,10 @@ main();
 
 function main() {
   let grid = createGrid();
-  createGameGrid(grid);
+  displayGameGrid(grid);
 }
 
-function createGameGrid(grid) {
+function displayGameGrid(grid) {
   let spacer = "---------";
   let display = grid.map((layer) => {
     return layer.join(" | ");
@@ -22,10 +22,13 @@ function createGameGrid(grid) {
 }
 
 function createGrid() {
-  let row = ["x", "x", "x"];
-  let grid = row.map((_) => row);
+  let gridSize = 3;
 
-  return grid;
+  return Array(gridSize)
+    .fill()
+    .map(() => {
+      return Array(gridSize).fill("e");
+    });
 }
 
 function getPlayerSelection() {

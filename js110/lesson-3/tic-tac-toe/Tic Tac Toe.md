@@ -2,7 +2,7 @@
 
 ## Objectives
 
-- [ ] Create a 3 x 3 grid 
+- [x] Create a 3 x 3 grid
 - [ ] Figure out player input for selecting a square
 - [ ] Create a CPU ai to make smart decisions
 	- [ ] Create random selection
@@ -43,7 +43,7 @@ And have each element of those arrays fill in the `X` whether its the users or t
 
 Hard part for user here would be on how to select the grid coordinates
 
-**Approach 1** 
+**Approach 1**
 ```
 1 | 2 | 3
 ---------
@@ -73,10 +73,10 @@ Allow CPU to pick next winning move, if else pick a defensive move, if else pick
 Winning move -> Defensive move -> Middle -> Random
 ```
 
-Make the CPU play smarter on selection. If User is about to win then play defense, If CPU has 2 in a row and is able to win play more offensively 
+Make the CPU play smarter on selection. If User is about to win then play defense, If CPU has 2 in a row and is able to win play more offensively
 #### Defense
 
-If user has 2 in a row and the 3rd is open, have the CPU cover that spot to stop the user from winning 
+If user has 2 in a row and the 3rd is open, have the CPU cover that spot to stop the user from winning
 
 #### Offense
 
