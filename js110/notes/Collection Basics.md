@@ -105,7 +105,7 @@ arr.forEach(element => console.log(element)); // prints: foo, bar, qux
 Object.keys(arr);  // => [ '0', '1', '2', 'boo', '-1' ]
 ```
 
-By using bracket notation, we can add properties to an `Array`. Since `Arrays` are non-negative indexing using `-1` will work as a key instead of trying to access a element in some other languages. These properties will be added to the end of an array as if you were to `push` them to the end. 
+By using bracket notation, we can add properties to an `Array`. Since `Arrays` are non-negative indexing using `-1` will work as a key instead of trying to access a element in some other languages. These properties will be added to the end of an array as if you were to `push` them to the end.
 
 Its important to note that the `properties` DO NOT count as part of the `Array`'s length. Nor does using the `forEach` method on the array use the properties as elements.
 
@@ -113,4 +113,3 @@ Its important to note that the `properties` DO NOT count as part of the `Array`'
 Created on: 2024-12-27 10:04
 Tags: #fleeting #thinking #thoughts
 References:
-
