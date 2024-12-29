@@ -105,6 +105,24 @@ function checkThreeInRow(grid) {
   return false;
 }
 
+function checkThreeInColumn(grid) {
+  let columns = grid.map((_, idx, arr) => {
+    return [arr[0][idx], arr[1][idx], arr[2][[idx]]];
+  });
+
+  return checkThreeInRow(columns);
+}
+
+let grid = createGrid();
+
+grid[0][2] = "X";
+grid[1][2] = "X";
+grid[2][2] = "X";
+
+console.log(checkThreeInColumn(grid));
+
+function checkThreeInDiagonal(grid) { }
+
 function countElements(row) {
   let counter = {
     X: 0,
@@ -121,18 +139,6 @@ function countElements(row) {
 
   return counter;
 }
-
-let grid = createGrid();
-
-grid[0][0] = "X";
-grid[0][1] = "O";
-grid[0][2] = "X";
-grid[1][0] = "X";
-grid[1][1] = "X";
-grid[1][2] = "X";
-
-console.log(grid);
-console.log(checkThreeInRow(grid));
 
 function checkThreeWins(player1Score, player2Score) {
   if (player1Score > 2) {
