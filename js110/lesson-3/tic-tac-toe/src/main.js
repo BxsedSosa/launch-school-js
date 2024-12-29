@@ -1,7 +1,7 @@
-function main() {
-  for (let i = 0; i < 10; i++) {
-    console.log(i);
-  }
-}
+import rl_sync from "readline-sync";
 
-main();
+function main() {}
+
+function createGrid() {
+  // Create the 3x3 grid for the play area and return it
+}
