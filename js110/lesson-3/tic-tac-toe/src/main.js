@@ -1,12 +1,16 @@
-import rl_sync from "readline-sync";
+import rlSync from "readline-sync";
 
 main();
 
 function main() {
   let grid = createGrid();
+
+  let userInput = getPlayerSelection(grid);
+  grid = changeGrid(grid, userInput, true);
   displayGameGrid(grid);
-  let userInput = getPlayerSelection();
-  grid = changeGrid(grid, userInput, "user");
+
+  let cpuInput = getCpuSelection(grid);
+  grid = changeGrid(grid, cpuInput);
   displayGameGrid(grid);
 }
 
@@ -30,28 +34,40 @@ function createGrid() {
   return Array(gridSize)
     .fill()
     .map(() => {
-      return Array(gridSize).fill("e");
+      return Array(gridSize).fill(" ");
     });
 }
 
-function changeGrid(grid, playerInput, whichPlayer) {
-  if (whichPlayer === "user") {
-    grid[playerInput[0]][playerInput[1]] = "X";
-    return grid;
+function changeGrid(grid, playerInput, usersPick = false) {
+  let newGrid = grid.slice();
+  if (usersPick) {
+    newGrid[playerInput[0]][playerInput[1]] = "X";
+  } else {
+    newGrid[playerInput[0]][[playerInput[1]]] = "O";
   }
 
-  grid[(playerInput[0], playerInput[1])] = "O";
-  return grid;
+  return newGrid;
 }
 
-function getPlayerSelection() {
-  // Get the players grid selection
-  let userInput = rl_sync.question("Enter something: \n");
-  return getMapSelection(userInput);
+function getPlayerSelection(grid) {
+  let userInput = rlSync.question("Enter something:\n");
+  let gridCorrdinates = getMapSelection(userInput);
+
+  if (checkIfSelectionIsUsed(grid, gridCorrdinates)) {
+    userInput = rlSync.question("Please re-enter a new input:\n");
+  }
+
+  return gridCorrdinates;
 }
 
-function getCpuSelection() {
-  // Get CPU grid selection
+function getCpuSelection(grid) {
+  let cpuCorredinates = getMapSelection(getRandomNumber());
+
+  if (checkIfSelectionIsUsed(grid, cpuCorredinates)) {
+    cpuCorredinates = getMapSelection(getRandomNumber());
+  }
+
+  return cpuCorredinates;
 }
 
 function getPlayerRetry() {
@@ -74,9 +90,21 @@ function getMapSelection(playerInput) {
   return gridMap[playerInput];
 }
 
-function checkThreeInRow() {
-  // Verify for winner after each players turn
+function getRandomNumber() {
+  let minNumber = 1;
+  let maxNumber = 9;
+  return Math.floor(Math.random() * (maxNumber - minNumber + 1) + minNumber);
 }
+
+function checkIfSelectionIsUsed(grid, corr) {
+  if (["X", "O"].includes(grid[corr[0]][corr[1]])) {
+    return true;
+  }
+
+  return false;
+}
+
+function checkThreeInRow(grid) { }
 
 function checkThreeWins() {
   // Verify for player with 3 wins
