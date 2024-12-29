@@ -38,10 +38,12 @@ function createGrid() {
 
 function changeGrid(grid, playerInput, usersPick = false) {
   let newGrid = grid.slice();
+  let playerSelection = newGrid[playerInput[0]][playerInput[1]];
+
   if (usersPick) {
-    newGrid[playerInput[0]][playerInput[1]] = "X";
+    playerSelection = "X";
   } else {
-    newGrid[playerInput[0]][[playerInput[1]]] = "O";
+    playerSelection = "O";
   }
 
   return newGrid;
@@ -85,16 +87,40 @@ function getRandomNumber() {
 }
 
 function checkIfSelectionIsUsed(grid, corr) {
-  if (["X", "O"].includes(grid[corr[0]][corr[1]])) {
+  let playerSelection = grid[corr[0]][corr[1]];
+
+  if (["X", "O"].includes(playerSelection)) {
     return true;
   }
 
   return false;
 }
 
-function checkThreeInRow(grid) { }
+function checkThreeInRow(grid) {
+  for (let row of grid) {
+    if (Object.values(countElements(row)).includes(3)) {
+      return true;
+    }
+  }
+  return false;
+}
 
-function countElements(row) { }
+function countElements(row) {
+  let counter = {
+    X: 0,
+    O: 0,
+  };
+
+  for (let element of row) {
+    if (element === "X") {
+      counter["X"] += 1;
+    } else if (element === "O") {
+      counter["O"] += 1;
+    }
+  }
+
+  return counter;
+}
 
 let grid = createGrid();
 
