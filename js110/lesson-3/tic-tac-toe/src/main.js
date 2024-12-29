@@ -75,17 +75,7 @@ function getPlayerRetry() {
 }
 
 function getMapSelection(playerInput) {
-  let gridMap = {
-    1: [0, 0],
-    2: [0, 1],
-    3: [0, 2],
-    4: [1, 0],
-    5: [1, 1],
-    6: [1, 2],
-    7: [2, 0],
-    8: [2, 1],
-    9: [2, 2],
-  };
+  let gridMap = createGridMap();
 
   return gridMap[playerInput];
 }
@@ -108,4 +98,26 @@ function checkThreeInRow(grid) { }
 
 function checkThreeWins() {
   // Verify for player with 3 wins
+}
+
+function createGridMap() {
+  let keys = Array(9)
+    .fill()
+    .map((_, idx) => idx + 1);
+
+  let values = Array(3)
+    .fill()
+    .map((_, idx) => idx);
+
+  values = values
+    .map((num) => {
+      return values.map((num2) => [num, num2]);
+    })
+    .flat();
+
+  let entry = keys.map((ele, idx) => {
+    return [ele, values[idx]];
+  });
+
+  return Object.fromEntries(entry);
 }
