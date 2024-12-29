@@ -1,7 +1,5 @@
 import rlSync from "readline-sync";
 
-main();
-
 function main() {
   let grid = createGrid();
 
@@ -95,6 +93,22 @@ function checkIfSelectionIsUsed(grid, corr) {
 }
 
 function checkThreeInRow(grid) { }
+
+function countElements(row) {
+  let counts = {};
+}
+
+let grid = createGrid();
+
+grid[0][0] = "X";
+grid[0][1] = "O";
+grid[0][2] = "X";
+grid[1][0] = "X";
+grid[1][1] = "X";
+grid[1][2] = "X";
+
+console.log(grid);
+console.log(checkThreeInRow(grid));
 
 function checkThreeWins() {
   // Verify for player with 3 wins
