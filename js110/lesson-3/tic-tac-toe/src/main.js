@@ -1,9 +1,31 @@
 import rl_sync from "readline-sync";
 
-function main() {}
+main();
+
+function main() {
+  let grid = createGrid();
+  createGameGrid(grid);
+}
+
+function createGameGrid(grid) {
+  let spacer = "---------";
+  let display = grid.map((layer) => {
+    return layer.join(" | ");
+  });
+
+  display.forEach((element, idx) => {
+    console.log(element);
+    if (idx + 1 != display.length) {
+      console.log(spacer);
+    }
+  });
+}
 
 function createGrid() {
-  // Create the 3x3 grid for the play area and return it
+  let row = ["x", "x", "x"];
+  let grid = row.map((_) => row);
+
+  return grid;
 }
 
 function getPlayerSelection() {
