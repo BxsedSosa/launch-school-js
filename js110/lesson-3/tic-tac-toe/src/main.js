@@ -94,9 +94,7 @@ function checkIfSelectionIsUsed(grid, corr) {
 
 function checkThreeInRow(grid) { }
 
-function countElements(row) {
-  let counts = {};
-}
+function countElements(row) { }
 
 let grid = createGrid();
 
@@ -110,8 +108,16 @@ grid[1][2] = "X";
 console.log(grid);
 console.log(checkThreeInRow(grid));
 
-function checkThreeWins() {
-  // Verify for player with 3 wins
+function checkThreeWins(player1Score, player2Score) {
+  if (player1Score > 2) {
+    return "player 1";
+  }
+
+  if (player2Score > 2) {
+    return "player 2";
+  }
+
+  return "";
 }
 
 function createGridMap() {
