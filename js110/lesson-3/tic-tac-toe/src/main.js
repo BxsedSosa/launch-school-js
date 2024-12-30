@@ -5,16 +5,30 @@ main();
 function main() {
   let running = true;
   let grid = createGrid();
+  let playerTurn = true;
 
   while (running) {
+    if (playerTurn) {
+      grid = gameLoop(grid, playerTurn);
+      displayGameGrid(grid);
+      playerTurn = false;
+    } else {
+      grid = gameLoop(grid, playerTurn);
+      displayGameGrid(grid);
+      playerTurn = true;
+    }
+  }
+}
+
+function gameLoop(grid, playerTurn) {
+  if (playerTurn) {
     let userInput = getPlayerSelection(grid);
     grid = changeGrid(grid, userInput, true);
-    displayGameGrid(grid);
-
+  } else {
     let cpuInput = getCpuSelection(grid);
     grid = changeGrid(grid, cpuInput);
-    displayGameGrid(grid);
   }
+  return grid;
 }
 
 function displayGameGrid(grid) {
