@@ -17,6 +17,11 @@ function main() {
       displayGameGrid(grid);
       playerTurn = true;
     }
+
+    if (checkRoundWinner(grid)) {
+      console.log("winner");
+      running = false;
+    }
   }
 }
 
@@ -39,7 +44,7 @@ function displayGameGrid(grid) {
 
   display.forEach((element, idx) => {
     console.log(element);
-    if (idx + 1 != display.length) {
+    if (idx + 1 !== display.length) {
       console.log(spacer);
     }
   });
@@ -112,29 +117,37 @@ function checkIfSelectionIsUsed(grid, corr) {
 }
 
 function checkThreeInRow(grid) {
-  for (let row of grid) {
-    if (Object.values(countElements(row)).includes(3)) {
-      return true;
-    }
-  }
-  return false;
+  return grid
+    .map((row) => {
+      return Object.values(countElements(row)).includes(3);
+    })
+    .includes(true);
 }
 
 function checkThreeInColumn(grid) {
   let columns = grid.map((_, idx, arr) => {
-    return [arr[0][idx], arr[1][idx], arr[2][[idx]]];
+    return [arr[0][idx], arr[1][idx], arr[2][idx]];
   });
 
   return checkThreeInRow(columns);
 }
 
 function checkThreeInDiagonal(grid) {
-  let diagonalRow = [];
-
-  diagonalRow.push([grid[0][0], grid[1][1], grid[2][2]]);
-  diagonalRow.push([grid[0][2], grid[1][1], grid[2][0]]);
+  let diagonalLineOne = [grid[0][0], grid[1][1], grid[2][2]];
+  let diagonalLineTwo = [grid[0][2], grid[1][1], grid[2][1]];
+  let diagonalRow = [diagonalLineOne, diagonalLineTwo];
 
   return checkThreeInRow(diagonalRow);
+}
+
+function checkRoundWinner(grid) {
+  let checks = [
+    checkThreeInRow(grid),
+    checkThreeInDiagonal(grid),
+    checkThreeInColumn(grid),
+  ];
+
+  return checks.includes(true);
 }
 
 function countElements(row) {
@@ -143,10 +156,10 @@ function countElements(row) {
     O: 0,
   };
 
-  for (let element of row) {
-    if (element === "X") {
+  for (let ele of row) {
+    if (ele === "X") {
       counter["X"] += 1;
-    } else if (element === "O") {
+    } else if (ele === "O") {
       counter["O"] += 1;
     }
   }
