@@ -1,15 +1,20 @@
 import rlSync from "readline-sync";
 
+main();
+
 function main() {
+  let running = true;
   let grid = createGrid();
 
-  let userInput = getPlayerSelection(grid);
-  grid = changeGrid(grid, userInput, true);
-  displayGameGrid(grid);
+  while (running) {
+    let userInput = getPlayerSelection(grid);
+    grid = changeGrid(grid, userInput, true);
+    displayGameGrid(grid);
 
-  let cpuInput = getCpuSelection(grid);
-  grid = changeGrid(grid, cpuInput);
-  displayGameGrid(grid);
+    let cpuInput = getCpuSelection(grid);
+    grid = changeGrid(grid, cpuInput);
+    displayGameGrid(grid);
+  }
 }
 
 function displayGameGrid(grid) {
@@ -38,12 +43,11 @@ function createGrid() {
 
 function changeGrid(grid, playerInput, usersPick = false) {
   let newGrid = grid.slice();
-  let playerSelection = newGrid[playerInput[0]][playerInput[1]];
 
   if (usersPick) {
-    playerSelection = "X";
+    newGrid[playerInput[0]][playerInput[1]] = "X";
   } else {
-    playerSelection = "O";
+    newGrid[playerInput[0]][playerInput[1]] = "O";
   }
 
   return newGrid;
@@ -53,8 +57,9 @@ function getPlayerSelection(grid) {
   let userInput = rlSync.question("Enter something:\n");
   let gridCorrdinates = getMapSelection(userInput);
 
-  if (checkIfSelectionIsUsed(grid, gridCorrdinates)) {
+  while (checkIfSelectionIsUsed(grid, gridCorrdinates)) {
     userInput = rlSync.question("Please re-enter a new input:\n");
+    gridCorrdinates = getMapSelection(userInput);
   }
 
   return gridCorrdinates;
@@ -63,7 +68,7 @@ function getPlayerSelection(grid) {
 function getCpuSelection(grid) {
   let cpuCorredinates = getMapSelection(getRandomNumber());
 
-  if (checkIfSelectionIsUsed(grid, cpuCorredinates)) {
+  while (checkIfSelectionIsUsed(grid, cpuCorredinates)) {
     cpuCorredinates = getMapSelection(getRandomNumber());
   }
 
@@ -89,11 +94,7 @@ function getRandomNumber() {
 function checkIfSelectionIsUsed(grid, corr) {
   let playerSelection = grid[corr[0]][corr[1]];
 
-  if (["X", "O"].includes(playerSelection)) {
-    return true;
-  }
-
-  return false;
+  return ["X", "O"].includes(playerSelection);
 }
 
 function checkThreeInRow(grid) {
@@ -113,15 +114,14 @@ function checkThreeInColumn(grid) {
   return checkThreeInRow(columns);
 }
 
-let grid = createGrid();
+function checkThreeInDiagonal(grid) {
+  let diagonalRow = [];
 
-grid[0][2] = "X";
-grid[1][2] = "X";
-grid[2][2] = "X";
+  diagonalRow.push([grid[0][0], grid[1][1], grid[2][2]]);
+  diagonalRow.push([grid[0][2], grid[1][1], grid[2][0]]);
 
-console.log(checkThreeInColumn(grid));
-
-function checkThreeInDiagonal(grid) { }
+  return checkThreeInRow(diagonalRow);
+}
 
 function countElements(row) {
   let counter = {
