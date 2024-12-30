@@ -4,46 +4,47 @@ main();
 
 function main() {
   let running = true;
-  let grid = createGrid();
-  let playerTurn = true;
+  let scores = {
+    playerOne: 0,
+    cpu: 0,
+    ties: 0,
+  };
 
   while (running) {
-    if (playerTurn) {
-      grid = gameLoop(grid, playerTurn);
-      displayGameGrid(grid);
-      playerTurn = false;
-    } else {
-      grid = gameLoop(grid, playerTurn);
-      displayGameGrid(grid);
-      playerTurn = true;
-    }
+    let roundWinner = gameRoundLoop(running, scores);
+    console.log(roundWinner);
 
-    if (checkRoundWinner(grid)) {
-      console.log("winner");
+    scores = incrementScore(roundWinner);
+
+    if (Object.values(scores).includes(3)) {
       running = false;
     }
   }
 }
 
-function gameLoop(grid, playerTurn) {
-  if (playerTurn) {
-    let userInput = getPlayerSelection(grid);
-    grid = changeGrid(grid, userInput, true);
-  } else {
-    let cpuInput = getCpuSelection(grid);
-    grid = changeGrid(grid, cpuInput);
+function gameRoundLoop(runStatus, scores) {
+  let grid = createGrid();
+  let roundResult = [];
+  let selects = [getPlayerSelection, getCpuSelection];
+
+  while (runStatus) {
+    for (let idx = 0; idx < selects.length; idx++) {
+      roundResult = selects[idx](grid, scores);
+      runStatus = roundResult[0];
+    }
   }
-  return grid;
+  return roundResult[1];
 }
 
-function displayGameGrid(grid) {
+function displayGameGrid(grid, scores) {
   let spacer = "---------";
   let display = grid.map((layer) => {
     return layer.join(" | ");
   });
 
-  display.forEach((element, idx) => {
-    console.log(element);
+  console.log(scores);
+  display.forEach((gridRow, idx) => {
+    console.log(gridRow);
     if (idx + 1 !== display.length) {
       console.log(spacer);
     }
@@ -61,18 +62,17 @@ function createGrid() {
 }
 
 function changeGrid(grid, playerInput, usersPick = false) {
-  let newGrid = grid.slice();
-
   if (usersPick) {
-    newGrid[playerInput[0]][playerInput[1]] = "X";
+    grid[playerInput[0]][playerInput[1]] = "X";
   } else {
-    newGrid[playerInput[0]][playerInput[1]] = "O";
+    grid[playerInput[0]][playerInput[1]] = "O";
   }
 
-  return newGrid;
+  displayGameGrid(grid);
 }
 
-function getPlayerSelection(grid) {
+function getPlayerSelection(grid, scores) {
+  displayGameGrid(grid, scores);
   let userInput = rlSync.question("Enter something:\n");
   let gridCorrdinates = getMapSelection(userInput);
 
@@ -81,17 +81,22 @@ function getPlayerSelection(grid) {
     gridCorrdinates = getMapSelection(userInput);
   }
 
-  return gridCorrdinates;
+  changeGrid(grid, gridCorrdinates, true);
+
+  return [!checkRoundWinner(grid), "X"];
 }
 
-function getCpuSelection(grid) {
+function getCpuSelection(grid, scores) {
+  displayGameGrid(grid, scores);
   let cpuCorredinates = getMapSelection(getRandomNumber());
 
   while (checkIfSelectionIsUsed(grid, cpuCorredinates)) {
     cpuCorredinates = getMapSelection(getRandomNumber());
   }
 
-  return cpuCorredinates;
+  changeGrid(grid, cpuCorredinates);
+
+  return [!checkRoundWinner(grid), "O"];
 }
 
 function getPlayerRetry() {
@@ -177,6 +182,22 @@ function checkThreeWins(player1Score, player2Score) {
   }
 
   return "";
+}
+
+function incrementScore(scores, roundResult) {
+  let newScores = {
+    ...scores,
+  };
+
+  console.log(newScores);
+
+  if (roundResult === "X") {
+    newScores["playerOne"] += 1;
+  } else if (roundResult === "O") {
+    newScores["cpu"] += 1;
+  }
+
+  return newScores;
 }
 
 function createGridMap() {
