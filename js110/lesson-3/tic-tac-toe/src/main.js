@@ -12,10 +12,9 @@ function main() {
 
   while (running) {
     let roundResult = gameRoundLoop(running, scores);
-
     scores = incrementScore(scores, roundResult);
 
-    if (Object.values(scores).includes(3)) {
+    if (checkThreeWins(scores["playerOne"], scores["cpu"])) {
       running = false;
     }
   }
@@ -44,25 +43,30 @@ function gameRoundLoop(runStatus, scores) {
   return "tie";
 }
 
-function selectionSwitch(grid, scores, playersTurn = false) {
-  if (playersTurn) {
-    return getPlayerSelection(grid, scores);
-  } else {
-    return getCpuSelection(grid, scores);
-  }
+function selectionSwitch(grid, scores, playersTurn) {
+  return playersTurn
+    ? getPlayerSelection(grid, scores)
+    : getCpuSelection(grid, scores);
 }
 
 function displayGameGrid(grid, scores) {
+  console.clear();
+  let scoreBoard = `Player One: ${scores["playerOne"]} | Ties: ${scores["ties"]} | Cpu: ${scores["cpu"]}\n`;
+  let middleLen = Math.floor(scoreBoard.length / 2);
   let spacer = "---------";
   let display = grid.map((layer) => {
     return layer.join(" | ");
   });
 
-  console.log(scores);
+  console.log(scoreBoard);
   display.forEach((gridRow, idx) => {
-    console.log(gridRow);
+    console.log(
+      `${" ".repeat(middleLen - Math.floor(gridRow.length / 2))}${gridRow}`,
+    );
     if (idx + 1 !== display.length) {
-      console.log(spacer);
+      console.log(
+        `${" ".repeat(middleLen - Math.floor(spacer.length / 2))}${spacer}`,
+      );
     }
   });
 }
@@ -83,17 +87,15 @@ function changeGrid(grid, playerInput, usersPick = false) {
   } else {
     grid[playerInput[0]][playerInput[1]] = "O";
   }
-
-  displayGameGrid(grid);
 }
 
 function getPlayerSelection(grid, scores) {
   displayGameGrid(grid, scores);
-  let userInput = rlSync.question("Enter something:\n");
+  let userInput = rlSync.question("\nEnter something:\n");
   let gridCorrdinates = getMapSelection(userInput);
 
   while (checkIfSelectionIsUsed(grid, gridCorrdinates)) {
-    userInput = rlSync.question("Please re-enter a new input:\n");
+    userInput = rlSync.question("\nPlease re-enter a new input:\n");
     gridCorrdinates = getMapSelection(userInput);
   }
 
@@ -196,13 +198,13 @@ function countElements(row) {
   return counter;
 }
 
-function checkThreeWins(player1Score, player2Score) {
+function checkThreeWins(player1Score, cpuScore) {
   if (player1Score > 2) {
     return "player 1";
   }
 
-  if (player2Score > 2) {
-    return "player 2";
+  if (cpuScore > 2) {
+    return "cpu";
   }
 
   return "";
