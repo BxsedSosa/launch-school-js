@@ -11,10 +11,9 @@ function main() {
   };
 
   while (running) {
-    let roundWinner = gameRoundLoop(running, scores);
-    console.log(roundWinner);
+    let roundResult = gameRoundLoop(running, scores);
 
-    scores = incrementScore(roundWinner);
+    scores = incrementScore(scores, roundResult);
 
     if (Object.values(scores).includes(3)) {
       running = false;
@@ -24,16 +23,33 @@ function main() {
 
 function gameRoundLoop(runStatus, scores) {
   let grid = createGrid();
-  let roundResult = [];
-  let selects = [getPlayerSelection, getCpuSelection];
+  let playersTurn = true;
 
   while (runStatus) {
-    for (let idx = 0; idx < selects.length; idx++) {
-      roundResult = selects[idx](grid, scores);
-      runStatus = roundResult[0];
+    let playerResult = selectionSwitch(grid, scores, playersTurn);
+
+    if (playerResult[0] === false) {
+      runStatus = false;
+      return playerResult[1];
     }
+
+    if (checkForTie(grid)) {
+      runStatus = false;
+      break;
+    }
+
+    playersTurn = !playersTurn;
   }
-  return roundResult[1];
+
+  return "tie";
+}
+
+function selectionSwitch(grid, scores, playersTurn = false) {
+  if (playersTurn) {
+    return getPlayerSelection(grid, scores);
+  } else {
+    return getCpuSelection(grid, scores);
+  }
 }
 
 function displayGameGrid(grid, scores) {
@@ -145,6 +161,14 @@ function checkThreeInDiagonal(grid) {
   return checkThreeInRow(diagonalRow);
 }
 
+function checkForTie(grid) {
+  return grid
+    .map((row) => {
+      return row.includes(" ");
+    })
+    .every((element) => element === false);
+}
+
 function checkRoundWinner(grid) {
   let checks = [
     checkThreeInRow(grid),
@@ -189,12 +213,12 @@ function incrementScore(scores, roundResult) {
     ...scores,
   };
 
-  console.log(newScores);
-
   if (roundResult === "X") {
     newScores["playerOne"] += 1;
   } else if (roundResult === "O") {
     newScores["cpu"] += 1;
+  } else {
+    newScores["ties"] += 1;
   }
 
   return newScores;
