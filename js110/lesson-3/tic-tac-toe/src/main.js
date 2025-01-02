@@ -4,19 +4,20 @@ main();
 
 function main() {
   let running = true;
-  let scores = {
-    playerOne: 0,
-    cpu: 0,
-    ties: 0,
-  };
+  let scores = zeroOutScore();
 
   while (running) {
     let roundResult = gameRoundLoop(running, scores);
     scores = incrementScore(scores, roundResult[0]);
 
     if (checkThreeWins(scores["playerOne"], scores["cpu"])) {
-      displayGameGrid(roundResult[1], scores);
-      running = false;
+      let playerRetry = getPlayerRetry(roundResult[1], scores);
+
+      if (playerRetry) {
+        scores = zeroOutScore();
+      } else {
+        running = false;
+      }
     }
   }
 }
@@ -126,8 +127,16 @@ function getCpuSelection(grid, scores) {
   return [!checkRoundWinner(grid), "O"];
 }
 
-function getPlayerRetry() {
-  // Check if player wants to replay
+function getPlayerRetry(grid, scores) {
+  displayGameGrid(grid, scores);
+  let userInput = rlSync.question("\nWould you like to play again?\n");
+
+  while (checkIfValidRetryInput(userInput.toLowerCase())) {
+    displayGameGrid(grid, scores);
+    userInput = rlSync.question("\nPlease enter a valid input:\n");
+  }
+
+  return getRestart(userInput.toLowerCase());
 }
 
 function getMapSelection(playerInput) {
@@ -143,11 +152,23 @@ function getRandomNumber() {
   return Math.floor(Math.random() * (maxNumber - minNumber + 1) + minNumber);
 }
 
+function getRestart(userInput) {
+  let yesInputs = ["1", "y", "yes"];
+
+  return yesInputs.includes(userInput);
+}
+
 function checkIfSelectionIsValid(input) {
   return !Array(9)
     .fill()
     .map((_, idx) => String(idx + 1))
     .includes(input);
+}
+
+function checkIfValidRetryInput(input) {
+  let validInput = ["y", "n", "1", "2", "yes", "no"];
+
+  return !validInput.includes(input);
 }
 
 function checkIfSelectionIsUsed(grid, corr) {
@@ -263,4 +284,12 @@ function createGridMap() {
   });
 
   return Object.fromEntries(entry);
+}
+
+function zeroOutScore() {
+  return {
+    playerOne: 0,
+    cpu: 0,
+    ties: 0,
+  };
 }
