@@ -51,46 +51,6 @@ function selectionSwitch(grid, scores, playersTurn) {
     : getCpuSelection(grid, scores);
 }
 
-function displayGameGrid(grid, scores) {
-  console.clear();
-  let scoreBoard = `Player One: ${scores["playerOne"]} | Ties: ${scores["ties"]} | Cpu: ${scores["cpu"]}\n`;
-  let middleLen = Math.floor(scoreBoard.length / 2);
-  let spacer = "---------";
-  let display = grid.map((layer) => {
-    return layer.join(" | ");
-  });
-
-  console.log(scoreBoard);
-  display.forEach((gridRow, idx) => {
-    console.log(
-      `${" ".repeat(middleLen - Math.floor(gridRow.length / 2))}${gridRow}`,
-    );
-    if (idx + 1 !== display.length) {
-      console.log(
-        `${" ".repeat(middleLen - Math.floor(spacer.length / 2))}${spacer}`,
-      );
-    }
-  });
-}
-
-function createGrid() {
-  let gridSize = 3;
-
-  return Array(gridSize)
-    .fill()
-    .map(() => {
-      return Array(gridSize).fill(" ");
-    });
-}
-
-function changeGrid(grid, playerInput, usersPick = false) {
-  if (usersPick) {
-    grid[playerInput[0]][playerInput[1]] = "X";
-  } else {
-    grid[playerInput[0]][playerInput[1]] = "O";
-  }
-}
-
 function getPlayerSelection(grid, scores) {
   displayGameGrid(grid, scores);
   let userInput = rlSync.question("\nEnter something:\n");
@@ -219,23 +179,6 @@ function checkRoundWinner(grid) {
   return checks.includes(true);
 }
 
-function countElements(row) {
-  let counter = {
-    X: 0,
-    O: 0,
-  };
-
-  for (let ele of row) {
-    if (ele === "X") {
-      counter["X"] += 1;
-    } else if (ele === "O") {
-      counter["O"] += 1;
-    }
-  }
-
-  return counter;
-}
-
 function checkThreeWins(player1Score, cpuScore) {
   if (player1Score > 2) {
     return "player 1";
@@ -286,10 +229,67 @@ function createGridMap() {
   return Object.fromEntries(entry);
 }
 
+function createGrid() {
+  let gridSize = 3;
+
+  return Array(gridSize)
+    .fill()
+    .map(() => {
+      return Array(gridSize).fill(" ");
+    });
+}
+
+function changeGrid(grid, playerInput, usersPick = false) {
+  if (usersPick) {
+    grid[playerInput[0]][playerInput[1]] = "X";
+  } else {
+    grid[playerInput[0]][playerInput[1]] = "O";
+  }
+}
+
+function countElements(row) {
+  let counter = {
+    X: 0,
+    O: 0,
+  };
+
+  for (let ele of row) {
+    if (ele === "X") {
+      counter["X"] += 1;
+    } else if (ele === "O") {
+      counter["O"] += 1;
+    }
+  }
+
+  return counter;
+}
+
 function zeroOutScore() {
   return {
     playerOne: 0,
     cpu: 0,
     ties: 0,
   };
+}
+
+function displayGameGrid(grid, scores) {
+  console.clear();
+  let scoreBoard = `Player One: ${scores["playerOne"]} | Ties: ${scores["ties"]} | Cpu: ${scores["cpu"]}\n`;
+  let middleLen = Math.floor(scoreBoard.length / 2);
+  let spacer = "---------";
+  let display = grid.map((layer) => {
+    return layer.join(" | ");
+  });
+
+  console.log(scoreBoard);
+  display.forEach((gridRow, idx) => {
+    console.log(
+      `${" ".repeat(middleLen - Math.floor(gridRow.length / 2))}${gridRow}`,
+    );
+    if (idx + 1 !== display.length) {
+      console.log(
+        `${" ".repeat(middleLen - Math.floor(spacer.length / 2))}${spacer}`,
+      );
+    }
+  });
 }
