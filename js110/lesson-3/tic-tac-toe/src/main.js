@@ -12,9 +12,10 @@ function main() {
 
   while (running) {
     let roundResult = gameRoundLoop(running, scores);
-    scores = incrementScore(scores, roundResult);
+    scores = incrementScore(scores, roundResult[0]);
 
     if (checkThreeWins(scores["playerOne"], scores["cpu"])) {
+      displayGameGrid(roundResult[1], scores);
       running = false;
     }
   }
@@ -29,7 +30,7 @@ function gameRoundLoop(runStatus, scores) {
 
     if (playerResult[0] === false) {
       runStatus = false;
-      return playerResult[1];
+      return [playerResult[1], grid];
     }
 
     if (checkForTie(grid)) {
@@ -40,7 +41,7 @@ function gameRoundLoop(runStatus, scores) {
     playersTurn = !playersTurn;
   }
 
-  return "tie";
+  return ["tie", grid];
 }
 
 function selectionSwitch(grid, scores, playersTurn) {
