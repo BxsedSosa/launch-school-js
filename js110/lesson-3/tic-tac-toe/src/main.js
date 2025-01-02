@@ -1,4 +1,5 @@
 import rlSync from "readline-sync";
+import msg from "../config/text.json";
 
 main();
 
@@ -9,9 +10,10 @@ function main() {
   while (running) {
     let roundResult = gameRoundLoop(running, scores);
     scores = incrementScore(scores, roundResult[0]);
+    let winner = checkThreeWins(scores["playerOne"], scores["cpu"]);
 
-    if (checkThreeWins(scores["playerOne"], scores["cpu"])) {
-      let playerRetry = getPlayerRetry(roundResult[1], scores);
+    if (winner) {
+      let playerRetry = getPlayerRetry(roundResult[1], scores, winner);
 
       if (playerRetry) {
         scores = zeroOutScore();
@@ -27,6 +29,7 @@ function gameRoundLoop(runStatus, scores) {
   let playersTurn = true;
 
   while (runStatus) {
+    console.clear();
     let playerResult = selectionSwitch(grid, scores, playersTurn);
 
     if (playerResult[0] === false) {
@@ -60,6 +63,7 @@ function getPlayerSelection(grid, scores) {
     checkIfSelectionIsValid(userInput) ||
     checkIfSelectionIsUsed(grid, gridCorrdinates)
   ) {
+    console.clear();
     displayGameGrid(grid, scores);
     if (checkIfSelectionIsValid(userInput)) {
       userInput = rlSync.question("\nPlease enter a valid input:\n");
@@ -87,11 +91,14 @@ function getCpuSelection(grid, scores) {
   return [!checkRoundWinner(grid), "O"];
 }
 
-function getPlayerRetry(grid, scores) {
+function getPlayerRetry(grid, scores, winner) {
+  console.clear();
   displayGameGrid(grid, scores);
-  let userInput = rlSync.question("\nWould you like to play again?\n");
+  console.log(`\nGame Winner: ${winner}`);
+  let userInput = rlSync.question("Would you like to play again?\n");
 
   while (checkIfValidRetryInput(userInput.toLowerCase())) {
+    console.clear();
     displayGameGrid(grid, scores);
     userInput = rlSync.question("\nPlease enter a valid input:\n");
   }
@@ -181,11 +188,11 @@ function checkRoundWinner(grid) {
 
 function checkThreeWins(player1Score, cpuScore) {
   if (player1Score > 2) {
-    return "player 1";
+    return "Player One";
   }
 
   if (cpuScore > 2) {
-    return "cpu";
+    return "Cpu";
   }
 
   return "";
@@ -273,7 +280,6 @@ function zeroOutScore() {
 }
 
 function displayGameGrid(grid, scores) {
-  console.clear();
   let scoreBoard = `Player One: ${scores["playerOne"]} | Ties: ${scores["ties"]} | Cpu: ${scores["cpu"]}\n`;
   let middleLen = Math.floor(scoreBoard.length / 2);
   let spacer = "---------";
