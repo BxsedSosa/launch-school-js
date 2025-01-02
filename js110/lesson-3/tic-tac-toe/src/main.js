@@ -145,7 +145,7 @@ function getRandomNumber() {
 function checkIfSelectionIsValid(input) {
   return !Array(9)
     .fill()
-    .map((_, idx) => `${idx + 1}`)
+    .map((_, idx) => String(idx + 1))
     .includes(input);
 }
 
@@ -173,7 +173,7 @@ function checkThreeInColumn(grid) {
 
 function checkThreeInDiagonal(grid) {
   let diagonalLineOne = [grid[0][0], grid[1][1], grid[2][2]];
-  let diagonalLineTwo = [grid[0][2], grid[1][1], grid[2][1]];
+  let diagonalLineTwo = [grid[0][2], grid[1][1], grid[2][0]];
   let diagonalRow = [diagonalLineOne, diagonalLineTwo];
 
   return checkThreeInRow(diagonalRow);
