@@ -94,8 +94,16 @@ function getPlayerSelection(grid, scores) {
   let userInput = rlSync.question("\nEnter something:\n");
   let gridCorrdinates = getMapSelection(userInput);
 
-  while (checkIfSelectionIsUsed(grid, gridCorrdinates)) {
-    userInput = rlSync.question("\nPlease re-enter a new input:\n");
+  while (
+    checkIfSelectionIsValid(userInput) ||
+    checkIfSelectionIsUsed(grid, gridCorrdinates)
+  ) {
+    displayGameGrid(grid, scores);
+    if (checkIfSelectionIsValid(userInput)) {
+      userInput = rlSync.question("\nPlease enter a valid input:\n");
+    } else {
+      userInput = rlSync.question("\nPlease enter a input that isn't used:\n");
+    }
     gridCorrdinates = getMapSelection(userInput);
   }
 
@@ -130,7 +138,15 @@ function getMapSelection(playerInput) {
 function getRandomNumber() {
   let minNumber = 1;
   let maxNumber = 9;
+
   return Math.floor(Math.random() * (maxNumber - minNumber + 1) + minNumber);
+}
+
+function checkIfSelectionIsValid(input) {
+  return !Array(9)
+    .fill()
+    .map((_, idx) => `${idx + 1}`)
+    .includes(input);
 }
 
 function checkIfSelectionIsUsed(grid, corr) {
