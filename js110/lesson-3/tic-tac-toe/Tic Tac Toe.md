@@ -3,18 +3,18 @@
 ## Objectives
 
 - [x] Create a 3 x 3 grid
-- [ ] Figure out player input for selecting a square
+- [x] Figure out player input for selecting a square
 - [ ] Create a CPU ai to make smart decisions
-	- [ ] Create random selection
+	- [x] Create random selection
 	- [ ] Create defensive selection
 	- [ ] Create Offensive selection
-- [ ] Check if row has 3 in a row
-	- [ ] Check 3 in row
-	- [ ] Check 3 in Column
-	- [ ] Check 3 in diagonal
-- [ ] Keep track of player and CPU wins
-	- [ ] Checking if either player has 3 wins
-- [ ] Check if player wants to play again
+- [x] Check if row has 3 in a row
+	- [x] Check 3 in row
+	- [x] Check 3 in Column
+	- [x] Check 3 in diagonal
+- [x] Keep track of player and CPU wins
+	- [x] Checking if either player has 3 wins
+- [x] Check if player wants to play again
 ### Creating 3 x 3 grid
 
 Will need a 2-D array for the grid
