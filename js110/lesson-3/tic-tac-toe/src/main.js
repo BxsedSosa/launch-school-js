@@ -1,7 +1,7 @@
 import rlSync from "readline-sync";
-import msg from "../config/text.json";
 
-main();
+displayTutorialMap();
+setTimeout(main, 8000);
 
 function main() {
   let running = true;
@@ -39,7 +39,6 @@ function gameRoundLoop(runStatus, scores) {
 
     if (checkForTie(grid)) {
       runStatus = false;
-      break;
     }
 
     playersTurn = !playersTurn;
@@ -246,6 +245,17 @@ function createGrid() {
     });
 }
 
+function createMapGrid() {
+  let grid = createGrid();
+  let counter = 0;
+
+  return grid.map((row) => {
+    return row.map(() => {
+      return (counter += 1);
+    });
+  });
+}
+
 function changeGrid(grid, playerInput, usersPick = false) {
   if (usersPick) {
     grid[playerInput[0]][playerInput[1]] = "X";
@@ -298,4 +308,14 @@ function displayGameGrid(grid, scores) {
       );
     }
   });
+}
+
+function displayTutorialMap() {
+  console.clear();
+  console.log("Welcome to Tic-Tac-Toe");
+  setTimeout(() => {
+    console.clear();
+    displayGameGrid(createMapGrid(), zeroOutScore());
+    console.log("\nTo Select a square please enter numbers: 1-9");
+  }, 3000);
 }
