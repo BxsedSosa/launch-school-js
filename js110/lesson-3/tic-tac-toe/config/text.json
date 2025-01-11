@@ -1,9 +1,16 @@
 {
+  "welcome": "Welcome to Tic-Tac-Toe",
+  "tutorial": "\nTo Select a square please enter numbers: 1-9"
   "selection": {
     "ask": "\nPlease select a square 1 - 9:\n",
     "retry": {
       "valid": "is not a valid input!\nPlease select a square 1 - 9:\n",
       "used": "is already a used square\nPlease select a open square 1 - 9:\n"
     }
+  },
+  "game-winner": "\nGame Winner: ",
+  "restart": {
+    "ask": "Would you like to play again?\n1) Yes\n2) No\n",
+    "retry": "is not a vaid input!\nPlease enter only:\n1 for Yes\n 2 for No\n"
   }
 }

@@ -77,6 +77,7 @@ function getPlayerReselection(userInput) {
     invalid: `\n${userInput} ${MSG["selection"]["retry"]["valid"]}`,
     used: `\n${userInput} ${MSG["selection"]["retry"]["used"]}`,
   };
+
   if (checkIfSelectionIsValid(userInput)) {
     userInput = rlSync.question(retryMsg.invalid);
   } else {
@@ -100,15 +101,19 @@ function getCpuSelection(grid, scores) {
 }
 
 function getPlayerRetry(grid, scores, winner) {
-  console.clear();
-  displayGameGrid(grid, scores);
-  console.log(`\nGame Winner: ${winner}`);
-  let userInput = rlSync.question("Would you like to play again?\n");
+  let msg = {
+    winner: `${MSG["game-winner"]} ${winner}`,
+    ask: `${MSG["restart"]["ask"]}`,
+    invalid: `${userInput} ${MSG["restart"]["retry"]}`,
+  };
+
+  clearedDisplayGame(grid, scores);
+  console.log(msg.winner);
+  let userInput = rlSync.question(msg.ask);
 
   while (checkIfValidRetryInput(userInput.toLowerCase())) {
-    console.clear();
-    displayGameGrid(grid, scores);
-    userInput = rlSync.question("\nPlease enter a valid input:\n");
+    clearedDisplayGame(grid, scores);
+    userInput = rlSync.question(msg.invalid);
   }
 
   return getRestart(userInput.toLowerCase());
@@ -333,10 +338,9 @@ function displayGameGrid(grid, scores) {
 
 function displayTutorialMap() {
   console.clear();
-  console.log("Welcome to Tic-Tac-Toe");
+  console.log(MSG["welcome"]);
   setTimeout(() => {
-    console.clear();
-    displayGameGrid(createMapGrid(), zeroOutScore());
-    console.log("\nTo Select a square please enter numbers: 1-9");
+    clearedDisplayGame(createMapGrid(), zeroOutScore());
+    console.log(MSG["tutorial"]);
   }, 3000);
 }
