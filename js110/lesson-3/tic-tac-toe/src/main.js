@@ -1,4 +1,5 @@
 import rlSync from "readline-sync";
+import MSG from "../config/text.json" assert { type: "json" };
 
 displayTutorialMap();
 setTimeout(main, 8000);
@@ -54,27 +55,35 @@ function selectionSwitch(grid, scores, playersTurn) {
 }
 
 function getPlayerSelection(grid, scores) {
+  let usersQuestion = MSG["selection"]["ask"];
+
   displayGameGrid(grid, scores);
-  let userInput = rlSync.question("\nEnter something:\n");
+  let userInput = rlSync.question(usersQuestion);
   let gridCorrdinates = getMapSelection(userInput);
 
-  while (
-    checkIfSelectionIsValid(userInput) ||
-    checkIfSelectionIsUsed(grid, gridCorrdinates)
-  ) {
-    console.clear();
-    displayGameGrid(grid, scores);
-    if (checkIfSelectionIsValid(userInput)) {
-      userInput = rlSync.question("\nPlease enter a valid input:\n");
-    } else {
-      userInput = rlSync.question("\nPlease enter a input that isn't used:\n");
-    }
+  while (checkPlayerSelection(userInput, grid, gridCorrdinates)) {
+    clearedDisplayGame(grid, scores);
+    userInput = getPlayerReselection(userInput);
     gridCorrdinates = getMapSelection(userInput);
   }
 
   changeGrid(grid, gridCorrdinates, true);
 
   return [!checkRoundWinner(grid), "X"];
+}
+
+function getPlayerReselection(userInput) {
+  let retryMsg = {
+    invalid: `\n${userInput} ${MSG["selection"]["retry"]["valid"]}`,
+    used: `\n${userInput} ${MSG["selection"]["retry"]["used"]}`,
+  };
+  if (checkIfSelectionIsValid(userInput)) {
+    userInput = rlSync.question(retryMsg.invalid);
+  } else {
+    userInput = rlSync.question(retryMsg.used);
+  }
+
+  return userInput;
 }
 
 function getCpuSelection(grid, scores) {
@@ -129,6 +138,13 @@ function checkIfSelectionIsValid(input) {
     .fill()
     .map((_, idx) => String(idx + 1))
     .includes(input);
+}
+
+function checkPlayerSelection(userInput, grid, gridCorrdinates) {
+  return (
+    checkIfSelectionIsValid(userInput) ||
+    checkIfSelectionIsUsed(grid, gridCorrdinates)
+  );
 }
 
 function checkIfValidRetryInput(input) {
@@ -287,6 +303,11 @@ function zeroOutScore() {
     cpu: 0,
     ties: 0,
   };
+}
+
+function clearedDisplayGame(grid, scores) {
+  console.clear();
+  displayGameGrid(grid, scores);
 }
 
 function displayGameGrid(grid, scores) {

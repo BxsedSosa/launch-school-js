@@ -1,3 +1,9 @@
 {
-
+  "selection": {
+    "ask": "\nPlease select a square 1 - 9:\n",
+    "retry": {
+      "valid": "is not a valid input!\nPlease select a square 1 - 9:\n",
+      "used": "is already a used square\nPlease select a open square 1 - 9:\n"
+    }
+  }
 }
