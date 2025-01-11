@@ -184,7 +184,7 @@ function getDefensiveMove(grid) {
 
   let rowDefend = rowChecks.findIndex((element) => element === true);
 
-  return;
+  return
 
   // if (rowChecks.includes(true) {
   //   for (let i = 0; i < rowChecks.length; i++) {
