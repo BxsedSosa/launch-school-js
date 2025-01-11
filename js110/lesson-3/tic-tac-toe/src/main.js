@@ -1,8 +1,8 @@
 import rlSync from "readline-sync";
 import MSG from "../config/text.json" assert { type: "json" };
 
-displayTutorialMap();
-setTimeout(main, 8000);
+// displayTutorialMap();
+// setTimeout(main, 8000);
 
 function main() {
   let running = true;
@@ -23,6 +23,7 @@ function main() {
       }
     }
   }
+  console.clear();
 }
 
 function gameRoundLoop(runStatus, scores) {
@@ -88,8 +89,13 @@ function getPlayerReselection(userInput) {
 }
 
 function getCpuSelection(grid, scores) {
+  let cpuCorredinates;
   displayGameGrid(grid, scores);
-  let cpuCorredinates = getMapSelection(getRandomNumber());
+  if (checkXCount(grid, 2)) {
+    cpuCorredinates = defensiveCpuMove(grid);
+  } else {
+    cpuCorredinates = getMapSelection(getRandomNumber());
+  }
 
   while (checkIfSelectionIsUsed(grid, cpuCorredinates)) {
     cpuCorredinates = getMapSelection(getRandomNumber());
@@ -104,7 +110,6 @@ function getPlayerRetry(grid, scores, winner) {
   let msg = {
     winner: `${MSG["game-winner"]} ${winner}`,
     ask: `${MSG["restart"]["ask"]}`,
-    invalid: `${userInput} ${MSG["restart"]["retry"]}`,
   };
 
   clearedDisplayGame(grid, scores);
@@ -112,8 +117,10 @@ function getPlayerRetry(grid, scores, winner) {
   let userInput = rlSync.question(msg.ask);
 
   while (checkIfValidRetryInput(userInput.toLowerCase())) {
+    let invalid = `\n${userInput} ${MSG["restart"]["retry"]}`;
+
     clearedDisplayGame(grid, scores);
-    userInput = rlSync.question(msg.invalid);
+    userInput = rlSync.question(invalid);
   }
 
   return getRestart(userInput.toLowerCase());
@@ -164,28 +171,51 @@ function checkIfSelectionIsUsed(grid, corr) {
   return ["X", "O"].includes(playerSelection);
 }
 
-function checkThreeInRow(grid) {
+let grid = createGrid();
+grid[0][0] = "X";
+grid[0][1] = "X";
+
+getDefensiveMove(grid, 2);
+
+function getDefensiveMove(grid) {
+  let rowChecks = grid.map((row) => {
+    return countElements(row)["X"] === 2;
+  });
+
+  let rowDefend = rowChecks.findIndex((element) => element === true);
+
+  return;
+
+  // if (rowChecks.includes(true) {
+  //   for (let i = 0; i < rowChecks.length; i++) {
+  //     if (rowChecks[i] === "true")
+  //   }
+  // };
+  // )
+}
+
+function checkCountInRow(grid, countWanted) {
   return grid
     .map((row) => {
-      return Object.values(countElements(row)).includes(3);
+      return Object.values(countElements(row)).includes(countWanted);
     })
     .includes(true);
 }
 
-function checkThreeInColumn(grid) {
+function checkCountInColumn(grid, countWanted) {
   let columns = grid.map((_, idx, arr) => {
     return [arr[0][idx], arr[1][idx], arr[2][idx]];
   });
 
-  return checkThreeInRow(columns);
+  return checkCountInRow(columns, countWanted);
 }
 
-function checkThreeInDiagonal(grid) {
+function checkCountInDiagonal(grid, countWanted) {
   let diagonalLineOne = [grid[0][0], grid[1][1], grid[2][2]];
   let diagonalLineTwo = [grid[0][2], grid[1][1], grid[2][0]];
   let diagonalRow = [diagonalLineOne, diagonalLineTwo];
 
-  return checkThreeInRow(diagonalRow);
+  return checkCountInRow(diagonalRow, countWanted);
 }
 
 function checkForTie(grid) {
@@ -198,9 +228,9 @@ function checkForTie(grid) {
 
 function checkRoundWinner(grid) {
   let checks = [
-    checkThreeInRow(grid),
-    checkThreeInDiagonal(grid),
-    checkThreeInColumn(grid),
+    checkCountInRow(grid, 3),
+    checkCountInColumn(grid, 3),
+    checkCountInDiagonal(grid, 3),
   ];
 
   return checks.includes(true);
@@ -344,3 +374,19 @@ function displayTutorialMap() {
     console.log(MSG["tutorial"]);
   }, 3000);
 }
+
+function checkIfPlayerWins() {
+  let checks = [
+    checkCountInRow(grid, 2),
+    checkCountInColumn(grid, 2),
+    checkCountInDiagonal(grid, 2),
+  ];
+
+  return checks.includes(true);
+}
+
+function defensiveCpuMove(grid) {
+  checkXcount(grid, 2);
+}
+
+function offensiveCpuMove() { }
