@@ -89,13 +89,8 @@ function getPlayerReselection(userInput) {
 }
 
 function getCpuSelection(grid, scores) {
-  let cpuCorredinates;
   displayGameGrid(grid, scores);
-  if (checkXCount(grid, 2)) {
-    cpuCorredinates = defensiveCpuMove(grid);
-  } else {
-    cpuCorredinates = getMapSelection(getRandomNumber());
-  }
+  let cpuCorredinates = getMapSelection(getRandomNumber());
 
   while (checkIfSelectionIsUsed(grid, cpuCorredinates)) {
     cpuCorredinates = getMapSelection(getRandomNumber());
@@ -169,6 +164,19 @@ function checkIfSelectionIsUsed(grid, corr) {
   let playerSelection = grid[corr[0]][corr[1]];
 
   return ["X", "O"].includes(playerSelection);
+}
+
+function getDefensiveMove(grid, countWanted) {
+  let rowChecks = grid.map((row) => {
+    return countElements(row)["X"].includes(countWanted);
+  });
+
+  // if (rowChecks.includes(true) {
+  //   for (let i = 0; i < rowChecks.length; i++) {
+  //     if (rowChecks[i] === "true")
+  //   }
+  // };
+  // )
 }
 
 function checkCountInRow(grid, countWanted) {
