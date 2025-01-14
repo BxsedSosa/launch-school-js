@@ -1,8 +1,8 @@
 import rlSync from "readline-sync";
 import MSG from "../config/text.json" assert { type: "json" };
 
-// displayTutorialMap();
-// setTimeout(main, 8000);
+displayTutorialMap();
+setTimeout(main, 8000);
 
 function main() {
   let running = true;
@@ -169,29 +169,6 @@ function checkIfSelectionIsUsed(grid, corr) {
   let playerSelection = grid[corr[0]][corr[1]];
 
   return ["X", "O"].includes(playerSelection);
-}
-
-let grid = createGrid();
-grid[0][0] = "X";
-grid[0][1] = "X";
-
-getDefensiveMove(grid, 2);
-
-function getDefensiveMove(grid) {
-  let rowChecks = grid.map((row) => {
-    return countElements(row)["X"] === 2;
-  });
-
-  let rowDefend = rowChecks.findIndex((element) => element === true);
-
-  return
-
-  // if (rowChecks.includes(true) {
-  //   for (let i = 0; i < rowChecks.length; i++) {
-  //     if (rowChecks[i] === "true")
-  //   }
-  // };
-  // )
 }
 
 function checkCountInRow(grid, countWanted) {
@@ -374,19 +351,3 @@ function displayTutorialMap() {
     console.log(MSG["tutorial"]);
   }, 3000);
 }
-
-function checkIfPlayerWins() {
-  let checks = [
-    checkCountInRow(grid, 2),
-    checkCountInColumn(grid, 2),
-    checkCountInDiagonal(grid, 2),
-  ];
-
-  return checks.includes(true);
-}
-
-function defensiveCpuMove(grid) {
-  checkXcount(grid, 2);
-}
-
-function offensiveCpuMove() { }
