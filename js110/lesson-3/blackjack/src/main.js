@@ -4,14 +4,32 @@ import rlSync from "readline-sync";
 main();
 
 function main() {
+  let running = true;
   let deck = shuffleDeck();
-  let playerChips = getChips();
+
+  while (running) {
+    let playerSelection = rlSync.question("hello:\n>>> ");
+    deck = gameLoop(deck);
+
+    if (playerSelection === "exit") {
+      running = false;
+    }
+  }
+}
+
+function gameLoop(deck) {
   let playerHand = [];
   let dealerHand = [];
+
+  if (deck.length <= 4) {
+    deck = deck.concat(shuffleDeck());
+  }
 
   startHand(deck, playerHand, dealerHand);
   displayCards(playerHand, true);
   displayCards(dealerHand);
+
+  return deck;
 }
 
 function startHand(deck, player, dealer) {
