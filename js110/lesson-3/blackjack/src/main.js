@@ -54,9 +54,15 @@ function playerAnswer() {
     ask: MSG["playerQuestion"]["ask"],
     retry: MSG["playerQuestion"]["retry"],
   };
+
+  let VALID_INPUT = {
+    hit: ["1", "hit", "h"],
+    stand: ["2", "stand", "s"],
+  };
+
   let playerSelection = rlSync.question(prompt.ask);
 
-  while (checkValidInput(playerSelection)) {
+  while (checkValidInput(playerSelection, VALID_INPUT)) {
     playerSelection = rlSync.question(`${playerSelection} ${prompt.retry}`);
   }
 
@@ -196,10 +202,8 @@ function getPlayerBet(playerAmount) {
   // pass
 }
 
-function checkValidInput(playerInput) {
-  const VALID_INPUT = ["1", "yes", "y", "2", "no", "n"];
-
-  return !VALID_INPUT.includes(playerInput);
+function checkValidInput(playerInput, validInputs) {
+  return true;
 }
 
 function checkValidBet(playerAmount) {
