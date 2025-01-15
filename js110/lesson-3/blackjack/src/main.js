@@ -66,7 +66,7 @@ function getChips() {
   return 100;
 }
 
-function resetDeck(deck) {
+function resetDeck() {
   return shuffleDeck();
 }
 
@@ -95,13 +95,13 @@ function determineValues(hand) {
   let ace = false;
   let score = 0;
 
-  for (let card of hand) {
-    if (royals.includes(card)) {
+  for (let value of hand) {
+    if (royals.includes(value)) {
       counter += 10;
-    } else if (card === "A") {
+    } else if (value === "A") {
       ace = true;
     } else {
-      counter += card;
+      counter += value;
     }
   }
 
