@@ -166,19 +166,6 @@ function checkIfSelectionIsUsed(grid, corr) {
   return ["X", "O"].includes(playerSelection);
 }
 
-function getDefensiveMove(grid, countWanted) {
-  let rowChecks = grid.map((row) => {
-    return countElements(row)["X"].includes(countWanted);
-  });
-
-  // if (rowChecks.includes(true) {
-  //   for (let i = 0; i < rowChecks.length; i++) {
-  //     if (rowChecks[i] === "true")
-  //   }
-  // };
-  // )
-}
-
 function checkCountInRow(grid, countWanted) {
   return grid
     .map((row) => {
