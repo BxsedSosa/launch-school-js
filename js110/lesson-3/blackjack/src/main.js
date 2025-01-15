@@ -22,7 +22,7 @@ function gameLoop(deck) {
   let dealerHand = [];
 
   if (deck.length <= 4) {
-    deck = deck.concat(shuffleDeck());
+    deck = deck.concat(resetDeck());
   }
 
   startHand(deck, playerHand, dealerHand);
@@ -81,6 +81,37 @@ function getValues(hand) {
     return card[1];
   });
 }
+
+function evaluateAceScore(score) {
+  if (score + 11 > 21) {
+    return (score += 1);
+  }
+
+  return (score += 11);
+}
+
+function determineValues(hand) {
+  let royals = ["K", "Q", "J"];
+  let ace = false;
+  let score = 0;
+
+  for (let card of hand) {
+    if (royals.includes(card)) {
+      counter += 10;
+    } else if (card === "A") {
+      ace = true;
+    } else {
+      counter += card;
+    }
+  }
+
+  if (ace) {
+    score = evaluateAceScore(score);
+  }
+  return score;
+}
+
+function evaluateFaceCard(card) {}
 
 function displayCards(hand, player = false) {
   let suits = getSuits(hand);
