@@ -10,6 +10,8 @@ function main() {
   let dealerHand = [];
 
   startHand(deck, playerHand, dealerHand);
+  displayCards(playerHand, true);
+  displayCards(dealerHand);
 }
 
 function startHand(deck, player, dealer) {
@@ -65,6 +67,7 @@ function getValues(hand) {
 function displayCards(hand, player = false) {
   let suits = getSuits(hand);
   let values = getValues(hand);
+  let display = joinCardsForDisplay(suits, values);
 
   if (player) {
     console.log("Player Hand: ");
@@ -72,20 +75,7 @@ function displayCards(hand, player = false) {
     console.log("Dealer Hand: ");
   }
 
-  let display = Array(suits.length)
-    .fill()
-    .map((_, idx) => {
-      return createTextCard(suits[idx], values[idx]);
-    })
-    .map((string) => string.split("\n"));
-
-  let organized = display[0].map((_, cardIdx) => {
-    return display.map((_, displayIdx, arr) => {
-      return arr[displayIdx][cardIdx];
-    });
-  });
-
-  for (let line of organized) {
+  for (let line of display) {
     console.log(line.join("  "));
   }
 }
@@ -97,9 +87,17 @@ function createTextCard(suit, value) {
   return ` ------ \n|${suit}     |\n|   ${value}  |\n|      |\n ------ `;
 }
 
-displayCards([
-  ["D", 10],
-  ["C", 5],
-  ["H", 5],
-  ["S", 3],
-]);
+function joinCardsForDisplay(suits, values) {
+  let display = Array(suits.length)
+    .fill()
+    .map((_, idx) => {
+      return createTextCard(suits[idx], values[idx]);
+    })
+    .map((string) => string.split("\n"));
+
+  return display[0].map((_, cardIdx) => {
+    return display.map((_, displayIdx, arr) => {
+      return arr[displayIdx][cardIdx];
+    });
+  });
+}
