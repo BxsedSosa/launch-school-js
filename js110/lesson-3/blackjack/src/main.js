@@ -32,6 +32,14 @@ function gameLoop(deck) {
   return deck;
 }
 
+function dealersTurn(dealerHand) {
+  // pass
+}
+
+function playerTurn(playerHand) {
+  // pass
+}
+
 function startHand(deck, player, dealer) {
   for (let i = 0; i < 2; i++) {
     giveCard(deck, player);
@@ -92,22 +100,25 @@ function evaluateAceScore(score) {
 
 function determineValues(hand) {
   let royals = ["K", "Q", "J"];
-  let ace = false;
+  let aces = 0;
   let score = 0;
 
   for (let value of hand) {
     if (royals.includes(value)) {
       counter += 10;
     } else if (value === "A") {
-      ace = true;
+      aces += 1;
     } else {
       counter += value;
     }
   }
 
-  if (ace) {
-    score = evaluateAceScore(score);
+  if (aces) {
+    for (let i = 0; i < aces; i++) {
+      score = evaluateAceScore(score);
+    }
   }
+
   return score;
 }
 
