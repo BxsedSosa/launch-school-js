@@ -1,15 +1,15 @@
 import rlSync from "readline-sync";
-// import MSG from "../config/text.json" assert { type: "json" };
+import MSG from "../config/text.json" assert { type: "json" };
 
 main();
 
 function main() {
   let running = true;
-  let deck = shuffleDeck();
+  let cardDeck = shuffleDeck();
 
   while (running) {
-    let playerSelection = rlSync.question("hello:\n>>> ");
-    deck = gameLoop(deck);
+    let playerSelection = rlSync.question("Beginning:\n>>> ");
+    let winner = gameLoop(cardDeck);
 
     if (playerSelection === "exit") {
       running = false;
@@ -21,23 +21,50 @@ function gameLoop(deck) {
   let playerHand = [];
   let dealerHand = [];
 
-  if (deck.length <= 4) {
-    deck = deck.concat(resetDeck());
-  }
-
   startHand(deck, playerHand, dealerHand);
-  displayCards(playerHand, true);
-  displayCards(dealerHand);
+  let playerResult = playerTurn(deck, playerHand);
 
-  return deck;
+  return;
 }
 
 function dealersTurn(dealerHand) {
   // pass
 }
 
-function playerTurn(playerHand) {
-  // pass
+function playerTurn(deck, playerHand) {
+  let playerScore = determineValues(getValues(playerHand));
+
+  while (playerScore < 21) {
+    let playerSelection = playerAnswer();
+    console.log(`Score: ${playerScore}`);
+    displayCards(playerHand, true);
+
+    if (playerSelection === "hit") {
+      giveCard(deck, playerHand);
+    } else {
+      break;
+    }
+  }
+
+  return playerScore;
+}
+
+function playerAnswer() {
+  let prompt = {
+    ask: MSG["playerQuestion"]["ask"],
+    retry: MSG["playerQuestion"]["retry"],
+  };
+  let playerSelection = rlSync.question(prompt.ask);
+
+  while (checkValidInput(playerSelection)) {
+    playerSelection = rlSync.question(`${playerSelection} ${prompt.retry}`);
+  }
+
+  return playerSelection;
+}
+
+function hitNewCard(deck, playerHand) {
+  giveCard(deck, playerHand);
 }
 
 function startHand(deck, player, dealer) {
@@ -63,6 +90,11 @@ function createDeck() {
 }
 
 function giveCard(deck, hand) {
+  console.log(deck.length);
+  if (deck.length < 4) {
+    deck.push.apply(deck, resetDeck());
+  }
+
   hand.push(deck.shift());
 }
 
@@ -105,11 +137,11 @@ function determineValues(hand) {
 
   for (let value of hand) {
     if (royals.includes(value)) {
-      counter += 10;
+      score += 10;
     } else if (value === "A") {
       aces += 1;
     } else {
-      counter += value;
+      score += value;
     }
   }
 
@@ -121,8 +153,6 @@ function determineValues(hand) {
 
   return score;
 }
-
-function evaluateFaceCard(card) {}
 
 function displayCards(hand, player = false) {
   let suits = getSuits(hand);
@@ -160,4 +190,18 @@ function joinCardsForDisplay(suits, values) {
       return arr[displayIdx][cardIdx];
     });
   });
+}
+
+function getPlayerBet(playerAmount) {
+  // pass
+}
+
+function checkValidInput(playerInput) {
+  const VALID_INPUT = ["1", "yes", "y", "2", "no", "n"];
+
+  return !VALID_INPUT.includes(playerInput);
+}
+
+function checkValidBet(playerAmount) {
+  // pass
 }
