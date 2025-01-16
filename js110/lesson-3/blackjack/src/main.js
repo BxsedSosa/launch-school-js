@@ -26,7 +26,8 @@ function gameLoop(deck) {
   let dealerHand = [];
 
   startHand(deck, playerHand, dealerHand);
-  let playerResult = playerTurn(deck, playerHand);
+  displayStartingCards(playerHand, dealerHand);
+  let playerResult = playerTurn(deck, playerHand, dealerHand);
 
   return;
 }
@@ -35,17 +36,18 @@ function dealersTurn(dealerHand) {
   // pass
 }
 
-function playerTurn(deck, playerHand) {
+function playerTurn(deck, playerHand, dealerHand) {
   let playerScore = determineValues(getValues(playerHand));
 
   while (playerScore < 21) {
     let playerSelection = playerAnswer();
     console.log(`Score: ${playerScore}`);
-    displayCards(playerHand, true);
+    displayStartingCards(playerHand, dealerHand);
 
     if (playerSelection === "hit") {
       giveCard(deck, playerHand);
-    } else {
+      playerScore = determineValues(getValues(playerHand));
+    } else if (playerSelection === "stand") {
       break;
     }
   }
@@ -98,7 +100,6 @@ function createDeck() {
 }
 
 function giveCard(deck, hand) {
-  console.log(deck.length);
   if (deck.length < 4) {
     deck.push.apply(deck, resetDeck());
   }
@@ -179,16 +180,25 @@ function getValidInput(playerInput, validInputs) {
 
 // Displays
 
-function displayCards(hand, player = false) {
+function displayStartingCards(playerHand, dealerHand) {
+  displayCards(playerHand);
+  displayCards(dealerHand, true);
+}
+
+function displayCards(hand, dealer = false) {
+  let display;
   let suits = getSuits(hand);
   let values = getValues(hand);
-  let display = joinCardsForDisplay(suits, values);
 
-  if (player) {
-    console.log("Player Hand: ");
-  } else {
+  if (dealer) {
     console.log("Dealer Hand: ");
+    suits[1] = "?";
+    values[1] = "?";
+  } else {
+    console.log("Player Hand: ");
   }
+
+  display = joinCardsForDisplay(suits, values);
 
   for (let line of display) {
     console.log(line.join("  "));
