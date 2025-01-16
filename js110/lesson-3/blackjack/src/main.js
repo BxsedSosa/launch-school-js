@@ -1,7 +1,7 @@
 import rlSync from "readline-sync";
 import MSG from "../config/text.json" assert { type: "json" };
 
-main();
+// main();
 
 function main() {
   let running = true;
@@ -62,11 +62,11 @@ function playerAnswer() {
 
   let playerSelection = rlSync.question(PROMPT.ask);
 
-  while (checkValidInput(playerSelection, VALID_INPUT)) {
+  while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUT)) {
     playerSelection = rlSync.question(`${playerSelection} ${PROMPT.retry}`);
   }
 
-  return playerSelection;
+  return getValidInput(playerSelection.toLowerCase(), VALID_INPUT);
 }
 
 function startHand(deck, player, dealer) {
@@ -198,7 +198,26 @@ function getPlayerBet(playerAmount) {
   // pass
 }
 
-function checkValidInput(playerInput, validInputs) {}
+function checkValidInput(playerInput, validInputs) {
+  let keys = Object.keys(validInputs);
+
+  for (let i = 0; i < keys.length; i++) {
+    for (let value of keys[i]) {
+      if (playerInput !== value) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function getValidInput(playerInput, validInputs) {
+  for (let key in validInputs) {
+    if (validInputs[key].includes(playerInput)) {
+      return key;
+    }
+  }
+}
 
 function checkValidBet(playerAmount) {
   // pass
