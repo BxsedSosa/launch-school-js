@@ -7,10 +7,10 @@
   - [x] 4 suits (Club, Spade, Diamond, Heart)
   - [x] 9 Number cards, 4 Face Cards (2 - 10 numbers) (Jack, Queen, King, Ace)
 
-- [ ] Card distribution
+- [x] Card distribution
 
-  - [ ] 2 Cards to player and dealer
-    - [ ] pass cards in this order:
+  - [x] 2 Cards to player and dealer
+    - [x] pass cards in this order:
       - Player
       - Dealer
       - Player
@@ -30,10 +30,10 @@
 
 - [ ] Get player Selection
 
-  - [ ] Player needs a hand
+  - [x] Player needs a hand
 
-    - [ ] Player hand is an array
-    - [ ] Hand will start with 2 cards
+    - [x] Player hand is an array
+    - [x] Hand will start with 2 cards
 
   - [ ] Bet
 
