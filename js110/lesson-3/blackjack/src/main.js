@@ -13,12 +13,19 @@ function main() {
     console.clear();
     let playerSelection = getMenuInput();
 
-    if (playerSelection === "bet") {
-      gameLoop(cardDeck);
-    } else if (playerSelection === "balance") {
-      console.log("balance");
-    } else if (playerSelection === "exit") {
-      running = false;
+    switch (playerSelection) {
+      case "bet":
+        gameLoop(cardDeck);
+        break;
+      case "balance":
+        console.log("balance");
+        break;
+      case "rules":
+        console.log("rules");
+        break;
+      case "exit":
+        running = false;
+        break;
     }
   }
 }
@@ -34,7 +41,7 @@ function gameLoop(deck) {
   playerResult = checkPlayerBust(playerTurn(deck, playerHand, dealerHand));
 
   if (playerResult.result) {
-    dealerResult = checkPlayerBust(dealersTurn(deck, playerHand, dealerHand));
+    dealerResult = checkPlayerBust(dealersTurn(deck, dealerHand, playerHand));
   }
 }
 
@@ -57,8 +64,17 @@ function playerTurn(deck, playerHand, dealerHand) {
   return playerScore;
 }
 
-function dealersTurn(dealerHand) {
-  // pass
+function dealersTurn(deck, dealerHand, playerHand) {
+  let dealerScore = determineValues(getValues(dealerHand));
+
+  while (dealerScore < 17) {
+    displayAfterPlayerTurn(playerHand, dealerHand);
+    giveCard(deck, dealerHand);
+    dealerScore = determineValues(getValues(dealerHand));
+    wait(3000);
+  }
+
+  return dealerScore;
 }
 
 function checkPlayerBust(handValue) {
@@ -213,19 +229,28 @@ function getValidInput(playerInput, validInputs) {
 function displayStartingCards(playerHand, dealerHand) {
   console.clear();
   displayCards(playerHand);
+  displayCards(dealerHand, true, true);
+}
+
+function displayAfterPlayerTurn(playerHand, dealerHand) {
+  console.clear();
+  displayCards(playerHand);
   displayCards(dealerHand, true);
 }
 
-function displayCards(hand, isDealer = false) {
+function displayCards(hand, isDealer = false, isStart = false) {
   let cardDisplay;
   let suits = getSuits(hand);
   let values = getValues(hand);
 
-  if (isDealer) {
+  if (isDealer && isStart) {
     displayScore(values.slice(0, 1), true);
     console.log("Dealer Hand: ");
     suits[1] = "?";
     values[1] = "?";
+  } else if (isDealer) {
+    displayScore(values);
+    console.log("Dealer Hand: ");
   } else {
     displayScore(values);
     console.log("Player Hand: ");
@@ -282,4 +307,14 @@ function checkValidBet(playerAmount) {
 
 function getChips() {
   return 100;
+}
+
+// Utility
+
+function wait(ms) {
+  var start = new Date().getTime();
+  var end = start;
+  while (end < start + ms) {
+    end = new Date().getTime();
+  }
 }
