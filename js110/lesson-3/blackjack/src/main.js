@@ -10,7 +10,6 @@ function main() {
   let cardDeck = shuffleDeck();
 
   while (running) {
-    console.clear();
     let playerSelection = getMenuInput();
 
     switch (playerSelection) {
@@ -24,6 +23,7 @@ function main() {
         console.log("rules");
         break;
       case "exit":
+        console.clear();
         running = false;
         break;
     }
@@ -43,14 +43,15 @@ function gameLoop(deck) {
   if (playerResult.result) {
     dealerResult = checkPlayerBust(dealersTurn(deck, dealerHand, playerHand));
   }
+  displayAfterPlayerTurn(playerHand, dealerHand, true);
+  wait(5000);
 }
 
 function playerTurn(deck, playerHand, dealerHand) {
   let playerScore = determineValues(getValues(playerHand));
 
   while (playerScore < 21) {
-    console.clear();
-    displayStartingCards(playerHand, dealerHand);
+    displayStartingCards(playerHand, dealerHand, true);
     let playerSelection = validateplayerAnswer(playerHand, dealerHand);
 
     if (playerSelection === "hit") {
@@ -68,10 +69,10 @@ function dealersTurn(deck, dealerHand, playerHand) {
   let dealerScore = determineValues(getValues(dealerHand));
 
   while (dealerScore < 17) {
-    displayAfterPlayerTurn(playerHand, dealerHand);
+    displayAfterPlayerTurn(playerHand, dealerHand, true);
     giveCard(deck, dealerHand);
-    dealerScore = determineValues(getValues(dealerHand));
     wait(3000);
+    dealerScore = determineValues(getValues(dealerHand));
   }
 
   return dealerScore;
@@ -104,9 +105,11 @@ function getMenuInput() {
   const VALID_INPUTS = MSG["menu-inputs"];
   const PROMPT = MSG["menu-questions"];
 
+  console.clear();
   let userInput = question(PROMPT.ask);
 
   while (checkValidInput(userInput.toLowerCase(), VALID_INPUTS)) {
+    console.clear();
     userInput = question(`${userInput} ${PROMPT.retry}`);
   }
 
@@ -196,11 +199,11 @@ function validateplayerAnswer(playerHand, dealersHand) {
   const VALID_INPUTS = MSG["game-inputs"];
   const PROMPT = MSG["game-question"];
 
-  displayStartingCards(playerHand, dealersHand);
+  displayStartingCards(playerHand, dealersHand, true);
   let playerSelection = question(PROMPT.ask);
 
   while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUTS)) {
-    displayStartingCards(playerHand, dealersHand);
+    displayStartingCards(playerHand, dealersHand, true);
     playerSelection = question(`${playerSelection} ${PROMPT.retry}`);
   }
 
@@ -226,16 +229,20 @@ function getValidInput(playerInput, validInputs) {
 
 // Displays
 
-function displayStartingCards(playerHand, dealerHand) {
-  console.clear();
-  displayCards(playerHand);
+function displayStartingCards(playerHand, dealerHand, clearConsole = false) {
+  if (clearConsole) {
+    console.clear();
+  }
   displayCards(dealerHand, true, true);
+  displayCards(playerHand);
 }
 
-function displayAfterPlayerTurn(playerHand, dealerHand) {
-  console.clear();
-  displayCards(playerHand);
+function displayAfterPlayerTurn(playerHand, dealerHand, clearConsole = false) {
+  if (clearConsole) {
+    console.clear();
+  }
   displayCards(dealerHand, true);
+  displayCards(playerHand);
 }
 
 function displayCards(hand, isDealer = false, isStart = false) {
