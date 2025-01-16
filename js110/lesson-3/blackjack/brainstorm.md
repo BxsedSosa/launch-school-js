@@ -16,11 +16,11 @@
       - Player
       - Hidden Dealer Card from player
 
-- [ ] Need a dealer hand
+- [x] Need a dealer hand
 
-  - [ ] Show 1 card and other card is hidden
-  - [ ] If card values equal to 16 or greater Stand
-    - [ ] Else keep hitting till 16 or greater
+  - [x] Show 1 card and other card is hidden
+  - [x] If card values equal to 17 or greater Stand
+    - [x] Else keep hitting till 16 or greater
 
 - [ ] Create a money system
 
@@ -28,7 +28,7 @@
   - [ ] If player wins round get them double what was bet
   - [ ] If player loses round, house takes the money
 
-- [ ] Get player Selection
+- [x] Get player Selection
 
   - [x] Player needs a hand
 
@@ -40,11 +40,11 @@
     - [ ] If bet is less than amount give error
     - [ ] If bet is above or equal minimum bet start round
 
-  - [ ] Hit
+  - [x] Hit
 
-    - [ ] If below value of 21 then allow hitting
-    - [ ] If above value of 21 then player bust
+    - [x] If below value of 21 then allow hitting
+    - [x] If above value of 21 then player bust
 
-  - [ ] Stand
+  - [x] Stand
 
-    - [ ] Allow to stand as long as player is not over or at 21
+    - [x] Allow to stand as long as player is not over or at 21
