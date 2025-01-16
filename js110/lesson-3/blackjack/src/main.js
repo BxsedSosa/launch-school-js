@@ -3,6 +3,8 @@ import MSG from "../config/text.json" assert { type: "json" };
 
 main();
 
+// Main
+
 function main() {
   let running = true;
   let cardDeck = shuffleDeck();
@@ -16,6 +18,8 @@ function main() {
     }
   }
 }
+
+// Game loop
 
 function gameLoop(deck) {
   let playerHand = [];
@@ -76,6 +80,8 @@ function startHand(deck, player, dealer) {
   }
 }
 
+// Cards
+
 function createDeck() {
   let suits = ["C", "S", "D", "H"];
   let faces = ["K", "Q", "J", "A"];
@@ -102,10 +108,6 @@ function giveCard(deck, hand) {
 
 function shuffleDeck() {
   return createDeck().sort(() => Math.random() - 0.5);
-}
-
-function getChips() {
-  return 100;
 }
 
 function resetDeck() {
@@ -156,47 +158,7 @@ function determineValues(hand) {
   return score;
 }
 
-function displayCards(hand, player = false) {
-  let suits = getSuits(hand);
-  let values = getValues(hand);
-  let display = joinCardsForDisplay(suits, values);
-
-  if (player) {
-    console.log("Player Hand: ");
-  } else {
-    console.log("Dealer Hand: ");
-  }
-
-  for (let line of display) {
-    console.log(line.join("  "));
-  }
-}
-
-function createTextCard(suit, value) {
-  if (value === 10) {
-    return ` ------ \n|${suit}     |\n|  ${value}  |\n|      |\n ------ `;
-  }
-  return ` ------ \n|${suit}     |\n|   ${value}  |\n|      |\n ------ `;
-}
-
-function joinCardsForDisplay(suits, values) {
-  let display = Array(suits.length)
-    .fill()
-    .map((_, idx) => {
-      return createTextCard(suits[idx], values[idx]);
-    })
-    .map((string) => string.split("\n"));
-
-  return display[0].map((_, cardIdx) => {
-    return display.map((_, displayIdx, arr) => {
-      return arr[displayIdx][cardIdx];
-    });
-  });
-}
-
-function getPlayerBet(playerAmount) {
-  // pass
-}
+// Input Validation
 
 function checkValidInput(playerInput, validInputs) {
   for (let key in validInputs) {
@@ -215,6 +177,56 @@ function getValidInput(playerInput, validInputs) {
   }
 }
 
+// Displays
+
+function displayCards(hand, player = false) {
+  let suits = getSuits(hand);
+  let values = getValues(hand);
+  let display = joinCardsForDisplay(suits, values);
+
+  if (player) {
+    console.log("Player Hand: ");
+  } else {
+    console.log("Dealer Hand: ");
+  }
+
+  for (let line of display) {
+    console.log(line.join("  "));
+  }
+}
+
+function joinCardsForDisplay(suits, values) {
+  let display = Array(suits.length)
+    .fill()
+    .map((_, idx) => {
+      return createTextCard(suits[idx], values[idx]);
+    })
+    .map((string) => string.split("\n"));
+
+  return display[0].map((_, cardIdx) => {
+    return display.map((_, displayIdx, arr) => {
+      return arr[displayIdx][cardIdx];
+    });
+  });
+}
+
+function createTextCard(suit, value) {
+  if (value === 10) {
+    return ` ------ \n|${suit}     |\n|  ${value}  |\n|      |\n ------ `;
+  }
+  return ` ------ \n|${suit}     |\n|   ${value}  |\n|      |\n ------ `;
+}
+
+// Chips
+
+function getPlayerBet(playerAmount) {
+  // pass
+}
+
 function checkValidBet(playerAmount) {
   // pass
+}
+
+function getChips() {
+  return 100;
 }
