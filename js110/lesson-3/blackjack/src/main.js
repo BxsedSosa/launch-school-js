@@ -7,6 +7,7 @@ main();
 
 function main() {
   let running = true;
+  let userBalance = getChips();
   let cardDeck = shuffleDeck();
 
   while (running) {
@@ -14,7 +15,8 @@ function main() {
 
     switch (playerSelection) {
       case "bet":
-        gameLoop(cardDeck);
+        let userBet = getPlayerBet(userBalance);
+        userBalance += gameLoop(cardDeck, userBalance, userBet);
         break;
       case "balance":
         console.log("balance");
@@ -32,19 +34,28 @@ function main() {
 
 // Game loop
 
-function gameLoop(deck) {
+function gameLoop(deck, userBalance, userBet) {
   let dealerResult, playerResult;
   let playerHand = [];
   let dealerHand = [];
 
   startHand(deck, playerHand, dealerHand);
-  playerResult = checkPlayerBust(playerTurn(deck, playerHand, dealerHand));
+  playerResult = checkPlayerBust(
+    playerTurn(deck, playerHand, dealerHand),
+    playerHand,
+  );
 
-  if (playerResult.result) {
-    dealerResult = checkPlayerBust(dealersTurn(deck, dealerHand, playerHand));
+  if (playerResult.result && !playerResult.blackjack) {
+    dealerResult = checkPlayerBust(
+      dealersTurn(deck, dealerHand, playerHand),
+      dealerHand,
+    );
   }
   displayAfterPlayerTurn(playerHand, dealerHand, true);
+  let roundWinner = determineWinner(playerResult, dealerResult);
   wait(5000);
+
+  return makeTransaction(roundWinner, userBet);
 }
 
 function playerTurn(deck, playerHand, dealerHand) {
@@ -78,11 +89,12 @@ function dealersTurn(deck, dealerHand, playerHand) {
   return dealerScore;
 }
 
-function checkPlayerBust(handValue) {
+function checkPlayerBust(handValue, hand) {
   if (handValue <= 21) {
     return {
       result: true,
       value: handValue,
+      blackjack: checkBlackJack(hand),
     };
   }
 
@@ -96,6 +108,33 @@ function startHand(deck, player, dealer) {
   for (let i = 0; i < 2; i++) {
     giveCard(deck, player);
     giveCard(deck, dealer);
+  }
+}
+
+function checkBlackJack(hand) {
+  let values = getValues(hand);
+  let handValue = determineValues(values);
+
+  return hand.length === 2 && !values.includes(10) && handValue === 21;
+}
+
+function determineWinner(playerResult, dealerResult) {
+  if (dealerResult === undefined) {
+    if (playerResult.blackjack) {
+      return "blackjack";
+    } else if (playerResult.result) {
+      return "winner";
+    } else {
+      return "bust";
+    }
+  }
+
+  if (playerResult.result && dealerResult.result) {
+    if (playerResult.value > dealerResult.value) {
+      return "winner";
+    } else {
+      return "bust";
+    }
   }
 }
 
@@ -304,16 +343,29 @@ function displayScore(handValues, isDealer = false) {
 
 // Chips
 
-function getPlayerBet(playerAmount) {
-  // pass
+function getPlayerBet(userAmount) {
+  let userBet = question("please enter amounter:\n>>> ");
+
+  while (checkValidBet(userAmount, userBet)) {}
 }
 
-function checkValidBet(playerAmount) {
-  // pass
+function checkValidBet(playerAmount, userBet) {
+  return userBet > playerAmount;
 }
 
 function getChips() {
   return 100;
+}
+
+function makeTransaction(gameResult, playerBet) {
+  switch (gameResult) {
+    case "blackjack":
+      return (playerBet *= 2.5);
+    case "winner":
+      return (playerBet *= 2);
+    case "bust":
+      return -playerBet;
+  }
 }
 
 // Utility
