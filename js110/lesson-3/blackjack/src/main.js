@@ -56,15 +56,8 @@ function playerTurn(deck, playerHand, dealerHand) {
 }
 
 function playerAnswer(playerHand, dealersHand) {
-  const VALID_INPUTS = {
-    hit: ["1", "hit", "h"],
-    stand: ["2", "stand", "s"],
-  };
-
-  const PROMPT = {
-    ask: MSG["playerGameQuestion"]["ask"],
-    retry: MSG["playerGameQuestion"]["retry"],
-  };
+  const VALID_INPUTS = MSG["gameInput"];
+  const PROMPT = MSG["playerGameQuestion"];
 
   displayStartingCards(playerHand, dealersHand);
   let playerSelection = rlSync.question(PROMPT.ask);
@@ -87,8 +80,8 @@ function startHand(deck, player, dealer) {
 // Cards
 
 function createDeck() {
-  let suits = ["C", "S", "D", "H"];
-  let faces = ["K", "Q", "J", "A"];
+  let suits = MSG["card"]["suits"];
+  let faces = MSG["card"]["faces"];
   let numbers = Array(9)
     .fill()
     .map((_, i) => i + 2);
@@ -138,7 +131,7 @@ function evaluateAceScore(score) {
 }
 
 function determineValues(hand) {
-  let royals = ["K", "Q", "J"];
+  let royals = MSG["card"]["royals"];
   let aces = 0;
   let score = 0;
 
@@ -235,9 +228,9 @@ function createTextCard(suit, value) {
 function displayScore(handValues, dealer = false) {
   let values = determineValues(handValues);
   if (dealer) {
-    console.log(`Dealers value: ${values}`);
+    console.log(`Dealers card(s) value: ${values}`);
   } else {
-    console.log(`Players value: ${values}`);
+    console.log(`Players cards value: ${values}`);
   }
 }
 
