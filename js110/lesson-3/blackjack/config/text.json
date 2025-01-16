@@ -1,6 +1,19 @@
 {
-  "playerQuestion": {
+  "playerStartQuestion": {
+    "ask": "Please choose a options:\n1. Bet\n2. Check Balance\n3. Exit\n>>> ",
+    "retry": "is not a valid option\nPlease choose a options:\n'1' to 'Bet'\n'2' to 'Check Balance'\n'3' to 'Exit'>>> "
+  },
+  "playerGameQuestion": {
     "ask": "Please choose a option:\n1. Hit\n2. Stand\n>>> ",
     "retry": "is not a valid option\nPlease choose a option:\n'1' to 'Hit'\n'2' to 'Stand'\n>>> "
+  },
+  "card": {
+    "suits": ["C", "S", "D", "H"],
+    "faces": ["K", "Q", "J", "A"],
+    "royals": ["K", "Q", "J"]
+  },
+  "gameInput": {
+    "hit": ["1", "hit", "h"],
+    "stand": ["2", "stand", "s"]
   }
 }

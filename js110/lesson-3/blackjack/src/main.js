@@ -11,7 +11,7 @@ function main() {
 
   while (running) {
     console.clear();
-    let playerSelection = rlSync.question("Beginning:\n>>> ");
+    let playerSelection = rlSync.question(MSG["playerStartQuestion"]["ask"]);
     let winner = gameLoop(cardDeck);
 
     if (playerSelection === "exit") {
@@ -42,7 +42,7 @@ function playerTurn(deck, playerHand, dealerHand) {
   while (playerScore < 21) {
     console.clear();
     displayStartingCards(playerHand, dealerHand);
-    let playerSelection = playerAnswer();
+    let playerSelection = playerAnswer(playerHand, dealerHand);
 
     if (playerSelection === "hit") {
       giveCard(deck, playerHand);
@@ -55,20 +55,22 @@ function playerTurn(deck, playerHand, dealerHand) {
   return playerScore;
 }
 
-function playerAnswer() {
+function playerAnswer(playerHand, dealersHand) {
   const VALID_INPUTS = {
     hit: ["1", "hit", "h"],
     stand: ["2", "stand", "s"],
   };
 
   const PROMPT = {
-    ask: MSG["playerQuestion"]["ask"],
-    retry: MSG["playerQuestion"]["retry"],
+    ask: MSG["playerGameQuestion"]["ask"],
+    retry: MSG["playerGameQuestion"]["retry"],
   };
 
+  displayStartingCards(playerHand, dealersHand);
   let playerSelection = rlSync.question(PROMPT.ask);
 
   while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUTS)) {
+    displayStartingCards(playerHand, dealersHand);
     playerSelection = rlSync.question(`${playerSelection} ${PROMPT.retry}`);
   }
 
@@ -181,6 +183,7 @@ function getValidInput(playerInput, validInputs) {
 // Displays
 
 function displayStartingCards(playerHand, dealerHand) {
+  console.clear();
   displayCards(playerHand);
   displayCards(dealerHand, true);
 }
