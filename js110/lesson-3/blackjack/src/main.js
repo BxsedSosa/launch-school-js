@@ -1,4 +1,4 @@
-import rlSync from "readline-sync";
+import { question } from "readline-sync";
 import MSG from "../config/text.json" assert { type: "json" };
 
 main();
@@ -10,9 +10,17 @@ function main() {
   let cardDeck = shuffleDeck();
 
   while (running) {
+    let winner;
     console.clear();
-    let playerSelection = rlSync.question(MSG["playerStartQuestion"]["ask"]);
-    let winner = gameLoop(cardDeck);
+    let playerSelection = getMenuInput();
+
+    if (playerSelection === "hit") {
+      winner = gameLoop(cardDeck);
+    }
+
+    if (playerSelection === "balance") {
+      console.log("balance");
+    }
 
     if (playerSelection === "exit") {
       running = false;
@@ -56,15 +64,15 @@ function playerTurn(deck, playerHand, dealerHand) {
 }
 
 function playerAnswer(playerHand, dealersHand) {
-  const VALID_INPUTS = MSG["gameInput"];
-  const PROMPT = MSG["playerGameQuestion"];
+  const VALID_INPUTS = MSG["game-inputs"];
+  const PROMPT = MSG["game-question"];
 
   displayStartingCards(playerHand, dealersHand);
-  let playerSelection = rlSync.question(PROMPT.ask);
+  let playerSelection = question(PROMPT.ask);
 
   while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUTS)) {
     displayStartingCards(playerHand, dealersHand);
-    playerSelection = rlSync.question(`${playerSelection} ${PROMPT.retry}`);
+    playerSelection = question(`${playerSelection} ${PROMPT.retry}`);
   }
 
   return getValidInput(playerSelection.toLowerCase(), VALID_INPUTS);
@@ -75,6 +83,21 @@ function startHand(deck, player, dealer) {
     giveCard(deck, player);
     giveCard(deck, dealer);
   }
+}
+
+// Menu
+
+function getMenuInput() {
+  const VALID_INPUTS = MSG["menu-input"];
+  const PROMPT = MSG["menu-questions"];
+
+  let userInput = question(PROMPT.ask);
+
+  while (checkValidInput(userInput, VALID_INPUTS)) {
+    userInput = question(PROMPT.retry);
+  }
+
+  return getValidInput(userInput, VALID_INPUTS);
 }
 
 // Cards
@@ -181,12 +204,12 @@ function displayStartingCards(playerHand, dealerHand) {
   displayCards(dealerHand, true);
 }
 
-function displayCards(hand, dealer = false) {
+function displayCards(hand, isDealer = false) {
   let cardDisplay;
   let suits = getSuits(hand);
   let values = getValues(hand);
 
-  if (dealer) {
+  if (isDealer) {
     displayScore(values.slice(0, 1), true);
     console.log("Dealer Hand: ");
     suits[1] = "?";
@@ -225,12 +248,13 @@ function createTextCard(suit, value) {
   return ` ------ \n|${suit}     |\n|   ${value}  |\n|      |\n ------ `;
 }
 
-function displayScore(handValues, dealer = false) {
+function displayScore(handValues, isDealer = false) {
+  const PROMPT = MSG["values"];
   let values = determineValues(handValues);
-  if (dealer) {
-    console.log(`Dealers card(s) value: ${values}`);
+  if (isDealer) {
+    console.log(`${PROMPT.dealer} ${values}`);
   } else {
-    console.log(`Players cards value: ${values}`);
+    console.log(`${PROMPT.player} ${values}`);
   }
 }
 
