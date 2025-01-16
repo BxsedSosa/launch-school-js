@@ -10,6 +10,7 @@ function main() {
   let cardDeck = shuffleDeck();
 
   while (running) {
+    console.clear();
     let playerSelection = rlSync.question("Beginning:\n>>> ");
     let winner = gameLoop(cardDeck);
 
@@ -26,7 +27,6 @@ function gameLoop(deck) {
   let dealerHand = [];
 
   startHand(deck, playerHand, dealerHand);
-  displayStartingCards(playerHand, dealerHand);
   let playerResult = playerTurn(deck, playerHand, dealerHand);
 
   return;
@@ -40,9 +40,9 @@ function playerTurn(deck, playerHand, dealerHand) {
   let playerScore = determineValues(getValues(playerHand));
 
   while (playerScore < 21) {
-    let playerSelection = playerAnswer();
-    console.log(`Score: ${playerScore}`);
+    console.clear();
     displayStartingCards(playerHand, dealerHand);
+    let playerSelection = playerAnswer();
 
     if (playerSelection === "hit") {
       giveCard(deck, playerHand);
@@ -186,21 +186,23 @@ function displayStartingCards(playerHand, dealerHand) {
 }
 
 function displayCards(hand, dealer = false) {
-  let display;
+  let cardDisplay;
   let suits = getSuits(hand);
   let values = getValues(hand);
 
   if (dealer) {
+    displayScore(values.slice(0, 1), true);
     console.log("Dealer Hand: ");
     suits[1] = "?";
     values[1] = "?";
   } else {
+    displayScore(values);
     console.log("Player Hand: ");
   }
 
-  display = joinCardsForDisplay(suits, values);
+  cardDisplay = joinCardsForDisplay(suits, values);
 
-  for (let line of display) {
+  for (let line of cardDisplay) {
     console.log(line.join("  "));
   }
 }
@@ -225,6 +227,15 @@ function createTextCard(suit, value) {
     return ` ------ \n|${suit}     |\n|  ${value}  |\n|      |\n ------ `;
   }
   return ` ------ \n|${suit}     |\n|   ${value}  |\n|      |\n ------ `;
+}
+
+function displayScore(handValues, dealer = false) {
+  let values = determineValues(handValues);
+  if (dealer) {
+    console.log(`Dealers value: ${values}`);
+  } else {
+    console.log(`Players value: ${values}`);
+  }
 }
 
 // Chips
