@@ -50,27 +50,23 @@ function playerTurn(deck, playerHand) {
 }
 
 function playerAnswer() {
-  let prompt = {
-    ask: MSG["playerQuestion"]["ask"],
-    retry: MSG["playerQuestion"]["retry"],
-  };
-
-  let VALID_INPUT = {
+  const VALID_INPUT = {
     hit: ["1", "hit", "h"],
     stand: ["2", "stand", "s"],
   };
 
-  let playerSelection = rlSync.question(prompt.ask);
+  const PROMPT = {
+    ask: MSG["playerQuestion"]["ask"],
+    retry: MSG["playerQuestion"]["retry"],
+  };
+
+  let playerSelection = rlSync.question(PROMPT.ask);
 
   while (checkValidInput(playerSelection, VALID_INPUT)) {
-    playerSelection = rlSync.question(`${playerSelection} ${prompt.retry}`);
+    playerSelection = rlSync.question(`${playerSelection} ${PROMPT.retry}`);
   }
 
   return playerSelection;
-}
-
-function hitNewCard(deck, playerHand) {
-  giveCard(deck, playerHand);
 }
 
 function startHand(deck, player, dealer) {
@@ -202,9 +198,7 @@ function getPlayerBet(playerAmount) {
   // pass
 }
 
-function checkValidInput(playerInput, validInputs) {
-  return true;
-}
+function checkValidInput(playerInput, validInputs) {}
 
 function checkValidBet(playerAmount) {
   // pass
