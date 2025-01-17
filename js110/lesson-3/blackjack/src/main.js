@@ -1,4 +1,5 @@
 import { question } from "readline-sync";
+import figlet from "figlet";
 import MSG from "../config/text.json" assert { type: "json" };
 
 main();
@@ -7,7 +8,7 @@ main();
 
 function main() {
   let running = true;
-  let userBalance = getChips();
+  let userBalance = getStartingChips();
   let cardDeck = shuffleDeck();
 
   while (running) {
@@ -16,11 +17,12 @@ function main() {
     switch (playerSelection) {
       case "bet":
         let userBet = getPlayerBet(userBalance);
-        let gameResult = gameLoop(cardDeck);
+        let gameResult = gameLoop(cardDeck, userBet);
         userBalance += makeTransaction(gameResult, userBet);
         break;
       case "balance":
-        console.log("balance");
+        console.log(`\nYour balance is: $${userBalance}`);
+        wait(3000);
         break;
       case "rules":
         console.log("rules");
@@ -35,7 +37,7 @@ function main() {
 
 // Game loop
 
-function gameLoop(deck) {
+function gameLoop(deck, userBet) {
   let dealerResult, playerResult;
   let playerHand = [];
   let dealerHand = [];
@@ -145,10 +147,12 @@ function getMenuInput() {
   const PROMPT = MSG["menu-questions"];
 
   console.clear();
+  displayBanner();
   let userInput = question(PROMPT.ask);
 
   while (checkValidInput(userInput.toLowerCase(), VALID_INPUTS)) {
     console.clear();
+    displayBanner();
     userInput = question(`${userInput} ${PROMPT.retry}`);
   }
 
@@ -268,10 +272,15 @@ function getValidInput(playerInput, validInputs) {
 
 // Displays
 
+function displayBanner() {
+  displayFigletText("Blackjack");
+}
+
 function displayStartingCards(playerHand, dealerHand, clearConsole = false) {
   if (clearConsole) {
     console.clear();
   }
+  displayBanner();
   displayCards(dealerHand, true, true);
   displayCards(playerHand);
 }
@@ -280,6 +289,7 @@ function displayAfterPlayerTurn(playerHand, dealerHand, clearConsole = false) {
   if (clearConsole) {
     console.clear();
   }
+  displayBanner();
   displayCards(dealerHand, true);
   displayCards(playerHand);
 }
@@ -336,7 +346,7 @@ function displayScore(handValues, isDealer = false) {
   if (isDealer) {
     console.log(`${PROMPT.dealer} ${values}`);
   } else {
-    console.log(`${PROMPT.player} ${values}`);
+    console.log(`\n${PROMPT.player} ${values}`);
   }
 }
 
@@ -344,10 +354,12 @@ function displayScore(handValues, isDealer = false) {
 
 function getPlayerBet(userBalance) {
   console.clear();
+  displayBanner();
   let userBet = question("please enter amount:\n\n>>> ");
 
   while (checkValidBet(userBalance, Number(userBet))) {
     console.clear();
+    displayBanner();
     if (isNaN(Number(userBet))) {
       userBet = question(
         `Invalid Input!\n${userBet} is not a valid Input!\nAccount balance: $${userBalance}\n\nPlease enter amount:\n\n>>> `,
@@ -365,7 +377,7 @@ function checkValidBet(userBalance, userBet) {
   return isNaN(userBet) || userBet === 0 || userBet > userBalance;
 }
 
-function getChips() {
+function getStartingChips() {
   return 100;
 }
 
@@ -388,4 +400,17 @@ function wait(ms) {
   while (end < start + ms) {
     end = new Date().getTime();
   }
+}
+
+function displayFigletText(text) {
+  console.log(
+    figlet.textSync(text, {
+      font: "Big",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+      width: 90,
+      whitespaceBreak: false,
+    }),
+  );
+  console.log();
 }
