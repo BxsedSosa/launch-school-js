@@ -26,6 +26,7 @@ function main() {
         break;
       case "rules":
         console.log("rules");
+        wait(3000);
         break;
       case "exit":
         console.clear();
@@ -54,7 +55,7 @@ function gameLoop(deck, userBet) {
       dealerHand,
     );
   }
-  displayAfterPlayerTurn(playerHand, dealerHand, true);
+  displayCards(playerHand, dealerHand, false, true);
   wait(5000);
 
   return determineWinner(playerResult, dealerResult);
@@ -64,7 +65,7 @@ function playerTurn(deck, playerHand, dealerHand) {
   let playerScore = determineValues(getValues(playerHand));
 
   while (playerScore < 21) {
-    displayStartingCards(playerHand, dealerHand, true);
+    displayCards(playerHand, dealerHand, true, true);
     let playerSelection = validateplayerAnswer(playerHand, dealerHand);
 
     if (playerSelection === "hit") {
@@ -82,7 +83,7 @@ function dealersTurn(deck, dealerHand, playerHand) {
   let dealerScore = determineValues(getValues(dealerHand));
 
   while (dealerScore < 17) {
-    displayAfterPlayerTurn(playerHand, dealerHand, true);
+    displayCards(playerHand, dealerHand, false, true);
     giveCard(deck, dealerHand);
     wait(3000);
     dealerScore = determineValues(getValues(dealerHand));
@@ -242,11 +243,11 @@ function validateplayerAnswer(playerHand, dealersHand) {
   const VALID_INPUTS = MSG["game-inputs"];
   const PROMPT = MSG["game-question"];
 
-  displayStartingCards(playerHand, dealersHand, true);
+  displayCards(playerHand, dealersHand, true, true);
   let playerSelection = question(PROMPT.ask);
 
   while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUTS)) {
-    displayStartingCards(playerHand, dealersHand, true);
+    displayCards(playerHand, dealersHand, true, true);
     playerSelection = question(`${playerSelection} ${PROMPT.retry}`);
   }
 
@@ -276,25 +277,16 @@ function displayBanner() {
   displayFigletText("Blackjack");
 }
 
-function displayStartingCards(playerHand, dealerHand, clearConsole = false) {
+function displayCards(playerHand, dealerHand, isHidden, clearConsole = false) {
   if (clearConsole) {
     console.clear();
   }
   displayBanner();
-  displayCards(dealerHand, true, true);
-  displayCards(playerHand);
+  getCardDisplay(dealerHand, true, isHidden);
+  getCardDisplay(playerHand);
 }
 
-function displayAfterPlayerTurn(playerHand, dealerHand, clearConsole = false) {
-  if (clearConsole) {
-    console.clear();
-  }
-  displayBanner();
-  displayCards(dealerHand, true);
-  displayCards(playerHand);
-}
-
-function displayCards(hand, isDealer = false, isStart = false) {
+function getCardDisplay(hand, isDealer = false, isStart = false) {
   let cardDisplay;
   let suits = getSuits(hand);
   let values = getValues(hand);

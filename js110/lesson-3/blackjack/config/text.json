@@ -1,7 +1,7 @@
 {
   "menu-questions": {
-    "ask": "Please choose a options:\n1. Bet\n2. Balance\n3. Exit\n\n>>> ",
-    "retry": "is not a valid option\nPlease choose a options:\n'1' to 'Bet'\n'2' to 'Check Balance'\n'3' to 'Exit'\n\n>>> "
+    "ask": "Please choose a options:\n1. Bet\n2. Balance\n3. Rules\n4. Exit\n\n>>> ",
+    "retry": "is not a valid option\nPlease choose a options:\n'1' to 'Bet'\n'2' to 'Check Balance'\n'3' to 'Rules'\n'4' to 'Exit'\n\n>>> "
   },
   "game-question": {
     "ask": "Please choose a option:\n1. Hit\n2. Stand\n\n>>> ",
@@ -19,7 +19,8 @@
   "menu-inputs": {
     "bet": ["1", "bet"],
     "balance": ["2", "balance"],
-    "exit": ["3", "exit"]
+    "rules": ["3", "rules"],
+    "exit": ["4", "exit"]
   },
   "values": {
     "player": "Players cards value:",
