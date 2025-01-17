@@ -13,5 +13,8 @@
   "dependencies": {
     "figlet": "^1.8.0",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0"
   }
 }

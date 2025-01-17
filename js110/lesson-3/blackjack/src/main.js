@@ -16,9 +16,9 @@ function main() {
 
     switch (playerSelection) {
       case "bet":
-        let userBet = getPlayerBet(userBalance);
-        let gameResult = gameLoop(cardDeck, userBet);
-        userBalance += makeTransaction(gameResult, userBet);
+        let playerBet = getPlayerBet(userBalance);
+        let gameResult = gameLoop(cardDeck, playerBet);
+        userBalance += makeTransaction(gameResult, playerBet);
         break;
       case "balance":
         console.log(`\nYour balance is: $${userBalance}`);
@@ -38,34 +38,34 @@ function main() {
 
 // Game loop
 
-function gameLoop(deck, userBet) {
+function gameLoop(deck, playerBet) {
   let dealerResult, playerResult;
   let playerHand = [];
   let dealerHand = [];
 
   startHand(deck, playerHand, dealerHand);
   playerResult = checkPlayerBust(
-    playerTurn(deck, playerHand, dealerHand),
+    playerTurn(deck, playerHand, dealerHand, playerBet),
     playerHand,
   );
 
   if (playerResult.result && !playerResult.blackjack) {
     dealerResult = checkPlayerBust(
-      dealersTurn(deck, dealerHand, playerHand),
+      dealersTurn(deck, dealerHand, playerHand, playerBet),
       dealerHand,
     );
   }
-  displayCards(playerHand, dealerHand, false, true);
+  displayCards(playerHand, dealerHand, playerBet, false, true);
   wait(5000);
 
   return determineWinner(playerResult, dealerResult);
 }
 
-function playerTurn(deck, playerHand, dealerHand) {
+function playerTurn(deck, playerHand, dealerHand, playerBet) {
   let playerScore = determineValues(getValues(playerHand));
 
   while (playerScore < 21) {
-    displayCards(playerHand, dealerHand, true, true);
+    displayCards(playerHand, dealerHand, playerBet, true, true);
     let playerSelection = validateplayerAnswer(playerHand, dealerHand);
 
     if (playerSelection === "hit") {
@@ -79,11 +79,11 @@ function playerTurn(deck, playerHand, dealerHand) {
   return playerScore;
 }
 
-function dealersTurn(deck, dealerHand, playerHand) {
+function dealersTurn(deck, dealerHand, playerHand, playerBet) {
   let dealerScore = determineValues(getValues(dealerHand));
 
   while (dealerScore < 17) {
-    displayCards(playerHand, dealerHand, false, true);
+    displayCards(playerHand, dealerHand, playerBet, false, true);
     giveCard(deck, dealerHand);
     wait(3000);
     dealerScore = determineValues(getValues(dealerHand));
@@ -239,15 +239,15 @@ function determineValues(hand) {
 
 // Input Validation
 
-function validateplayerAnswer(playerHand, dealersHand) {
+function validateplayerAnswer(playerHand, dealersHand, playerBet) {
   const VALID_INPUTS = MSG["game-inputs"];
   const PROMPT = MSG["game-question"];
 
-  displayCards(playerHand, dealersHand, true, true);
+  displayCards(playerHand, dealersHand, playerBet, true, true);
   let playerSelection = question(PROMPT.ask);
 
   while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUTS)) {
-    displayCards(playerHand, dealersHand, true, true);
+    displayCards(playerHand, dealersHand, playerBet, true, true);
     playerSelection = question(`${playerSelection} ${PROMPT.retry}`);
   }
 
@@ -277,21 +277,28 @@ function displayBanner() {
   displayFigletText("Blackjack");
 }
 
-function displayCards(playerHand, dealerHand, isHidden, clearConsole = false) {
+function displayCards(
+  playerHand,
+  dealerHand,
+  playerBet,
+  isHidden,
+  clearConsole = false,
+) {
   if (clearConsole) {
     console.clear();
   }
   displayBanner();
   getCardDisplay(dealerHand, true, isHidden);
   getCardDisplay(playerHand);
+  displayBetAmount(playerBet);
 }
 
-function getCardDisplay(hand, isDealer = false, isStart = false) {
+function getCardDisplay(hand, isDealer = false, isHidden = false) {
   let cardDisplay;
   let suits = getSuits(hand);
   let values = getValues(hand);
 
-  if (isDealer && isStart) {
+  if (isDealer && isHidden) {
     displayScore(values.slice(0, 1), true);
     console.log("Dealer Hand: ");
     suits[1] = values[1] = "?";
@@ -340,6 +347,10 @@ function displayScore(handValues, isDealer = false) {
   } else {
     console.log(`\n${PROMPT.player} ${values}`);
   }
+}
+
+function displayBetAmount(userBet) {
+  console.log(`Your bet this hand: $${userBet}`);
 }
 
 // Chips
