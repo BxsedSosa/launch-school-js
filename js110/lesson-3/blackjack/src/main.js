@@ -16,7 +16,8 @@ function main() {
     switch (playerSelection) {
       case "bet":
         let userBet = getPlayerBet(userBalance);
-        userBalance += gameLoop(cardDeck, userBalance, userBet);
+        let gameResult = gameLoop(cardDeck);
+        userBalance += makeTransaction(gameResult, userBet);
         break;
       case "balance":
         console.log("balance");
@@ -34,7 +35,7 @@ function main() {
 
 // Game loop
 
-function gameLoop(deck, userBalance, userBet) {
+function gameLoop(deck) {
   let dealerResult, playerResult;
   let playerHand = [];
   let dealerHand = [];
@@ -52,10 +53,9 @@ function gameLoop(deck, userBalance, userBet) {
     );
   }
   displayAfterPlayerTurn(playerHand, dealerHand, true);
-  let roundWinner = determineWinner(playerResult, dealerResult);
   wait(5000);
 
-  return makeTransaction(roundWinner, userBet);
+  return determineWinner(playerResult, dealerResult);
 }
 
 function playerTurn(deck, playerHand, dealerHand) {
@@ -292,8 +292,7 @@ function displayCards(hand, isDealer = false, isStart = false) {
   if (isDealer && isStart) {
     displayScore(values.slice(0, 1), true);
     console.log("Dealer Hand: ");
-    suits[1] = "?";
-    values[1] = "?";
+    suits[1] = values[1] = "?";
   } else if (isDealer) {
     displayScore(values);
     console.log("Dealer Hand: ");
@@ -343,14 +342,27 @@ function displayScore(handValues, isDealer = false) {
 
 // Chips
 
-function getPlayerBet(userAmount) {
-  let userBet = question("please enter amounter:\n>>> ");
+function getPlayerBet(userBalance) {
+  console.clear();
+  let userBet = question("please enter amount:\n\n>>> ");
 
-  while (checkValidBet(userAmount, userBet)) {}
+  while (checkValidBet(userBalance, Number(userBet))) {
+    console.clear();
+    if (isNaN(Number(userBet))) {
+      userBet = question(
+        `Invalid Input!\n${userBet} is not a valid Input!\nAccount balance: $${userBalance}\n\nPlease enter amount:\n\n>>> `,
+      );
+    } else {
+      userBet = question(
+        `Insufficient funds!\n$${userBet || 0} is larger than your account balance: $${userBalance}\nPlease enter amount:\n\n>>> `,
+      );
+    }
+  }
+  return userBet;
 }
 
-function checkValidBet(playerAmount, userBet) {
-  return userBet > playerAmount;
+function checkValidBet(userBalance, userBet) {
+  return isNaN(userBet) || userBet === 0 || userBet > userBalance;
 }
 
 function getChips() {

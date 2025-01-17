@@ -1,11 +1,11 @@
 {
   "menu-questions": {
-    "ask": "Please choose a options:\n1. Bet\n2. Balance\n3. Exit\n>>> ",
-    "retry": "is not a valid option\nPlease choose a options:\n'1' to 'Bet'\n'2' to 'Check Balance'\n'3' to 'Exit'\n>>> "
+    "ask": "Please choose a options:\n1. Bet\n2. Balance\n3. Exit\n\n>>> ",
+    "retry": "is not a valid option\nPlease choose a options:\n'1' to 'Bet'\n'2' to 'Check Balance'\n'3' to 'Exit'\n\n>>> "
   },
   "game-question": {
-    "ask": "Please choose a option:\n1. Hit\n2. Stand\n>>> ",
-    "retry": "is not a valid option\nPlease choose a option:\n'1' to 'Hit'\n'2' to 'Stand'\n>>> "
+    "ask": "Please choose a option:\n1. Hit\n2. Stand\n\n>>> ",
+    "retry": "is not a valid option\nPlease choose a option:\n'1' to 'Hit'\n'2' to 'Stand'\n\n>>> "
   },
   "card": {
     "suits": ["C", "S", "D", "H"],
