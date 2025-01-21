@@ -17,12 +17,14 @@ function main() {
     switch (playerSelection) {
       case "bet":
         let playerBet = getPlayerBet(userBalance);
+        if (playerBet === "exit") {
+          break;
+        }
         let gameResult = gameLoop(cardDeck, playerBet);
         userBalance += makeTransaction(gameResult, playerBet);
         break;
       case "balance":
-        console.log(`\nYour balance is: $${userBalance}`);
-        wait(3000);
+        userBalance = displayBalanceMenu(userBalance);
         break;
       case "rules":
         console.log("rules");
@@ -153,13 +155,11 @@ function getMenuInput() {
   const VALID_INPUTS = MSG["menu-inputs"];
   const PROMPT = MSG["menu-questions"];
 
-  console.clear();
-  displayBanner();
+  displayBanner(true);
   let userInput = question(PROMPT.ask);
 
   while (checkValidInput(userInput.toLowerCase(), VALID_INPUTS)) {
-    console.clear();
-    displayBanner();
+    displayBanner(true);
     userInput = question(`${userInput} ${PROMPT.retry}`);
   }
 
@@ -279,7 +279,10 @@ function getValidInput(playerInput, validInputs) {
 
 // Displays
 
-function displayBanner() {
+function displayBanner(clear) {
+  if (clear) {
+    console.clear();
+  }
   displayFigletText("Blackjack");
 }
 
@@ -372,34 +375,96 @@ function displayScore(handValues, isDealer = false) {
 }
 
 function displayBetAmount(userBet) {
-  console.log(`Your bet: $${userBet}`);
+  console.log(`${MSG["display-bet"]}${userBet}`);
 }
 
-// Chips
+// Balance
+
+function displayBalanceMenu(userBalance) {
+  let running = true;
+  console.clear();
+
+  while (running) {
+    let userSelection = getBalanceSelection();
+
+    switch (userSelection) {
+      case "balance":
+        console.log(`${MSG["display-balance"]}${userBalance}`);
+        wait(3000);
+        console.clear();
+        break;
+      case "deposit":
+        userBalance = depositMoney(userBalance);
+        break;
+      case "menu":
+        running = false;
+        break;
+    }
+  }
+  return userBalance;
+}
+
+function getBalanceSelection() {
+  const VALID_INPUTS = MSG["balance-inputs"];
+  const PROMPT = MSG["balance-questions"];
+
+  displayBanner(true);
+  let userSelection = question(PROMPT.ask);
+
+  while (checkValidInput(userSelection.toLowerCase(), VALID_INPUTS)) {
+    displayBanner(true);
+    userSelection = question(`${userSelection} ${PROMPT.retry}`);
+  }
+
+  return getValidInput(userSelection.toLowerCase(), VALID_INPUTS);
+}
 
 function getPlayerBet(userBalance) {
-  console.clear();
-  displayBanner();
-  let userBet = question("please enter amount:\n\n>>> ");
+  const PROMPT = MSG["bet-questions"];
+  displayBanner(true);
+  let userBet = question(PROMPT.ask);
 
-  while (checkValidBet(userBalance, Number(userBet))) {
-    console.clear();
-    displayBanner();
+  while (checkValidBet(userBalance, userBet)) {
+    displayBanner(true);
     if (isNaN(Number(userBet))) {
       userBet = question(
-        `Invalid Input!\n${userBet} is not a valid Input!\nAccount balance: $${userBalance}\n\nPlease enter amount:\n\n>>> `,
+        `Invalid Input!\n${userBet} ${PROMPT.invalid}${userBalance}\n${PROMPT.trail}`,
       );
     } else {
       userBet = question(
-        `Insufficient funds!\n$${userBet || 0} is larger than your account balance: $${userBalance}\nPlease enter amount:\n\n>>> `,
+        `Insufficient funds!\n$${userBet || 0} ${PROMPT.insufficent}${userBalance}\n${PROMPT.trail}`,
       );
     }
   }
   return userBet;
 }
 
+function depositMoney(userBalance) {
+  const PROMPT = MSG["deposit-questions"];
+
+  displayBanner(true);
+  let userDeposit = question(PROMPT.ask);
+
+  while (checkValidDeposit(Number(userDeposit))) {
+    displayBanner(true);
+    userDeposit = question(`${userDeposit} ${PROMPT.retry}`);
+  }
+
+  return (userBalance += Number(userDeposit));
+}
+
+function checkValidDeposit(userDeposit) {
+  return isNaN(userDeposit) || userDeposit <= 0;
+}
+
 function checkValidBet(userBalance, userBet) {
-  return isNaN(userBet) || userBet === 0 || userBet > userBalance;
+  if (userBet === "exit") {
+    return false;
+  }
+
+  userBet = Number(userBet);
+
+  return isNaN(userBet) || userBet <= 0 || userBet > userBalance;
 }
 
 function getStartingChips() {

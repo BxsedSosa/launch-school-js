@@ -7,6 +7,20 @@
     "ask": "Please choose a option:\n1. Hit\n2. Stand\n\n>>> ",
     "retry": "is not a valid option\nPlease choose a option:\n'1' to 'Hit'\n'2' to 'Stand'\n\n>>> "
   },
+  "balance-questions": {
+    "ask": "Please choose a option:\n1. Balance\n2. Deposit\n3. Main menu\n\n>>> ",
+    "retry": "is not a valid option\nPlease choose a option\n'1' for 'Balance'\n'2' for 'Deposit'\n'3' for 'Menu'\n\n>>> "
+  },
+  "deposit-questions": {
+    "ask": "How much would you like to deposit?\n\n>>> $",
+    "retry": "is not a valid option\nPlease enter a dollar amount!\nHow much would you like to deposit?\n\n>>> $"
+  },
+  "bet-questions": {
+    "ask": "How much do you want to bet?:\n>>> $",
+    "invalid": "is not a valid input\nAccount Balance: $",
+    "insufficent": "is larger than your\nAccount Balance $",
+    "trail": "Please enter amount:\n\n>>> $"
+  },
   "card": {
     "suits": ["C", "S", "D", "H"],
     "faces": ["K", "Q", "J", "A"],
@@ -22,6 +36,13 @@
     "rules": ["3", "rules"],
     "exit": ["4", "exit"]
   },
+  "balance-inputs": {
+    "balance": ["1", "balance"],
+    "deposit": ["2", "deposit"],
+    "menu": ["3", "menu"]
+  },
+  "display-balance": "\nYour Balance: $",
+  "display-bet": "\nYour Bet: $",
   "values": {
     "player": "Players cards value:",
     "dealer": "Dealers card(s) value:"
