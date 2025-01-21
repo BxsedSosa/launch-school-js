@@ -297,6 +297,7 @@ function displayWinner(playerHand, dealerHand, playerBet, winner) {
       break;
     case "push":
       console.log(`It was a push!`);
+      break;
     default:
       console.log(`You lose!`);
   }
