@@ -478,7 +478,7 @@ function makeTransaction(gameResult, playerBet) {
     case "winner":
       return (playerBet *= 2);
     case "push":
-      return playerBet;
+      return Number(playerBet);
     case "bust":
       return -playerBet;
   }
