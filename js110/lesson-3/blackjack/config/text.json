@@ -17,9 +17,18 @@
   },
   "bet-questions": {
     "ask": "How much do you want to bet?:\n>>> $",
-    "invalid": "is not a valid input\nAccount Balance: $",
-    "insufficent": "is larger than your\nAccount Balance $",
+    "invalid": "is not a valid input!\nAccount Balance: $",
+    "insufficent": "is larger than your balance!\nAccount Balance $",
     "trail": "Please enter amount:\n\n>>> $"
+  },
+  "rules-questions": {
+    "ask": "Exit?\n>>> ",
+    "retry": "is not a valid input!\n'Yes', '1', or 'Exit'\n>>> "
+  },
+  "rules": {
+    "rule1": "Rule 1. Dealer stands on 17\n",
+    "rule2": "Rule 2. Dealer hand is hidden until its dealers turn\n",
+    "card-values": "Ace = 11 or 1 depending on hand value is over 21 or not\nKing, Queen, & Jack = 10\n"
   },
   "card": {
     "suits": ["C", "S", "D", "H"],
@@ -35,6 +44,9 @@
     "balance": ["2", "balance"],
     "rules": ["3", "rules"],
     "exit": ["4", "exit"]
+  },
+  "rules-input": {
+    "exit": ["1", "exit", "yes"]
   },
   "balance-inputs": {
     "balance": ["1", "balance"],

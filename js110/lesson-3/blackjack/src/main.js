@@ -27,8 +27,7 @@ function main() {
         userBalance = displayBalanceMenu(userBalance);
         break;
       case "rules":
-        console.log("rules");
-        wait(3000);
+        displayRulesMenu();
         break;
       case "exit":
         console.clear();
@@ -290,10 +289,10 @@ function displayWinner(playerHand, dealerHand, playerBet, winner) {
   displayCards(playerHand, dealerHand, playerBet, false, true);
   switch (winner) {
     case "blackjack":
-      console.log(`You won by Blackjack!\n You won $${playerBet * 2.5}\n`);
+      console.log(`You won by Blackjack!\nYou won $${playerBet * 2.5}\n`);
       break;
     case "winner":
-      console.log(`You won!\n You won $${playerBet * 2}`);
+      console.log(`You won!\nYou won $${playerBet * 2}`);
       break;
     case "push":
       console.log(`It was a push!`);
@@ -483,6 +482,38 @@ function makeTransaction(gameResult, playerBet) {
     case "bust":
       return -playerBet;
   }
+}
+
+// rules
+
+function displayRulesMenu() {
+  const PROMPT = MSG["rules-questions"];
+  const VALID_INPUTS = MSG["rules-input"];
+  let running = true;
+
+  while (running) {
+    displayRules();
+    let userInput = question(PROMPT.ask);
+
+    while (checkValidInput(userInput, VALID_INPUTS)) {
+      displayRules();
+      userInput = question(`${userInput} ${PROMPT.retry}`);
+    }
+
+    userInput = getValidInput(userInput, VALID_INPUTS);
+
+    if (userInput === "exit") {
+      running = false;
+      break;
+    }
+  }
+}
+
+function displayRules() {
+  const PROMPT = MSG["rules"];
+
+  displayBanner(true);
+  console.log(`${PROMPT.rule1}${PROMPT.rule2}${PROMPT["card-values"]}`);
 }
 
 // Utility
