@@ -1,6 +1,6 @@
-import { question } from "readline-sync";
-import figlet from "figlet";
-import MSG from "../config/text.json" with { type: "json" };
+let question = require("readline-sync");
+let figlet = require("figlet");
+let MSG = require("../config/text.json");
 
 main();
 
@@ -15,23 +15,27 @@ function main() {
     let playerSelection = getMenuInput();
 
     switch (playerSelection) {
-      case "bet":
+      case "bet": {
         let playerBet = getPlayerBet(userBalance);
         if (playerBet === "exit") break;
 
         let gameResult = gameLoop(cardDeck, playerBet);
         userBalance += makeTransaction(gameResult, playerBet);
         break;
-      case "balance":
+      }
+      case "balance": {
         userBalance = displayBalanceMenu(userBalance);
         break;
-      case "rules":
+      }
+      case "rules": {
         displayRulesMenu();
         break;
-      case "exit":
+      }
+      case "exit": {
         console.clear();
         running = false;
         break;
+      }
     }
   }
 }
@@ -110,7 +114,7 @@ function checkPlayerBust(handValue, hand) {
 }
 
 function startHand(deck, player, dealer) {
-  for (let i = 0; i < 2; i++) {
+  for (let idx = 0; idx < 2; idx++) {
     giveCard(deck, player);
     giveCard(deck, dealer);
   }
@@ -127,9 +131,8 @@ function determineWinner(playerResult, dealerResult) {
   if (dealerResult === undefined) {
     if (playerResult.blackjack) {
       return "blackjack";
-    } else {
-      return "bust";
     }
+    return "bust";
   }
 
   if (!playerResult["over21"] && !dealerResult["over21"]) {
@@ -137,14 +140,12 @@ function determineWinner(playerResult, dealerResult) {
       return "winner";
     } else if (playerResult.value === dealerResult.value) {
       return "push";
-    } else {
-      return "bust";
     }
+    return "bust";
   } else if (!playerResult["over21"] && dealerResult["over21"]) {
     return "winner";
-  } else {
-    return "bust";
   }
+  return "bust";
 }
 
 // Menu
@@ -171,7 +172,7 @@ function createDeck() {
   let faces = MSG["card"]["faces"];
   let numbers = Array(9)
     .fill()
-    .map((_, i) => i + 2);
+    .map((_, idx) => idx + 2);
   let values = numbers.concat(faces);
 
   return values
@@ -233,7 +234,7 @@ function determineValues(hand) {
   }
 
   if (aces) {
-    for (let i = 0; i < aces; i++) {
+    for (let idx = 0; idx < aces; idx++) {
       score = evaluateAceScore(score);
     }
   }
@@ -273,6 +274,7 @@ function getValidInput(playerInput, validInputs) {
       return key;
     }
   }
+  return "";
 }
 
 // Displays
@@ -325,7 +327,8 @@ function getCardDisplay(hand, isDealer = false, isHidden = false) {
   if (isDealer && isHidden) {
     displayScore(values.slice(0, 1), true);
     console.log("Dealer Hand: ");
-    suits[1] = values[1] = "?";
+    suits[1] = "?";
+    values[1] = "?";
   } else if (isDealer) {
     displayScore(values);
     console.log("Dealer Hand: ");
@@ -481,6 +484,7 @@ function makeTransaction(gameResult, playerBet) {
     case "bust":
       return -playerBet;
   }
+  return playerBet;
 }
 
 // rules
