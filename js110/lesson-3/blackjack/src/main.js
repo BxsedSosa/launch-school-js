@@ -320,7 +320,6 @@ function displayCards(
 }
 
 function getCardDisplay(hand, isDealer = false, isHidden = false) {
-  let cardDisplay;
   let suits = getSuits(hand);
   let values = getValues(hand);
 
@@ -337,7 +336,7 @@ function getCardDisplay(hand, isDealer = false, isHidden = false) {
     console.log("Player Hand: ");
   }
 
-  cardDisplay = joinCardsForDisplay(suits, values);
+  let cardDisplay = joinCardsForDisplay(suits, values);
 
   for (let line of cardDisplay) {
     console.log(line.join("  "));
