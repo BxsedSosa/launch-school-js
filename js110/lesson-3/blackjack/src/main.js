@@ -449,7 +449,7 @@ function depositMoney(userBalance) {
 
   while (checkValidDeposit(Number(userDeposit))) {
     displayBanner(true);
-    userDeposit = question(`${userDeposit} ${PROMPT.retry}`);
+    userDeposit = rlSync.question(`${userDeposit} ${PROMPT.retry}`);
   }
 
   return (userBalance += Number(userDeposit));
