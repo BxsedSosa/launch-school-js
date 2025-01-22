@@ -383,16 +383,15 @@ function displayBetAmount(userBet) {
 
 function displayBalanceMenu(userBalance) {
   let running = true;
-  console.clear();
 
   while (running) {
+    console.clear();
     let userSelection = getBalanceSelection();
 
     switch (userSelection) {
       case "balance":
         console.log(`${MSG["display-balance"]}${userBalance}`);
         wait(3000);
-        console.clear();
         break;
       case "deposit":
         userBalance = depositMoney(userBalance);
