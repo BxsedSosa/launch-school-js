@@ -18,6 +18,7 @@ function main() {
       case "bet":
         let playerBet = getPlayerBet(userBalance);
         if (playerBet === "exit") break;
+
         let gameResult = gameLoop(cardDeck, playerBet);
         userBalance += makeTransaction(gameResult, playerBet);
         break;
