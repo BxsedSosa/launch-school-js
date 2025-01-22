@@ -1,6 +1,6 @@
 import { question } from "readline-sync";
 import figlet from "figlet";
-import MSG from "../config/text.json" assert { type: "json" };
+import MSG from "../config/text.json" with { type: "json" };
 
 main();
 
