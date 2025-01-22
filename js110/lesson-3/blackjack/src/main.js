@@ -1,4 +1,4 @@
-let question = require("readline-sync");
+let rlSync = require("readline-sync");
 let figlet = require("figlet");
 let MSG = require("../config/text.json");
 
@@ -155,11 +155,11 @@ function getMenuInput() {
   const PROMPT = MSG["menu-questions"];
 
   displayBanner(true);
-  let userInput = question(PROMPT.ask);
+  let userInput = rlSync.question(PROMPT.ask);
 
   while (checkValidInput(userInput.toLowerCase(), VALID_INPUTS)) {
     displayBanner(true);
-    userInput = question(`${userInput} ${PROMPT.retry}`);
+    userInput = rlSync.question(`${userInput} ${PROMPT.retry}`);
   }
 
   return getValidInput(userInput.toLowerCase(), VALID_INPUTS);
@@ -249,11 +249,11 @@ function validateplayerAnswer(playerHand, dealersHand, playerBet) {
   const PROMPT = MSG["game-question"];
 
   displayCards(playerHand, dealersHand, playerBet, true, true);
-  let playerSelection = question(PROMPT.ask);
+  let playerSelection = rlSync.question(PROMPT.ask);
 
   while (checkValidInput(playerSelection.toLowerCase(), VALID_INPUTS)) {
     displayCards(playerHand, dealersHand, playerBet, true, true);
-    playerSelection = question(`${playerSelection} ${PROMPT.retry}`);
+    playerSelection = rlSync.question(`${playerSelection} ${PROMPT.retry}`);
   }
 
   return getValidInput(playerSelection.toLowerCase(), VALID_INPUTS);
@@ -411,11 +411,11 @@ function getBalanceSelection() {
   const PROMPT = MSG["balance-questions"];
 
   displayBanner(true);
-  let userSelection = question(PROMPT.ask);
+  let userSelection = rlSync.question(PROMPT.ask);
 
   while (checkValidInput(userSelection.toLowerCase(), VALID_INPUTS)) {
     displayBanner(true);
-    userSelection = question(`${userSelection} ${PROMPT.retry}`);
+    userSelection = rlSync.question(`${userSelection} ${PROMPT.retry}`);
   }
 
   return getValidInput(userSelection.toLowerCase(), VALID_INPUTS);
@@ -424,16 +424,16 @@ function getBalanceSelection() {
 function getPlayerBet(userBalance) {
   const PROMPT = MSG["bet-questions"];
   displayBanner(true);
-  let userBet = question(PROMPT.ask);
+  let userBet = rlSync.question(PROMPT.ask);
 
   while (checkValidBet(userBalance, userBet)) {
     displayBanner(true);
     if (isNaN(Number(userBet))) {
-      userBet = question(
+      userBet = rlSync.question(
         `Invalid Input!\n${userBet} ${PROMPT.invalid}${userBalance}\n${PROMPT.trail}`,
       );
     } else {
-      userBet = question(
+      userBet = rlSync.question(
         `Insufficient funds!\n$${userBet || 0} ${PROMPT.insufficent}${userBalance}\n${PROMPT.trail}`,
       );
     }
@@ -445,7 +445,7 @@ function depositMoney(userBalance) {
   const PROMPT = MSG["deposit-questions"];
 
   displayBanner(true);
-  let userDeposit = question(PROMPT.ask);
+  let userDeposit = rlSync.question(PROMPT.ask);
 
   while (checkValidDeposit(Number(userDeposit))) {
     displayBanner(true);
@@ -496,11 +496,11 @@ function displayRulesMenu() {
 
   while (running) {
     displayRules();
-    let userInput = question(PROMPT.ask);
+    let userInput = rlSync.question(PROMPT.ask);
 
     while (checkValidInput(userInput, VALID_INPUTS)) {
       displayRules();
-      userInput = question(`${userInput} ${PROMPT.retry}`);
+      userInput = rlSync.question(`${userInput} ${PROMPT.retry}`);
     }
 
     userInput = getValidInput(userInput, VALID_INPUTS);
