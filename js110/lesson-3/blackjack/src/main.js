@@ -7,18 +7,6 @@ console.clear();
 
 // Main
 
-function displayGame(userBalance, cardDeck) {
-  let playerbet = getPlayerBet(userBalance);
-
-  if (playerbet === "exit") {
-    return playerbet;
-  }
-
-  let gameResult = gameLoop(cardDeck, playerbet);
-
-  return (userBalance += makeTransaction(gameResult, playerbet));
-}
-
 function main() {
   let running = true;
   let userBalance = getStartingChips();
@@ -153,6 +141,18 @@ function determineWinner(playerResult, dealerResult) {
 }
 
 // Menu
+
+function displayGame(userBalance, cardDeck) {
+  let playerbet = getPlayerBet(userBalance);
+
+  if (playerbet === "exit") {
+    return playerbet;
+  }
+
+  let gameResult = gameLoop(cardDeck, playerbet);
+
+  return (userBalance += makeTransaction(gameResult, playerbet));
+}
 
 function getMenuInput() {
   const VALID_INPUTS = MSG["menu-inputs"];
