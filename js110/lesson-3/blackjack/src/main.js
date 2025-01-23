@@ -15,19 +15,14 @@ function main() {
   while (running) {
     let playerSelection = getMenuInput();
 
-    switch (playerSelection) {
-      case "bet":
-        userBalance = displayGame(userBalance, cardDeck);
-        break;
-      case "balance":
-        userBalance = displayBalanceMenu(userBalance);
-        break;
-      case "rules":
-        displayRulesMenu();
-        break;
-      case "exit":
-        running = false;
-        break;
+    if (playerSelection === "bet") {
+      userBalance = displayGame(userBalance, cardDeck);
+    } else if (playerSelection === "balance") {
+      userBalance = displayBalanceMenu(userBalance);
+    } else if (playerSelection === "rules") {
+      displayRulesMenu();
+    } else if (playerSelection === "exit") {
+      running = false;
     }
   }
 }
