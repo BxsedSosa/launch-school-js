@@ -3,9 +3,9 @@ let figlet = require("figlet");
 let MSG = require("../config/text.json");
 
 main();
+console.clear();
 
 // Main
-
 
 function displayGame(userBalance, cardDeck) {
   let playerbet = getPlayerBet(userBalance);
