@@ -6,6 +6,19 @@ main();
 
 // Main
 
+
+function displayGame(userBalance, cardDeck) {
+  let playerbet = getPlayerBet(userBalance);
+
+  if (playerbet === "exit") {
+    return playerbet;
+  }
+
+  let gameResult = gameLoop(cardDeck, playerbet);
+
+  return (userBalance += makeTransaction(gameResult, playerbet));
+}
+
 function main() {
   let running = true;
   let userBalance = getStartingChips();
@@ -15,27 +28,18 @@ function main() {
     let playerSelection = getMenuInput();
 
     switch (playerSelection) {
-      case "bet": {
-        let playerBet = getPlayerBet(userBalance);
-        if (playerBet === "exit") break;
-
-        let gameResult = gameLoop(cardDeck, playerBet);
-        userBalance += makeTransaction(gameResult, playerBet);
+      case "bet":
+        userBalance = displayGame(userBalance, cardDeck);
         break;
-      }
-      case "balance": {
+      case "balance":
         userBalance = displayBalanceMenu(userBalance);
         break;
-      }
-      case "rules": {
+      case "rules":
         displayRulesMenu();
         break;
-      }
-      case "exit": {
-        console.clear();
+      case "exit":
         running = false;
         break;
-      }
     }
   }
 }
