@@ -27,9 +27,12 @@ A:
 
 if given array is less than 5 elements return `null`
 
-using filter method on the given array. the return value is the reduce method of a slice of 5 elements within the given array.
+Using forEach on the `arr` if the current idx + 5 is less than or equal to the arr length
+get a slice of the `arr` starting at the idx and ends at the idx + 5 then using the reduce method on the slice add up the accumative value and the current value together
 
-return reduce method on the filtered array if the accum > curr return accum otherwise curr
+once the reduce method is saved to the variable `sum` check if `sum` is less than the `lowestNum`. If so reassign `lowestNum` to `sum`
+
+return `lowestNum` once all the looping is finished
 
 C:
 
