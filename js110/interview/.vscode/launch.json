@@ -17,7 +17,7 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\P1\\main.js"
+      "program": "${workspaceFolder}\\P2\\main.js"
     }
   ]
 }
