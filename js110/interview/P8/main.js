@@ -2,7 +2,7 @@ let longestVowelSubstring = (string) => {
   const RE = /[aeiou]/;
   let chars = string.split("");
 
-  let count = chars.reduce((highestCount, currEle, idx) => {
+  return chars.reduce((highestCount, currEle, idx) => {
     let currentHighest = 0;
 
     if (RE.test(currEle)) {
@@ -19,7 +19,6 @@ let longestVowelSubstring = (string) => {
 
     return highestCount;
   }, 0);
-  return count;
 };
 
 const p = console.log;
