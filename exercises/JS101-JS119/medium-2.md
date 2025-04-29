@@ -76,7 +76,27 @@ let triangle = (num1, num2, num3) => {
 My Answer:
 
 ```javascript
+let triable = (num1, num2, num3) => {
+	let numbers = [num1, num2, num3];
+	let occurrences = {};
 
+	for (let num of numbers) {
+		if (!occurrences[num]) {
+			occurrences[num] = 1;
+		} else {
+			occurrences[num] += 1;
+		}
+	}
+
+	const degrees = Object.keys(occurrences);
+	const degreeOccurrences = Object.values(occurrences);
+	const degreeSum = degrees.reduce((accum, currVal) => accum + currVal, 0);
+
+	if (degreeSum !== 180 || degrees.includes(0)) return "invalid";
+	if (degrees.includes(90) && occurrences["90"] === 1) return "right";
+	if (degrees.every((degree) => degree < 90)) return "acute";
+	if (degrees.some((degree) => degree > 120)) return "obtuse";
+};
 ```
 
 4.
@@ -84,7 +104,15 @@ My Answer:
 My Answer:
 
 ```javascript
+let triangle = (num1, num2, num3) => {
+	let degrees = [num1, num2, num3];
+	const degreeSum = degrees.reduce((accum, currVal) => accum + currVal, 0);
 
+	if (degreeSum !== 180 || degrees.includes(0)) return "invalid";
+	if (degrees.includes(90)) return "right";
+	if (degrees.every((degree) => degree < 90)) return "acute";
+	if (degrees.some((degree) => degree > 90)) return "obtuse";
+};
 ```
 
 5.

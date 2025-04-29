@@ -1,34 +1,21 @@
 let triangle = (num1, num2, num3) => {
-	let numbers = [num1, num2, num3];
-	let occurrences = {};
+	let degrees = [num1, num2, num3];
+	const degreeSum = degrees.reduce((accum, currVal) => accum + currVal, 0);
 
-	for (let num of numbers) {
-		if (!occurrences[num]) {
-			occurrences[num] = 1;
-		} else {
-			occurrences[num] += 1;
-		}
-	}
-
-	const numKeys = Object.keys(occurrences);
-	const numValues = Object.values(occurrences);
-
-	if (numKeys.includes("0")) return "invalid";
-
-	if (numValues.includes(3)) return "equilateral";
-
-	if (numValues.includes(2)) {
-		if (occurrences[Math.max(...numKeys)] === 2) return "isosceles";
-		if (Math.min(...numKeys) * 2 >= Math.max(...numKeys)) return "isosceles";
-	}
-
-	if (numValues.length === 3) return "scalene";
-
-	return "invalid";
+	if (degreeSum !== 180 || degrees.includes(0)) return "invalid";
+	if (degrees.includes(90)) return "right";
+	if (degrees.every((degree) => degree < 90)) return "acute";
+	if (degrees.some((degree) => degree > 90)) return "obtuse";
 };
 
-console.log(triangle(3, 3, 3)); // "equilateral"
-console.log(triangle(3, 3, 1.5)); // "isosceles"
-console.log(triangle(3, 4, 5)); // "scalene"
-console.log(triangle(0, 3, 3)); // "invalid"
-console.log(triangle(3, 1, 1)); // "invalid"
+let tests = [
+	triangle(60, 70, 50), // "acute"
+	triangle(30, 90, 60), // "right"
+	triangle(120, 50, 10), // "obtuse"
+	triangle(0, 90, 90), // "invalid"
+	triangle(50, 50, 50), // "invalid"
+];
+
+for (test of tests) {
+	console.log(test);
+}
