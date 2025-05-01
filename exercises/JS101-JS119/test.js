@@ -1,21 +1,32 @@
-let triangle = (num1, num2, num3) => {
-	let degrees = [num1, num2, num3];
-	const degreeSum = degrees.reduce((accum, currVal) => accum + currVal, 0);
-
-	if (degreeSum !== 180 || degrees.includes(0)) return "invalid";
-	if (degrees.includes(90)) return "right";
-	if (degrees.every((degree) => degree < 90)) return "acute";
-	if (degrees.some((degree) => degree > 90)) return "obtuse";
+let helper = (num, divisor) => {
+  return num % divisor === 0;
 };
 
-let tests = [
-	triangle(60, 70, 50), // "acute"
-	triangle(30, 90, 60), // "right"
-	triangle(120, 50, 10), // "obtuse"
-	triangle(0, 90, 90), // "invalid"
-	triangle(50, 50, 50), // "invalid"
-];
+let isPrime = (num) => {
+  let primeCount = [...Array(num)].reduce((accum, _, idx) => {
+    if (helper(num, idx + 1)) {
+      return accum + 1;
+    }
 
-for (test of tests) {
-	console.log(test);
-}
+    return accum;
+  }, 0);
+
+  return primeCount === 2;
+};
+
+console.log(isPrime(1) === false); // true
+console.log(isPrime(2) === true); // true
+console.log(isPrime(3) === true); // true
+console.log(isPrime(4) === false); // true
+console.log(isPrime(5) === true); // true
+console.log(isPrime(6) === false); // true
+console.log(isPrime(7) === true); // true
+console.log(isPrime(8) === false); // true
+console.log(isPrime(9) === false); // true
+console.log(isPrime(10) === false); // true
+console.log(isPrime(23) === true); // true
+console.log(isPrime(24) === false); // true
+console.log(isPrime(997) === true); // true
+console.log(isPrime(998) === false); // true
+console.log(isPrime(3_297_061) === true); // true
+console.log(isPrime(23_297_061) === false); // true
