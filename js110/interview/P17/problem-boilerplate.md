@@ -19,10 +19,34 @@ p(nearestPrimeSum([50, 39, 49, 6, 17, 2]) === 4);
 
 D:
 
+We need numbers and arrays for this problem
+
 A:
 
 C:
 
 ```javascript
+let helper = (num) => {
+  for (let i = 2; i < num; i++) {
+    if (num % i === 0) return false;
+  }
 
+  return true;
+};
+
+let nearestPrimeSum = (numArr) => {
+  const sumArr = numArr.reduce((accum, currVal) => accum + currVal, 0);
+  let notPrime = true;
+  let closestPrime = sumArr + 1;
+
+  while (notPrime) {
+    if (!helper(closestPrime)) {
+      closestPrime += 1;
+    } else {
+      notPrime = false;
+    }
+  }
+
+  return Math.abs(closestPrime - sumArr);
+};
 ```

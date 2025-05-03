@@ -21,7 +21,6 @@ let nearestPrimeSum = (numArr) => {
 
   return Math.abs(closestPrime - sumArr);
 };
-
 const p = console.log;
 p(nearestPrimeSum([1, 2, 3]) === 1); // Nearest prime to 6 is 7
 p(nearestPrimeSum([5, 2]) === 4); // Nearest prime to 7 is 11
