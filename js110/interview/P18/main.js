@@ -1,6 +1,7 @@
 let helper = (numArray) => {
   return numArray.reduce((accum, currVal) => accum + currVal, 0);
 };
+
 let equalSumIndex = (numArray) => {
   const validIndexes = [];
 
