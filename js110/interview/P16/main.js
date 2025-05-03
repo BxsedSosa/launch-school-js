@@ -10,7 +10,6 @@ let distinctMultiples = (string) => {
       occurrences[char] = 1;
     }
   });
-  console.log(Object.values(occurrences));
 
   return Object.values(occurrences).reduce(
     (accum, currVal) => (currVal > 1 ? accum + 1 : accum),
