@@ -1,5 +1,5 @@
 /*
- * 4. Identify all the variables
+ * 4. Identify all the variables and what data type it is
  */
 
 let a = {
