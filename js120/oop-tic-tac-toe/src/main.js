@@ -1,8 +1,8 @@
 const rlSync = require("readline-sync");
 
 const RPSgame = {
-  human: createPlayer("human"),
-  computer: createPlayer("computer"),
+  human: createHuman(),
+  computer: createComputer(),
 
   displayWelcomeMessage() {
     console.log("Welcome to Rock, Paper, Scissors!");
@@ -47,52 +47,52 @@ const RPSgame = {
       this.human.choose();
       this.computer.choose();
       this.displayWinner();
-
       if (!this.playAgain()) break;
     }
     this.displayGoodbyeMessage();
   },
 };
 
-function createPlayer(playerType) {
+function createPlayer() {
   return {
-    playerType,
     move: null,
-
-    choose() {
-      const choices = ["rock", "paper", "scissors"];
-      if (this.isHuman()) {
-        let playerChoice;
-        while (true) {
-          playerChoice = rlSync.question(
-            "Please choose rock, paper, or scissors:\n>>> "
-          );
-
-          if (choices.includes(playerChoice)) break;
-          console.log("Sorry, invalid choice.");
-        }
-
-        this.move = playerChoice;
-      } else {
-        let randomIdx = Math.floor(Math.random() * choices.length);
-        this.move = choices[randomIdx];
-      }
-    },
-
-    isHuman() {
-      return this.playerType === "human";
-    },
   };
 }
 
-function createMove() {
-  return {};
+function createHuman() {
+  let playerObject = createPlayer();
+
+  let humanObject = {
+    choose() {
+      const choices = ["rock", "paper", "scissors"];
+
+      let playerChoice;
+      while (true) {
+        playerChoice = rlSync.question(
+          "Please choose rock, paper, or scissors:\n>>> "
+        );
+
+        if (choices.includes(playerChoice)) break;
+        console.log("Sorry, invalid choice.");
+      }
+
+      this.move = choice;
+    },
+  };
+
+  return Object.assign(playerObject, humanObject);
 }
 
-function createRule() {
-  return {};
+function createComputer() {
+  let playerObject = createPlayer();
+
+  let computerObject = {
+    choose() {
+      const choices = ["rock", "paper", "scissors"];
+      let randomIdx = Math.floor(Math.random() * choices.length);
+      this.move = choices[randomIdx];
+    },
+  };
+
+  return Object.assign(playerObject, computerObject);
 }
-
-let compare = function (move1, move2) {};
-
-RPSgame.play();
